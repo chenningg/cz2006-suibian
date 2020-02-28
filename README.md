@@ -1,5 +1,5 @@
 # Accessing the app
-The app is being hosted on Heroku. Due to free dyno hours, please do not access it during 2:30am - 8:30am GMT+8.<br />
+The app is being hosted on Heroku. Due to free dyno hours, please do not access it during 2:30am-8:30am GMT+8.<br />
 You can find the app [HERE.](https://suibian-sg.herokuapp.com/)
 
 # Deploying server code
