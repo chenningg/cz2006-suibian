@@ -7,6 +7,21 @@ To update the application code, you must be a contributor of this repository. Cr
 
 Please make sure your code works before deploying to master. You should test your code on a local server localhost:3000 to make sure everything is functioning correctly first.
 
+
+# Getting started
+
+### Installation
+cd into suibian-server and suibian-app and run `npm install` in both directories. 
+
+### Testing local setup 
+After the node modules is installed, run `npm start` in both suibian-server and suibian-app to get it working. 
+
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The app is being served via a http proxy to the express server which serves the react app.
+
+
+
+
 # React commands
 ### `npm start`
 
@@ -30,6 +45,17 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+# Express commands
+
+### `npm start`
+
+Compiles the typescript files and launches the express server on the port specified (default is 4000).
+
+### `npm run clean`
+
+Cleans the outDir of the typescript compile, removing old typescript files
+
 
 ## Learn More
 
