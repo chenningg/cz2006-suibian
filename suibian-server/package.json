@@ -1,0 +1,21 @@
+{
+    "name": "suibian-server",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "clean" : "rm -rf dist/*",
+        "start:build": "tsc -w ",
+        "start:run": "nodemon dist/index.js",
+        "start": "concurrently npm:start:*"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@types/express": "^4.17.3",
+        "concurrently": "^5.1.0",
+        "dotenv-extended": "^2.7.1",
+        "express": "^4.17.1"
+    }
+}
