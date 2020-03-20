@@ -12,5 +12,5 @@ app.use(express.static(path.join(__dirname, "/../../suibian-app/public")));
 app.use(router);
 
 app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
+    console.log(`Server is listening to port ${PORT}`);
 });
