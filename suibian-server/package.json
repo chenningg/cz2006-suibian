@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "clean" : "rm -rf dist/*",
+        "clean": "rm -rf dist/*",
         "start:build": "tsc -w ",
         "start:run": "nodemon dist/index.js",
         "start": "concurrently npm:start:*"
