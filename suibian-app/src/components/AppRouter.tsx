@@ -6,13 +6,13 @@ import JoinRoom from "./JoinRoom";
 import UserPreferences from "./UserPreferences";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import "../css/App.css";
+import "../css/AppRouter.css";
 
-function Default() {
+function AppRouter() {
   return (
     <Router>
       <Switch>
-        <div className="Default">
+        <div className="app-router">
           <Route path="/" exact component={Home}></Route>
           <Route path="/home" component={Home}></Route>
           <Route path="/pagebase" component={PageBase}></Route>
@@ -25,4 +25,4 @@ function Default() {
   );
 }
 
-export default Default;
+export default AppRouter;
