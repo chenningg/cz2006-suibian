@@ -1,0 +1,62 @@
+.main-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-content: center;
+}
+
+.appbase-container {
+  display: flex;
+  max-height: 4rem;
+  flex-basis: 3%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  text-align: center;
+  justify-content: center;
+  background-color: rgb(245, 245, 245);
+  border-bottom: black;
+}
+
+.appbase-logo {
+  flex-basis: 80%;
+  align-items: baseline;
+  padding-top: 5px;
+}
+
+.appbase-backicon {
+  flex-basis: 10%;
+  align-items: baseline;
+}
+
+.page-container {
+  display: flex;
+  flex-basis: 97vh;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../images/homepage_background.jpg);
+}
+
+.standard-button {
+  width: 200px;
+  background: none;
+  background-color: none;
+  border: none;
+  display: block;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 28px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+}
+
+.red-button {
+  background-color: rgb(204, 23, 23);
+  color: white;
+}
+
+.small-button-text {
+  font-size: 16px;
+}
