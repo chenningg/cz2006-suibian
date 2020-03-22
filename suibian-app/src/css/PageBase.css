@@ -1,31 +1,10 @@
+/* This file is used as the default CSS for all sorts of pages!!!!! */
+
 .main-container {
   display: flex;
   height: 100vh;
   flex-direction: column;
   align-content: center;
-}
-
-.appbase-container {
-  display: flex;
-  max-height: 4rem;
-  flex-basis: 3%;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  text-align: center;
-  justify-content: center;
-  background-color: rgb(245, 245, 245);
-  border-bottom: black;
-}
-
-.appbase-logo {
-  flex-basis: 80%;
-  align-items: baseline;
-  padding-top: 5px;
-}
-
-.appbase-backicon {
-  flex-basis: 10%;
-  align-items: baseline;
 }
 
 .page-container {
@@ -34,7 +13,6 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background-image: url(../images/homepage_background.jpg);
 }
 
 .standard-button {
@@ -59,4 +37,14 @@
 
 .small-button-text {
   font-size: 16px;
+}
+
+.red-button-hyperlink-stripped {
+  text-decoration: none;
+  color: white;
+}
+
+.standard-button-hyperlink-stripped {
+  text-decoration: none;
+  color: black;
 }

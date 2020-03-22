@@ -1,41 +1,47 @@
 import React, { Component } from "react";
-import "../css/HomePage.css";
-import "../css/AppBase.css";
-import suibian_homepage_logo from "../images/suibian_homepage_logo.png";
-import { Button } from "@material-ui/core";
+import "../css/Home.css";
+import suibian_home_logo from "../images/suibian_full_logo.png";
+import { Link } from "react-router-dom";
 
-class HomePage extends Component {
+class Home extends Component {
   render() {
     return (
-      <div className="homepage-container">
+      <div className="home-container">
         <div className="spacer"></div>
         <div className="spacer"></div>
         <div className="spacer"></div>
         <div className="spacer">
-          <div className="appbase-logo">
-            <img src={suibian_homepage_logo}></img>
-          </div>
+          <img src={suibian_home_logo}></img>
         </div>
         <div className="spacer"></div>
 
         <div className="spacer">
           <button type="button" className="standard-button red-button">
-            Create Room
+            <Link to="/createroom" className="red-button-hyperlink-stripped">
+              Create Room
+            </Link>
           </button>
         </div>
 
         <div className="spacer">
           <button type="button" className="standard-button red-button">
-            Join Room
+            <Link to="/joinroom" className="red-button-hyperlink-stripped">
+              Join Room
+            </Link>
           </button>
         </div>
 
         <div className="spacer"></div>
         <div className="spacer"></div>
 
-        <div className="spacer homepage-preferences">
+        <div className="spacer home-preferences">
           <button type="button" className="standard-button small-button-text">
-            User Preferences
+            <Link
+              to="/userpreferences"
+              className="standard-button-hyperlink-stripped "
+            >
+              User Preferences
+            </Link>
           </button>
         </div>
       </div>
@@ -43,4 +49,4 @@ class HomePage extends Component {
   }
 }
 
-export default HomePage;
+export default Home;
