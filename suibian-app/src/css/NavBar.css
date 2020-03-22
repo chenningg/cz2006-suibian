@@ -1,0 +1,22 @@
+.navbar-container {
+  display: flex;
+  max-height: 5rem;
+  flex-basis: 3%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  text-align: center;
+  justify-content: center;
+  background-color: rgb(245, 245, 245);
+  border-bottom: black;
+}
+
+.navbar-logo {
+  flex-basis: 80%;
+  align-items: baseline;
+  padding-top: 5px;
+}
+
+.navbar-backicon {
+  flex-basis: 10%;
+  align-items: baseline;
+}

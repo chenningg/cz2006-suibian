@@ -1,0 +1,50 @@
+/* This file is used as the default CSS for all sorts of pages!!!!! */
+
+.main-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-content: center;
+}
+
+.page-container {
+  display: flex;
+  flex-basis: 97vh;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.standard-button {
+  width: 200px;
+  background: none;
+  background-color: none;
+  border: none;
+  display: block;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 28px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+}
+
+.red-button {
+  background-color: rgb(204, 23, 23);
+  color: white;
+}
+
+.small-button-text {
+  font-size: 16px;
+}
+
+.red-button-hyperlink-stripped {
+  text-decoration: none;
+  color: white;
+}
+
+.standard-button-hyperlink-stripped {
+  text-decoration: none;
+  color: black;
+}

@@ -1,0 +1,14 @@
+.home-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-content: center;
+  background-image: url(../images/background.jpg);
+}
+
+.spacer {
+  flex-basis: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
