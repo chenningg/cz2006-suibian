@@ -27,7 +27,9 @@ class AppBase extends Component {
             </div>
 
             <div className="appbase-backicon">
-              <p></p>
+              <p>
+                <Icon>keyboard_arrow_right</Icon>
+              </p>
             </div>
           </div>
 
