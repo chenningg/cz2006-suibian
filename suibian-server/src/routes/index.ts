@@ -1,11 +1,11 @@
 import express from "express";
 import path from "path";
+import roomRouter from "./room";
+import testRouter from "./testRouter";
 const router = express.Router();
 
-router.get("/api/test", (req, res) => {
-    const message = "backend test is called";
-    res.json(message);
-});
+router.use("/api/room", roomRouter);
+router.use("/api/test", testRouter);
 
 router.get("*", (req, res) => {
     res.sendFile(
