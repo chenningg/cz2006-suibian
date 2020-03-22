@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../css/PageBase.css";
-import { Icon } from "@material-ui/core";
+import "../css/UserPreferences.css";
+import { Switch } from "@material-ui/core";
 import NavBar from "./NavBar";
 
 class UserPreferences extends Component {
@@ -10,8 +11,32 @@ class UserPreferences extends Component {
         <div className="main-container">
           <NavBar />
 
-          <div className="page-container">
-            <h1>UserPreferences</h1>
+          <div className="page-container preference-container">
+            <h1>User Preferences</h1>
+            <div className="preference">
+              <p>Halal</p>
+              <p>
+                <Switch></Switch>
+              </p>
+            </div>
+            <div className="preference">
+              <p>Vegetarian</p>
+              <p>
+                <Switch></Switch>
+              </p>
+            </div>
+            <div className="preference">
+              <p>Vegan</p>
+              <p>
+                <Switch></Switch>
+              </p>
+            </div>
+            <div className="preference">
+              <p>Bhuddhist</p>
+              <p>
+                <Switch></Switch>
+              </p>
+            </div>
           </div>
         </div>
       </React.Fragment>
