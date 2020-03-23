@@ -8,7 +8,9 @@ class CreateRoom extends Component {
     return (
       <React.Fragment>
         <div className="main-container">
-          <NavBar />
+          <div className="navbar-container">
+            <NavBar />
+          </div>
 
           <div className="page-container">
             <h1>CreateRoom</h1>
