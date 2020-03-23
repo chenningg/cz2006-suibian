@@ -28,4 +28,4 @@ yarn-error.log*
 
 
 #build files
-/suibian-server/dist
+/packages/suibian-server/dist

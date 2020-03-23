@@ -1,16 +1,19 @@
 import * as dotenv from "dotenv-extended";
 import express from "express";
-import router from "./routes/Router";
+import router from "./routes";
 import path from "path";
+import sockets from "./sockets";
+const app = express();
 
+//defining ports
 const PORT = process.env.PORT || 4000;
 dotenv.load({ errorOnMissing: true, includeProcessEnv: true });
 
-const app = express();
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, "/../../suibian-app/public")));
 app.use(router);
 
-app.listen(PORT, () => {
+const httpServer = sockets.startSocketServer(app);
+httpServer.listen(PORT, () => {
     console.log(`Server is listening to port ${PORT}`);
 });
