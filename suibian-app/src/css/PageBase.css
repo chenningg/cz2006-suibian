@@ -9,12 +9,12 @@
 
 .navbar-container {
   display: flex;
-  flex-basis: 10rem;
+  height: 10vh;
 }
 
 .page-container {
   display: flex;
-  flex-basis: 90rem;
+  height: 90vh;
   flex-direction: row;
   align-items: center;
   justify-content: start;
