@@ -7,11 +7,15 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "debug server",
             "skipFiles": ["<node_internals>/**"],
-            "program": "${workspaceFolder}/suibian-server/src/index.ts",
-            "preLaunchTask": "tsc: build - tsconfig.json",
-            "outFiles": ["${workspaceFolder}/suibian/dist/**/*.js"]
+            "program": "${workspaceFolder}/packages/suibian-server/dist/index.js",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "build-server",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/packages/suibian-server/dist/**/*.js"
+            ]
         }
     ]
 }
