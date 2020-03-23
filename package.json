@@ -5,7 +5,9 @@
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "app-start": "cd packages/suibian-app && yarn start",
+        "server-start": "cd packages/suibian-server && yarn start",
+        "server-dev": "cd packages/suibian-server && yarn run dev"
     },
     "repository": {
         "type": "git",
