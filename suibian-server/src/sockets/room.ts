@@ -6,7 +6,7 @@ shortid.characters(
     "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@"
 );
 
-let usernameSocketMapping: { [username: string]: string };
+let usernameSocketMapping: { [username: string]: string } = {};
 
 export type joinRoomPayload = {
     username: string;
