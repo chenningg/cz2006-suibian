@@ -1,6 +1,6 @@
 import socketio from "socket.io";
 import shortid from "shortid";
-import { httpStatus } from "../commons/httpStatus";
+import { httpStatus } from "@suibian/commons";
 
 shortid.characters(
     "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@"

@@ -12,7 +12,7 @@
         {
             "label": "build-server",
             "type": "typescript",
-            "tsconfig": "suibian-server/tsconfig.json",
+            "tsconfig": "packages/suibian-server/tsconfig.json",
             "problemMatcher": ["$tsc"],
             "group": "build",
             "dependsOn": "kill-port"

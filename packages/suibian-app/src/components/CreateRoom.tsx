@@ -3,7 +3,7 @@ import "../css/PageBase.css";
 import { Icon } from "@material-ui/core";
 import NavBar from "./NavBar";
 import socketIOClient from "socket.io-client";
-import { socketCommands } from "../../../suibian-server/src/commons/socketRoutes";
+import { socketCommands } from "@suibian/commons";
 
 export type socketState = {
     endpoint: string;

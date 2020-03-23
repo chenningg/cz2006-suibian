@@ -7,7 +7,7 @@ import {
     broadcastRoom,
     createRoom
 } from "./room";
-import { suibianSocketServer } from "../commons/socketRoutes";
+import { suibianSocketServer } from "@suibian/commons";
 const http = require("http");
 
 export default {

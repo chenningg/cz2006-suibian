@@ -1,0 +1,24 @@
+{
+    "name": "suibian",
+    "version": "1.0.0",
+    "description": "The app is being hosted on Heroku. Due to free dyno hours, please do not access it during 2:30am-8:30am GMT+8.<br /> You can find the app [HERE.](https://suibian-sg.herokuapp.com/)",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/chenningg/suibian.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/chenningg/suibian/issues"
+    },
+    "homepage": "https://github.com/chenningg/suibian#readme",
+    "private": true,
+    "workspaces": [
+        "packages/*"
+    ]
+}
