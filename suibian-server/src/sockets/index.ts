@@ -7,16 +7,15 @@ import {
     broadcastRoom,
     createRoom
 } from "./room";
+import { suibianSocketServer } from "../commons/socketRoutes";
 const http = require("http");
-
-export type socketCommands = "joinRoom" | "createRoom" | "changeUsername";
 
 export default {
     startSocketServer: function(app: express.Router) {
         const httpServer = http.Server(app);
         const io = socketio.listen(httpServer);
 
-        io.on("connection", (socket: socketio.Socket) => {
+        io.on("connection", (socket: suibianSocketServer) => {
             console.log(`socket ${socket.id} connected`);
 
             socket.on("disconnect", () =>
