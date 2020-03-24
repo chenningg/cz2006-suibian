@@ -1,0 +1,33 @@
+.main-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  align-content: center;
+}
+
+h1 {
+  font-family: "Avenir", Helvetica, sans-serif;
+  font-size: 28px;
+  color: #202f4d;
+}
+.title {
+  width: 400px;
+  margin: 0 auto;
+}
+.text-field {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.standard-button {
+  justify-content: center;
+  width: 400px;
+  margin: 0 auto;
+}
+
+.spacer {
+  flex-basis: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
