@@ -1,0 +1,3 @@
+type Preference = {
+  type: string;
+};

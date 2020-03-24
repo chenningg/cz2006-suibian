@@ -10,7 +10,9 @@ class PageBase extends Component {
     return (
       <React.Fragment>
         <div className="main-container">
-          <NavBar />
+          <div className="navbar-container">
+            <NavBar />
+          </div>
 
           <div className="page-container"></div>
         </div>
