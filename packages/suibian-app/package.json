@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "@material-ui/core": "^4.9.7",
+        "@material-ui/icons": "^4.9.1",
         "@suibian/commons": "1.0.0",
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.5.0",
@@ -13,7 +14,6 @@
         "@types/react": "^16.9.23",
         "@types/react-dom": "^16.9.5",
         "@types/react-router": "^5.1.4",
-        "@types/socket.io-client": "^1.4.32",
         "material-ui": "^1.0.0-beta.47",
         "material-ui-icons": "^1.0.0-beta.36",
         "react": "^16.13.1",
