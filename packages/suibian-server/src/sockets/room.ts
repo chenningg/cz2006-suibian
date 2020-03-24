@@ -1,23 +1,16 @@
 import socketio from "socket.io";
 import shortid from "shortid";
-import { httpStatus } from "@suibian/commons";
+import {
+    httpStatus,
+    joinRoomPayload,
+    roomMessagePayload
+} from "@suibian/commons";
 
 shortid.characters(
     "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@"
 );
 
 let usernameSocketMapping: { [username: string]: string } = {};
-
-export type joinRoomPayload = {
-    username: string;
-    roomcode: string;
-};
-
-export type roomMessagePayload = {
-    username: string;
-    message: string;
-    roomcode: string;
-};
 
 export const joinRoom = (
     socket: socketio.Socket,
