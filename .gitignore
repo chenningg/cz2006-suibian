@@ -28,3 +28,5 @@ yarn-error.log*
 
 #build files
 /packages/suibian-server/dist
+/packages/commons/dist
+
