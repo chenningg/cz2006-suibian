@@ -49,7 +49,9 @@ function RoomPageJoin() {
   return (
     <React.Fragment>
       <div className="main-container">
-        <NavBar />
+        <div className="navbar-container">
+          <NavBar />
+        </div>
         <div className="title">
           <h1>ROOM CODE: #1234</h1>
         </div>
