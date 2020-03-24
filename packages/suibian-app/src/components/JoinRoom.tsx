@@ -5,6 +5,7 @@ import { Icon } from "@material-ui/core";
 import NavBar from "./NavBar";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,7 +51,9 @@ function JoinRoom() {
           type="button"
           className="standard-button red-button fixed-button"
         >
-          Join Room
+          <Link to="/roompagejoin" className="red-button-hyperlink-stripped">
+            Join Room
+          </Link>
         </button>
       </div>
     </React.Fragment>
