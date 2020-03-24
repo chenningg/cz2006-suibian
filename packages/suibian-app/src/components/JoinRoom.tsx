@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "../css/JoinRoom.css";
 import "../css/PageBase.css";
 import { Icon } from "@material-ui/core";
