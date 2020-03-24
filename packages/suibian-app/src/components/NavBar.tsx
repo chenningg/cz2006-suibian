@@ -7,13 +7,11 @@ import { Link } from "react-router-dom";
 class NavBar extends Component {
   render() {
     return (
-      <div className="navbar-container">
+      <div className="navbar">
         <div className="navbar-backicon">
           <p>
             <Link to="/home">
-              <Icon style={{ fontSize: 50 }} color="disabled">
-                keyboard_arrow_left
-              </Icon>
+              <Icon>keyboard_arrow_left</Icon>
             </Link>
           </p>
         </div>

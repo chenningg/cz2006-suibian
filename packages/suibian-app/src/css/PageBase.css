@@ -7,36 +7,41 @@
   align-content: center;
 }
 
+.navbar-container {
+  display: flex;
+  height: 10vh;
+}
+
 .page-container {
   display: flex;
-  flex-basis: 97vh;
+  height: 90vh;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 }
 
 .standard-button {
-  width: 200px;
+  width: 60vw;
   background: none;
   background-color: none;
   border: none;
   display: block;
   border: none;
-  border-radius: 24px;
-  padding: 14px 28px;
-  font-size: 20px;
+  border-radius: 2rem;
+  padding: 2vh 4vw;
+  font-size: 3vh;
   cursor: pointer;
   text-align: center;
   outline: none;
 }
 
 .red-button {
-  background-color: #b84646;
+  background-color: rgb(204, 23, 23);
   color: white;
 }
 
 .small-button-text {
-  font-size: 16px;
+  font-size: 2.5vh;
 }
 
 .red-button-hyperlink-stripped {
