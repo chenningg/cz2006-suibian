@@ -1,6 +1,10 @@
 import socketio from "socket.io";
 import shortid from "shortid";
-import { httpStatus } from "@suibian/commons";
+import {
+    httpStatus,
+    joinRoomPayload,
+    roomMessagePayload
+} from "@suibian/commons";
 
 shortid.characters(
     "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@"
