@@ -11,7 +11,9 @@ class NavBar extends Component {
         <div className="navbar-backicon">
           <p>
             <Link to="/home">
-              <Icon>keyboard_arrow_left</Icon>
+              <Icon fontSize="large" color="disabled">
+                keyboard_arrow_left
+              </Icon>
             </Link>
           </p>
         </div>

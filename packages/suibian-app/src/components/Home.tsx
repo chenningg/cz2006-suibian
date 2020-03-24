@@ -18,7 +18,7 @@ class Home extends Component {
         <div className="spacer">
           <button type="button" className="standard-button red-button">
             <Link to="/createroom" className="red-button-hyperlink-stripped">
-              Create Room
+              CREATE ROOM
             </Link>
           </button>
         </div>
@@ -26,7 +26,7 @@ class Home extends Component {
         <div className="spacer">
           <button type="button" className="standard-button red-button">
             <Link to="/joinroom" className="red-button-hyperlink-stripped">
-              Join Room
+              JOIN ROOM
             </Link>
           </button>
         </div>
@@ -40,7 +40,7 @@ class Home extends Component {
               to="/userpreferences"
               className="standard-button-hyperlink-stripped "
             >
-              User Preferences
+              <span className="underline">User Preferences</span>
             </Link>
           </button>
         </div>

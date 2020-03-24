@@ -12,3 +12,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.underline {
+  text-decoration: underline;
+}
