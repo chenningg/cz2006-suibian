@@ -1,0 +1,4 @@
+.user-preference-container {
+  flex-direction: column !important;
+  width: 100vw;
+}

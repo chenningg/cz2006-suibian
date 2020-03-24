@@ -40,7 +40,7 @@ class Home extends Component {
               to="/userpreferences"
               className="standard-button-hyperlink-stripped "
             >
-              <a>User Preferences</a>
+              User Preferences
             </Link>
           </button>
         </div>

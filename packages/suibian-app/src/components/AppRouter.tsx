@@ -4,7 +4,6 @@ import Home from "./Home";
 import CreateRoom from "./CreateRoom";
 import JoinRoom from "./JoinRoom";
 import UserPreferences from "./UserPreferences";
-import SelectLocation from "./SelectLocation";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "../css/AppRouter.css";
@@ -20,7 +19,6 @@ function AppRouter() {
           <Route path="/createroom" component={CreateRoom}></Route>
           <Route path="/joinroom" component={JoinRoom}></Route>
           <Route path="/userpreferences" component={UserPreferences}></Route>
-          <Route path="/selectlocation" component={SelectLocation}></Route>
         </div>
       </Switch>
     </Router>

@@ -1,0 +1,13 @@
+.preference {
+  width: 80%;
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: solid rgb(245, 245, 245);
+}
+
+.strip-margin {
+  margin: 0;
+}
