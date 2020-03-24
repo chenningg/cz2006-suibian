@@ -7,7 +7,8 @@
     "scripts": {
         "app-start": "cd packages/suibian-app && yarn start",
         "server-start": "cd packages/suibian-server && yarn start",
-        "server-dev": "cd packages/suibian-server && yarn run dev"
+        "server-dev": "cd packages/suibian-server && yarn run dev",
+        "start": "concurrently \"yarn run app-start\" \"yarn run server-dev\""
     },
     "repository": {
         "type": "git",
@@ -22,5 +23,8 @@
     "private": true,
     "workspaces": [
         "packages/*"
-    ]
+    ],
+    "dependencies": {
+        "concurrently": "^5.1.0"
+    }
 }
