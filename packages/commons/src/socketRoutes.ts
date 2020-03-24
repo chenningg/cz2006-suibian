@@ -9,6 +9,17 @@ export type socketCommands =
     | "connection"
     | "disconnect";
 
+export type joinRoomPayload = {
+    username: string;
+    roomcode: string;
+};
+
+export type roomMessagePayload = {
+    username: string;
+    message: string;
+    roomcode: string;
+};
+
 export interface suibianSocketServer extends SocketIOServer.Socket {
     emit(event: socketCommands, data: any): boolean;
 }

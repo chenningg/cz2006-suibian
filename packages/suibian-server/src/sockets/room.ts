@@ -8,17 +8,6 @@ shortid.characters(
 
 let usernameSocketMapping: { [username: string]: string } = {};
 
-export type joinRoomPayload = {
-    username: string;
-    roomcode: string;
-};
-
-export type roomMessagePayload = {
-    username: string;
-    message: string;
-    roomcode: string;
-};
-
 export const joinRoom = (
     socket: socketio.Socket,
     socketio: socketio.Server,
