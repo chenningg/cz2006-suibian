@@ -1,6 +1,6 @@
 import * as React from "react";
 import "../css/PageBase.css";
-import "../css/RoomPageJoin.css";
+import "../css/RoomPageCreate.css";
 import NavBar from "./NavBar";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { DisplayName } from "./DisplayName";
@@ -38,7 +38,7 @@ const displaynameslist = displaynames.map(displayname => (
 
 const roomcode = "#1234";
 
-function RoomPageJoin() {
+function RoomPageCreate() {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -55,8 +55,6 @@ function RoomPageJoin() {
             <button
               type="button"
               className="standard-button red-button fixed-button"
-              disabled
-              style={{ opacity: 0.5 }}
             >
               START
             </button>
@@ -67,4 +65,4 @@ function RoomPageJoin() {
     </React.Fragment>
   );
 }
-export default RoomPageJoin;
+export default RoomPageCreate;

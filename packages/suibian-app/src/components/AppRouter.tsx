@@ -6,6 +6,7 @@ import JoinRoom from "./JoinRoom";
 import UserPreferences from "./UserPreferences";
 import SelectLocation from "./SelectLocation";
 import RoomPageJoin from "./RoomPageJoin";
+import RoomPageCreate from "./RoomPageCreate";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "../css/AppRouter.css";
@@ -23,6 +24,7 @@ function AppRouter() {
           <Route path="/userpreferences" component={UserPreferences}></Route>
           <Route path="/selectlocation" component={SelectLocation}></Route>
           <Route path="/roompagejoin" component={RoomPageJoin}></Route>
+          <Route path="/roompagecreate" component={RoomPageCreate}></Route>
         </div>
       </Switch>
     </Router>

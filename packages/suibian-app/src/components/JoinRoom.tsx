@@ -25,38 +25,44 @@ function JoinRoom() {
         <div className="navbar-container">
           <NavBar />
         </div>
-        <div className="spacer"></div>
-        <div className="title">
-          <h1>ROOM CODE:</h1>
+        <div className="page-container">
+          <div className="spacer"></div>
+          <div className="title">
+            <h1>ROOM CODE:</h1>
+          </div>
+          <div className="text-field">
+            <form className={classes.root} noValidate autoComplete="off">
+              <TextField
+                id="roomcode"
+                label="ENTER 4-LETTER CODE"
+                variant="filled"
+              />
+            </form>
+          </div>
+          <div className="title">
+            <h1>NAME:</h1>
+          </div>
+          <div className="text-field">
+            <form className={classes.root} noValidate autoComplete="off">
+              <TextField
+                id="roomcode"
+                label="ENTER YOUR NAME"
+                variant="filled"
+              />
+            </form>
+          </div>
+          <div className="spacer"></div>
+          <div className="spacer"></div>
+          <div className="spacer"></div>
+          <button
+            type="button"
+            className="standard-button red-button fixed-button"
+          >
+            <Link to="/roompagejoin" className="red-button-hyperlink-stripped">
+              JOIN ROOM
+            </Link>
+          </button>
         </div>
-        <div className="text-field">
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField
-              id="roomcode"
-              label="ENTER 4-LETTER CODE"
-              variant="filled"
-            />
-          </form>
-        </div>
-        <div className="title">
-          <h1>NAME:</h1>
-        </div>
-        <div className="text-field">
-          <form className={classes.root} noValidate autoComplete="off">
-            <TextField id="roomcode" label="ENTER YOUR NAME" variant="filled" />
-          </form>
-        </div>
-        <div className="spacer"></div>
-        <div className="spacer"></div>
-        <div className="spacer"></div>
-        <button
-          type="button"
-          className="standard-button red-button fixed-button"
-        >
-          <Link to="/roompagejoin" className="red-button-hyperlink-stripped">
-            JOIN ROOM
-          </Link>
-        </button>
       </div>
     </React.Fragment>
   );

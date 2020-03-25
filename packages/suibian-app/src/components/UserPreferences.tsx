@@ -9,7 +9,7 @@ const preferences: Array<Preference> = [
   { type: "Halal" },
   { type: "Vegetarian" },
   { type: "Vegan" },
-  { type: "Bhuddhist" }
+  { type: "Buddhist" }
 ];
 
 class UserPreferences extends Component {
@@ -26,12 +26,6 @@ class UserPreferences extends Component {
 
             <PreferenceItem preference={preferences[0]} />
             <PreferenceItem preference={preferences[1]} />
-            <PreferenceItem preference={preferences[2]} />
-            <PreferenceItem preference={preferences[3]} />
-            <PreferenceItem preference={preferences[0]} />
-            <PreferenceItem preference={preferences[1]} />
-            <PreferenceItem preference={preferences[2]} />
-            <PreferenceItem preference={preferences[3]} />
             <PreferenceItem preference={preferences[2]} />
             <PreferenceItem preference={preferences[3]} />
           </div>
