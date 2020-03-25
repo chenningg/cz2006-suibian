@@ -3,11 +3,6 @@
   background-image: url(../images/background.jpg);
 }
 
-.home .home-content {
-  height: 400px;
-  text-align: center;
-}
-
 .home .main-menu {
   margin-top: 10px;
   height: 200px;
@@ -53,7 +48,7 @@
 }
 
 .home .suibian-logo {
-  width: 300px;
+  max-width: 300px;
 }
 
 .home .suibian-logo:hover {

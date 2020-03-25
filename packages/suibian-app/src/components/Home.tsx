@@ -8,34 +8,30 @@ class Home extends Component {
     return (
       <>
         <div className="home">
-          <div className="app-content">
-            <div className="flex-container flex-col flex-height-v-100 flex-center-v flex-center-h ">
-              <div className="home-content text-center">
-                <figure>
-                  <img className="suibian-logo" src={suibian_home_logo}></img>
-                </figure>
-                <div className="main-menu flex-container flex-col flex-spaced-evenly flex-center-h">
-                  <Link
-                    to="/createroom"
-                    className="main-menu-button remove-text-decoration center"
-                  >
-                    CREATE ROOM
-                  </Link>
-                  <Link
-                    to="/joinroom"
-                    className="main-menu-button remove-text-decoration center"
-                  >
-                    JOIN ROOM
-                  </Link>
-                </div>
-              </div>
+          <div className="app-content flex-container flex-col flex-height-100 flex-center-v flex-center-h text-center">
+            <figure>
+              <img className="suibian-logo" src={suibian_home_logo}></img>
+            </figure>
+            <div className="main-menu flex-container flex-col flex-spaced-evenly flex-center-h">
               <Link
-                to="/userpreferences"
-                className="user-prefs remove-text-decoration center"
+                to="/createroom"
+                className="main-menu-button remove-text-decoration center"
               >
-                USER PREFERENCES
+                CREATE ROOM
+              </Link>
+              <Link
+                to="/joinroom"
+                className="main-menu-button remove-text-decoration center"
+              >
+                JOIN ROOM
               </Link>
             </div>
+            <Link
+              to="/userpreferences"
+              className="user-prefs remove-text-decoration center"
+            >
+              User preferences
+            </Link>
           </div>
         </div>
       </>
