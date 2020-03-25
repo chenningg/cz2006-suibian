@@ -8,7 +8,7 @@ export type socketCommands =
     | "broadcastMessage"
     | "connection"
     | "disconnect"
-    | "error";
+    | "socketError";
 
 export type joinRoomPayload = {
     username: string;
@@ -21,6 +21,10 @@ export type roomMessagePayload = {
     roomcode: string;
 };
 
-export interface suibianSocketServer extends SocketIOServer.Socket {
-    emit(event: socketCommands, data: any): boolean;
+export interface suibianSocket extends SocketIOServer.Socket {
+    emit(
+        event: socketCommands,
+        data: any,
+        callback?: (params?: any) => void
+    ): boolean;
 }
