@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Component } from "react";
-import "../css/PageBase.css";
 import NavBar from "./NavBar";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";

@@ -1,6 +1,5 @@
 import React from "react";
 import "../css/JoinRoom.css";
-import "../css/PageBase.css";
 import { Icon } from "@material-ui/core";
 import NavBar from "./NavBar";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";

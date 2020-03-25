@@ -6,43 +6,33 @@ import { Link } from "react-router-dom";
 class Home extends Component {
   render() {
     return (
-      <div className="home-container">
-        <div className="spacer"></div>
-        <div className="spacer"></div>
-        <div className="spacer"></div>
-        <div className="spacer">
-          <img src={suibian_home_logo}></img>
-        </div>
-        <div className="spacer"></div>
-
-        <div className="spacer">
-          <button type="button" className="standard-button red-button">
-            <Link to="/createroom" className="red-button-hyperlink-stripped">
-              CREATE ROOM
-            </Link>
-          </button>
-        </div>
-
-        <div className="spacer">
-          <button type="button" className="standard-button red-button">
-            <Link to="/joinroom" className="red-button-hyperlink-stripped">
-              JOIN ROOM
-            </Link>
-          </button>
-        </div>
-
-        <div className="spacer"></div>
-        <div className="spacer"></div>
-
-        <div className="spacer home-preferences">
-          <button type="button" className="standard-button small-button-text">
-            <Link
-              to="/userpreferences"
-              className="standard-button-hyperlink-stripped "
-            >
-              <span className="underline">User Preferences</span>
-            </Link>
-          </button>
+      <div className="app-content">
+        <div className="flex-container flex-height-v-100 flex-center-v flex-center-h ">
+          <div className="flex-child flex-col home-content text-center">
+            <figure>
+              <img className="suibian-logo" src={suibian_home_logo}></img>
+            </figure>
+            <div className="main-menu flex-container flex-col flex-spaced-evenly flex-center-h">
+              <Link
+                to="/createroom"
+                className="main-menu-button link remove-text-decoration center"
+              >
+                CREATE ROOM
+              </Link>
+              <Link
+                to="/joinroom"
+                className="main-menu-button link remove-text-decoration center"
+              >
+                JOIN ROOM
+              </Link>
+              <Link
+                to="/userpreferences"
+                className="link remove-text-decoration center"
+              >
+                User Preferences
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     );
