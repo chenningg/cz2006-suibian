@@ -8,7 +8,7 @@ import {
     closeRoom
 } from "./room";
 import {
-    suibianSocketServer,
+    suibianSocket,
     joinRoomPayload,
     roomMessagePayload
 } from "@suibian/commons";
@@ -19,7 +19,7 @@ export default {
         const httpServer = http.Server(app);
         const io = socketio.listen(httpServer);
 
-        io.on("connection", (socket: suibianSocketServer) => {
+        io.on("connection", (socket: suibianSocket) => {
             console.log(`socket ${socket.id} connected`);
 
             socket.on("disconnect", () =>
@@ -30,8 +30,9 @@ export default {
                 joinRoom(socket, io, data);
             });
 
-            socket.on("closeRoom", (roomcode: string) => {
-                closeRoom(io, roomcode);
+            socket.on("closeRoom", (data: { roomcode: string }) => {
+                const { roomcode } = data;
+                closeRoom(io, socket, roomcode);
             });
 
             socket.on("broadcastMessage", (data: roomMessagePayload) => {
@@ -48,7 +49,7 @@ export default {
             });
 
             socket.on("getRoomInfo", (data: { roomcode: string }) => {
-                getRoomInfo(socket, io, data);
+                getRoomInfo(io, data);
             });
         });
 
