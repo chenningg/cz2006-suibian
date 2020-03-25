@@ -1,0 +1,54 @@
+.create-room .app-content {
+  /* Firefox */
+  height: -moz-calc(100vh - 60px);
+  /* WebKit */
+  height: -webkit-calc(100vh - 60px);
+  /* Opera */
+  height: -o-calc(100vh - 60px);
+  /* Standard */
+  height: calc(100vh - 60px);
+}
+
+.create-room .title {
+  height: 70px;
+}
+
+.create-room .create-room-form {
+  height: 200px;
+}
+
+.create-room .create-room-form .label {
+  color: black;
+}
+
+.create-room .create-room-form .username-input {
+  width: 212px;
+  height: 40px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.create-room .create-room-form .username-input::placeholder {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.create-room .create-room-form button {
+  margin-top: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  width: 212px;
+  height: 40px;
+  box-shadow: 0px 4px #910909;
+}
+
+.create-room .create-room-form button:hover {
+  box-shadow: none;
+  cursor: pointer;
+  margin-top: 16px;
+  margin-bottom: -4px;
+}
