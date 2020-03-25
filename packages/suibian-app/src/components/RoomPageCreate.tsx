@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../css/PageBase.css";
 import "../css/RoomPageCreate.css";
 import NavBar from "./NavBar";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";

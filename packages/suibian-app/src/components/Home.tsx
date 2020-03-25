@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../css/Home.css";
-import "../css/PageBase.css";
 import suibian_home_logo from "../images/suibian_full_logo.png";
 import { Link } from "react-router-dom";
 
