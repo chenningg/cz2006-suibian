@@ -8,14 +8,16 @@
             "type": "node",
             "request": "launch",
             "name": "debug server",
+            "args": ["${workspaceFolder}/packages/suibian-server/src/index.ts"],
+            "runtimeArgs": ["-r", "ts-node/register"],
             "skipFiles": ["<node_internals>/**"],
-            "program": "${workspaceFolder}/packages/suibian-server/dist/index.js",
             "cwd": "${workspaceFolder}",
-            "preLaunchTask": "build-server",
-            "sourceMaps": true,
-            "outFiles": [
-                "${workspaceFolder}/packages/suibian-server/dist/**/*.js"
-            ]
+            "protocol": "inspector",
+            "internalConsoleOptions": "openOnSessionStart",
+            "env": {
+                "TS_NODE_IGNORE": "false",
+                "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.shared.json"
+            }
         }
     ]
 }
