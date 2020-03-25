@@ -1,33 +1,29 @@
 import React, { Component } from "react";
 import "../css/NavBar.css";
-import suibian_logo from "../images/suibian_logo.png";
+import suibianLogo from "../images/suibian_full_logo_white.png";
 import { Icon } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 class NavBar extends Component {
   render() {
     return (
-      <div className="navbar">
-        <div className="navbar-backicon">
-          <p>
-            <Link to="/home">
-              <Icon fontSize="large" color="disabled">
-                keyboard_arrow_left
-              </Icon>
-            </Link>
-          </p>
-        </div>
+      <>
+        <div className="navbar flex-container flex-row flex-center-v">
+          <Link
+            to="/home"
+            className="navbar-back-icon-container flex-container flex-center-v flex-center-h"
+          >
+            <Icon fontSize="large">keyboard_arrow_left</Icon>
+          </Link>
 
-        <div className="navbar-logo">
-          <Link to="/home">
-            <img src={suibian_logo} height="80%"></img>
+          <Link
+            className="navbar-logo-container flex-container flex-center-h"
+            to="/home"
+          >
+            <img className="navbar-logo" src={suibianLogo}></img>
           </Link>
         </div>
-
-        <div className="navbar-backicon">
-          <p></p>
-        </div>
-      </div>
+      </>
     );
   }
 }

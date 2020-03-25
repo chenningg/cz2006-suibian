@@ -1,33 +1,62 @@
-html {
+.home {
+  min-height: 100%;
   background-image: url(../images/background.jpg);
 }
 
-.home-content {
+.home .home-content {
   height: 400px;
   text-align: center;
 }
 
-.main-menu {
+.home .main-menu {
   margin-top: 10px;
   height: 200px;
 }
 
-.main-menu-button {
+.home .main-menu-button {
   border: none;
   border-radius: 6px;
+  box-shadow: 0px 4px #910909;
   background-color: #c92c2c;
   color: white;
   width: 160px;
   height: 40px;
   padding: 10px 30px;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.85rem;
+  display: block;
 }
 
-.link {
+.home .main-menu-button:hover {
+  box-shadow: none;
+  margin-top: 4px;
+  margin-bottom: -4px;
+}
+
+.home .user-prefs {
   text-align: center;
+  background-color: black;
+  color: white;
+  position: fixed;
+  bottom: 0px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: 150px;
+  height: 40px;
+  padding: 10px 10px;
+  border-radius: 6px 6px 0px 0px;
 }
 
-.suibian-logo {
+.home .user-prefs:hover {
+  font-weight: 600;
+  height: 50px;
+}
+
+.home .suibian-logo {
   width: 300px;
+}
+
+.home .suibian-logo:hover {
+  margin-top: -6px;
+  padding-bottom: 6px;
 }
