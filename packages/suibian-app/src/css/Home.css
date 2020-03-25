@@ -1,18 +1,33 @@
-.home-container {
-  display: flex;
-  height: 100vh;
-  flex-direction: column;
-  align-content: center;
+html {
   background-image: url(../images/background.jpg);
 }
 
-.spacer {
-  flex-basis: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.home-content {
+  height: 400px;
+  text-align: center;
 }
 
-.underline {
-  text-decoration: underline;
+.main-menu {
+  margin-top: 10px;
+  height: 200px;
+}
+
+.main-menu-button {
+  border: none;
+  border-radius: 6px;
+  background-color: #c92c2c;
+  color: white;
+  width: 160px;
+  height: 40px;
+  padding: 10px 30px;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.link {
+  text-align: center;
+}
+
+.suibian-logo {
+  width: 300px;
 }

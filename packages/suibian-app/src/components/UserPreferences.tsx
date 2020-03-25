@@ -1,5 +1,4 @@
 import React, { Component, useState } from "react";
-import "../css/PageBase.css";
 import "../css/UserPreferences.css";
 import { Switch } from "@material-ui/core";
 import NavBar from "./NavBar";
