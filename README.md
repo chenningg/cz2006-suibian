@@ -13,7 +13,7 @@ Please make sure your code works before deploying to master. You should test you
 
 ### Installation
 
-In the root directory type `yarn install` . This is a mono-repo format where the common modules will be installed in the root folder directroy and the more specific modules are installed in the respective packages.
+Open a terminal instance and cd to the root directory. In the root directory, type `yarn install` . This is a mono-repo format where the common modules will be installed in the root folder directory and the more specific modules are installed in the respective packages.
 
 ### Testing local setup
 

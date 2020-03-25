@@ -3,7 +3,6 @@
   height: 100vh;
   flex-direction: column;
   align-content: center;
-  justify-content: center;
 }
 
 h1 {
@@ -16,7 +15,6 @@ h1 {
   margin: 0 auto;
 }
 .text-field {
-  flex-basis: auto;
   width: 400px;
   margin: 0 auto;
 }

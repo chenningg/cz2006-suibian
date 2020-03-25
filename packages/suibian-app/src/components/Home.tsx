@@ -7,45 +7,35 @@ import { Link } from "react-router-dom";
 class Home extends Component {
   render() {
     return (
-      <div className="home-container">
-        <div className="spacer"></div>
-        <div className="spacer"></div>
-        <div className="spacer"></div>
-        <div className="spacer">
-          <img src={suibian_home_logo}></img>
-        </div>
-        <div className="spacer"></div>
-
-        <div className="spacer">
-          <button type="button" className="standard-button red-button">
-            <Link to="/createroom" className="red-button-hyperlink-stripped">
-              CREATE ROOM
-            </Link>
-          </button>
-        </div>
-
-        <div className="spacer">
-          <button type="button" className="standard-button red-button">
-            <Link to="/joinroom" className="red-button-hyperlink-stripped">
-              JOIN ROOM
-            </Link>
-          </button>
-        </div>
-
-        <div className="spacer"></div>
-        <div className="spacer"></div>
-
-        <div className="spacer home-preferences">
-          <button type="button" className="standard-button small-button-text">
+      <>
+        <div className="home">
+          <div className="app-content flex-container flex-col flex-height-100 flex-center-v flex-center-h text-center">
+            <figure>
+              <img className="suibian-logo" src={suibian_home_logo}></img>
+            </figure>
+            <div className="main-menu flex-container flex-col flex-spaced-evenly flex-center-h">
+              <Link
+                to="/createroom"
+                className="main-menu-button remove-text-decoration center"
+              >
+                CREATE ROOM
+              </Link>
+              <Link
+                to="/joinroom"
+                className="main-menu-button remove-text-decoration center"
+              >
+                JOIN ROOM
+              </Link>
+            </div>
             <Link
               to="/userpreferences"
-              className="standard-button-hyperlink-stripped "
+              className="user-prefs remove-text-decoration center"
             >
-              <span className="underline">User Preferences</span>
+              User preferences
             </Link>
-          </button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }
