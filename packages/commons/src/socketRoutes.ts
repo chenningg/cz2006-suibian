@@ -7,7 +7,8 @@ export type socketCommands =
     | "changeUsername"
     | "broadcastMessage"
     | "connection"
-    | "disconnect";
+    | "disconnect"
+    | "error";
 
 export type joinRoomPayload = {
     username: string;

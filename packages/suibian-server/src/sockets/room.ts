@@ -3,20 +3,20 @@ import shortid from "shortid";
 import {
     httpStatus,
     joinRoomPayload,
-    roomMessagePayload
+    roomMessagePayload,
+    suibianSocketServer
 } from "@suibian/commons";
 
 shortid.characters(
     "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@"
 );
 
-let usernameSocketMapping: { [username: string]: string } = {};
-
 export const joinRoom = (
-    socket: socketio.Socket,
+    socket: suibianSocketServer,
     socketio: socketio.Server,
     data: joinRoomPayload
 ) => {
+    //TODO: Add in writing to database for persistent storage
     socket.join(data.roomcode, socket => socket.emit("joinRoom", socket.rooms));
     console.log(`${data.username} joined in room ${data.roomcode}`);
     console.log(socketio.sockets.adapter.rooms);
@@ -32,7 +32,7 @@ export const broadcastRoom = (
 };
 
 export const sendError = (
-    socket: socketio.Socket,
+    socket: suibianSocketServer,
     statusCode: number,
     errorMessage: string
 ) => {
@@ -42,19 +42,20 @@ export const sendError = (
     });
 };
 
-export const createRoom = (
-    socket: socketio.Socket,
-    data: { username: string }
-) => {
-    const username = data.username;
-
-    if (username in Object.keys(usernameSocketMapping)) {
-        sendError(socket, httpStatus.ok, "Username is already taken");
-    }
-    usernameSocketMapping["username"] = socket.id;
-
+export const createRoom = (socket: suibianSocketServer) => {
     const roomcode = shortid.generate();
     socket.join(roomcode, () => {
         socket.emit("createRoom", Object.keys(socket.rooms));
     });
+};
+
+export const getRoomInfo = (
+    socket: suibianSocketServer,
+    socketio: socketio.Server,
+    data: { roomcode: string }
+) => {};
+
+export const closeRoom = (socketio: socketio.Server, roomcode: string) => {
+    //TODO Remove room from the database
+    //TODO kick users from room
 };
