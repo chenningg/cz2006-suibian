@@ -5,6 +5,7 @@ import JoinRoom from "./JoinRoom";
 import UserPreferences from "./UserPreferences";
 import SelectLocation from "./SelectLocation";
 import RoomPageJoin from "./RoomPageJoin";
+import RoomPageCreate from "./RoomPageCreate";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "../css/Global.css";

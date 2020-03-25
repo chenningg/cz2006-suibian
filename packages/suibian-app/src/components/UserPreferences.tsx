@@ -8,7 +8,7 @@ const preferences: Array<Preference> = [
   { type: "Halal" },
   { type: "Vegetarian" },
   { type: "Vegan" },
-  { type: "Bhuddhist" }
+  { type: "Buddhist" }
 ];
 
 const preferencesList = preferences.map(preference => (
