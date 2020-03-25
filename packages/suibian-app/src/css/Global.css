@@ -23,8 +23,18 @@ html {
 }
 
 /* ========= Font styles, links, linebreaks ========= */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: black;
+}
+
 h1 {
-  font-size: 3.2rem;
+  font-size: 2.3rem;
   text-align: center;
   margin-top: 0px;
   margin-bottom: 25px;
@@ -74,7 +84,8 @@ hr {
 
 /* ========= Containers, flex and layouts =========*/
 .app-content {
-  max-width: 800px;
+  max-width: 100%;
+  max-height: 100%;
   margin: 0px auto;
 }
 
@@ -82,9 +93,12 @@ hr {
   display: flex;
 }
 
-/* Vertical row height of flexbox */
-.flex-height-v-100 {
+.flex-height-100 {
   height: 100vh;
+}
+
+.flex-width-100 {
+  width: 100vw;
 }
 
 /* Adjust flex direction */

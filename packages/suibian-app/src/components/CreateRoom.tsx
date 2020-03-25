@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Icon } from "@material-ui/core";
 import NavBar from "./NavBar";
+import "../css/CreateRoom.css";
 import socketIOClient from "socket.io-client";
 import { socketCommands } from "@suibian/commons";
 
@@ -84,26 +85,24 @@ class CreateRoom extends Component<{}, socketState> {
 
   render() {
     return (
-      <React.Fragment>
-        <div className="main-container">
-          <div className="navbar-container">
-            <NavBar />
-          </div>
-          <div className="page-container">
-            <p>Username: </p>
-            <form>
+      <>
+        <NavBar />
+        <div className="create-room">
+          <div className="app-content flex-container flex-col flex-center-h flex-center-v">
+            <h1 className="title">Create room</h1>
+            <form className="create-room-form" onSubmit={this.createRoom}>
               <input
                 onChange={this.onChange}
-                name="userName"
-                placeholder="userName"
+                id="username"
+                placeholder="Username"
+                className="username-input"
               />
-              <button type="button" onClick={this.createRoom}>
-                Create Room
-              </button>
+              <br></br>
+              <button type="button">Create Room</button>
             </form>
           </div>
         </div>
-      </React.Fragment>
+      </>
     );
   }
 }
