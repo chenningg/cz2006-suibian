@@ -53,3 +53,10 @@
   margin-top: 6px;
   margin-bottom: -4px;
 }
+
+.join-room .join-room-text {
+  font-weight: 600;
+  font-size: 1rem;
+  width: 212px;
+  color: white;
+}
