@@ -1,0 +1,32 @@
+.instruction-page .app-content {
+  /* Firefox */
+  height: -moz-calc(100vh - 60px);
+  /* WebKit */
+  height: -webkit-calc(100vh - 60px);
+  /* Opera */
+  height: -o-calc(100vh - 60px);
+  /* Standard */
+  height: calc(100vh - 60px);
+}
+
+.vote-button-container {
+  display: flex;
+  width: 100vw;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.vote-button {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 5vw;
+}
+
+.like {
+  color: green;
+}
+
+.dislike {
+  color: #c92c2c;
+}
