@@ -1,6 +1,7 @@
 import React, { Component, FormEvent, ChangeEvent } from "react";
 import NavBar from "./NavBar";
 import "../css/JoinRoom.css";
+import { Link } from "react-router-dom";
 
 class JoinRoom extends Component {
   // State
@@ -20,7 +21,7 @@ class JoinRoom extends Component {
       [e.target.id]: e.target.value
     });
   };
-
+    
   render() {
     return (
       <>
@@ -49,7 +50,15 @@ class JoinRoom extends Component {
                 required
               />
               <br></br>
-              <button>Join Room</button>
+              <button>
+                <Link
+                  to="/roompage"
+                  className="join-room-text"
+                  style={{ textDecoration: "none" }}
+                >
+                  JOIN ROOM
+                </Link>
+              </button>
             </form>
           </div>
         </div>
