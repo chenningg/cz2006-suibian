@@ -1,8 +1,14 @@
 import express from "express";
 import socketio from "socket.io";
-import { joinRoom, broadcastRoom, createRoom } from "./room";
 import {
-    suibianSocketServer,
+    joinRoom,
+    broadcastRoom,
+    createRoom,
+    getRoomInfo,
+    closeRoom
+} from "./room";
+import {
+    suibianSocket,
     joinRoomPayload,
     roomMessagePayload
 } from "@suibian/commons";
@@ -13,7 +19,7 @@ export default {
         const httpServer = http.Server(app);
         const io = socketio.listen(httpServer);
 
-        io.on("connection", (socket: suibianSocketServer) => {
+        io.on("connection", (socket: suibianSocket) => {
             console.log(`socket ${socket.id} connected`);
 
             socket.on("disconnect", () =>
@@ -24,17 +30,26 @@ export default {
                 joinRoom(socket, io, data);
             });
 
+            socket.on("closeRoom", (data: { roomcode: string }) => {
+                const { roomcode } = data;
+                closeRoom(io, socket, roomcode);
+            });
+
             socket.on("broadcastMessage", (data: roomMessagePayload) => {
                 broadcastRoom(io, data);
             });
 
             socket.on("createRoom", (data: { username: string }) => {
-                createRoom(socket, data);
+                createRoom(socket);
                 console.log(io.sockets.adapter.rooms);
             });
 
             socket.on("startRoom", (data: roomMessagePayload) => {
                 // startRoom();
+            });
+
+            socket.on("getRoomInfo", (data: { roomcode: string }) => {
+                getRoomInfo(io, data);
             });
         });
 
