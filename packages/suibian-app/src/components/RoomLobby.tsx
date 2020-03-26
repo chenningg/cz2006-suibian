@@ -35,7 +35,7 @@ class RoomLobby extends Component {
             <div className="user-list flex-container flex-col flex-center-v">
               <UserList users={this.state.users} />
             </div>
-            <Link className="start-room" to="instruction-page">
+            <Link className="start-room" to="instructionpage">
               START ROOM
             </Link>
           </div>
