@@ -10,31 +10,31 @@ export const Hawker = db.define("Hawker", {
     primaryKey: true
   },
   images: {
-    type: DataTypes.STRING(300),
+    type: DataTypes.STRING,
     allowNull: false
   },
   hawker_centre: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING,
     allowNull: false
   },
   stall_name: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING,
     allowNull: false
   },
   stall_address: {
-    type: DataTypes.STRING(200),
+    type: DataTypes.STRING,
     allowNull: false
   },
   cuisine: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING,
     allowNull: true
   },
   opening: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING,
     allowNull: true
   },
   specialties: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING,
     allowNull: true
   }
 });

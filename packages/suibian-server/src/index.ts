@@ -23,3 +23,7 @@ httpServer.listen(PORT, () => {
 db.authenticate()
   .then(() => console.log("Database connected ..."))
   .catch(err => console.log("Error: " + err));
+
+app.listen(PORT, () => {
+  console.log(`(App Listen )Server is listening to port ${PORT}`);
+});
