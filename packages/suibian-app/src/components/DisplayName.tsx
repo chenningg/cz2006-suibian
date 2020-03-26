@@ -8,6 +8,7 @@ import "../css/DisplayName.css";
 interface DisplayNameProps {
   displayname: DisplayName;
 }
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {

@@ -9,13 +9,16 @@
   flex-grow: 1;
 }
 
-.navbar .navbar-logo-container:hover .navbar-logo {
-  width: 140px;
+.navbar .navbar-logo-container a {
+  margin-right: 60px;
 }
 
 .navbar .navbar-logo {
   width: 130px;
-  margin-right: 60px;
+}
+
+.navbar .navbar-logo:hover {
+  width: 140px;
 }
 
 .navbar .navbar-back-icon-container {

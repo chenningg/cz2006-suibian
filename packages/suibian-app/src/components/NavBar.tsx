@@ -16,12 +16,15 @@ class NavBar extends Component {
             <Icon fontSize="large">keyboard_arrow_left</Icon>
           </Link>
 
-          <Link
-            className="navbar-logo-container flex-container flex-center-h"
-            to="/home"
-          >
-            <img className="navbar-logo" src={suibianLogo}></img>
-          </Link>
+          <div className="navbar-logo-container flex-container flex-center-h">
+            <Link to="/home">
+              <img
+                className="navbar-logo"
+                src={suibianLogo}
+                alt="Suibian's logo in white."
+              ></img>
+            </Link>
+          </div>
         </div>
       </>
     );

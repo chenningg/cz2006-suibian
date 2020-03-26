@@ -6,6 +6,7 @@ import UserPreferences from "./UserPreferences";
 import SelectLocation from "./SelectLocation";
 import RoomLobby from "./RoomLobby";
 import RoomPage from "./RoomPage";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "../css/Global.css";
