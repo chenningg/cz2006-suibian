@@ -21,7 +21,7 @@ class JoinRoom extends Component {
       [e.target.id]: e.target.value
     });
   };
-    
+
   render() {
     return (
       <>
@@ -50,15 +50,9 @@ class JoinRoom extends Component {
                 required
               />
               <br></br>
-              <button>
-                <Link
-                  to="/roompage"
-                  className="join-room-text"
-                  style={{ textDecoration: "none" }}
-                >
-                  JOIN ROOM
-                </Link>
-              </button>
+              <Link to="/roomlobby" className="join-room-text">
+                <button>JOIN ROOM</button>
+              </Link>
             </form>
           </div>
         </div>
