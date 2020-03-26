@@ -7,6 +7,7 @@ import SelectLocation from "./SelectLocation";
 import RoomLobby from "./RoomLobby";
 import RoomPageJoin from "./RoomPageJoin";
 import RoomPageCreate from "./RoomPageCreate";
+import InstructionPage from "./InstructionPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "../css/Global.css";
@@ -24,6 +25,7 @@ function AppRouter() {
         <Route path="/roomlobby" component={RoomLobby}></Route>
         <Route path="/roompagejoin" component={RoomPageJoin}></Route>
         <Route path="/roompagecreate" component={RoomPageCreate}></Route>
+        <Route path="/instructionpage" component={InstructionPage}></Route>
       </Switch>
     </Router>
   );
