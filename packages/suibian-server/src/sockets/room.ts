@@ -6,6 +6,7 @@ import {
     roomMessagePayload,
     suibianSocket
 } from "@suibian/commons";
+import { sendError } from "./messaging";
 
 shortid.characters(
     "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@"
@@ -16,34 +17,9 @@ export const joinRoom = (
     socketio: socketio.Server,
     data: joinRoomPayload
 ) => {
-    //TODO: Add in writing to database for persistent storage
+    //TODO: Add in writing to database for persistent storage,
+    // check room status in database first before joining
     socket.join(data.roomcode, () => socket.emit("joinRoom", socket.rooms));
-};
-
-export const broadcastRoom = (
-    socketio: socketio.Server,
-    data: roomMessagePayload
-) => {
-    //broadcast to all members in the room
-    const { username, message, roomcode } = data;
-    socketio.in(roomcode).emit("broadcastMessage", message);
-};
-
-export const sendError = (
-    socket: suibianSocket,
-    statusCode: number,
-    errorMessage: string
-) => {
-    socket.emit(
-        "socketError",
-        {
-            statusCode,
-            errorMessage
-        },
-        err => {
-            console.log(`error message is ${err}`);
-        }
-    );
 };
 
 export const createRoom = (socket: suibianSocket) => {
@@ -95,4 +71,8 @@ export const closeRoom = (
         });
         console.log(`socket rooms ${socketio.sockets.adapter.rooms[roomcode]}`);
     });
+};
+
+export const startRoom = (io: socketio.Server, roomcode: string) => {
+    //TODO Add in entries in the database & change room status
 };
