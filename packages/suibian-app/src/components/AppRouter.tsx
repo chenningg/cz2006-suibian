@@ -21,6 +21,7 @@ function AppRouter() {
         <Route path="/userpreferences" component={UserPreferences}></Route>
         <Route path="/selectlocation" component={SelectLocation}></Route>
         <Route path="/roompagejoin" component={RoomPageJoin}></Route>
+        <Route path="/roompagecreate" component={RoomPageCreate}></Route>
       </Switch>
     </Router>
   );

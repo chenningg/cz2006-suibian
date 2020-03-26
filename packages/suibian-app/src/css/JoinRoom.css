@@ -1,33 +1,55 @@
-.main-container {
-  display: flex;
-  height: 100vh;
-  flex-direction: column;
-  align-content: center;
+.join-room .app-content {
+  /* Firefox */
+  height: -moz-calc(100vh - 60px);
+  /* WebKit */
+  height: -webkit-calc(100vh - 60px);
+  /* Opera */
+  height: -o-calc(100vh - 60px);
+  /* Standard */
+  height: calc(100vh - 60px);
 }
 
-h1 {
-  font-family: "Avenir", Helvetica, sans-serif;
-  font-size: 28px;
-  color: #202f4d;
-}
-.title {
-  width: 400px;
-  margin: 0 auto;
-}
-.text-field {
-  width: 400px;
-  margin: 0 auto;
+.join-room .title {
+  height: 70px;
 }
 
-.fixed-button {
-  justify-content: center;
-  width: 400px;
-  margin: 0 auto;
+.join-room .join-room-form {
+  height: 200px;
 }
 
-.spacer {
-  flex-basis: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.join-room .join-room-form .label {
+  color: black;
+}
+
+.join-room .join-room-form .username-input {
+  width: 212px;
+  height: 40px;
+  margin-bottom: 12px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.join-room .join-room-form .username-input::placeholder {
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.join-room .join-room-form button {
+  margin-top: 4px;
+  font-weight: 600;
+  font-size: 1rem;
+  width: 212px;
+  height: 40px;
+  box-shadow: 0px 4px #910909;
+}
+
+.join-room .join-room-form button:hover {
+  box-shadow: none;
+  cursor: pointer;
+  margin-top: 16px;
+  margin-bottom: -4px;
 }
