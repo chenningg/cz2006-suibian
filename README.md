@@ -90,3 +90,5 @@ Cleans the outDir of the typescript compile, removing old typescript files
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+Setup telegram bot to update PR
