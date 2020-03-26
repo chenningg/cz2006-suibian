@@ -50,6 +50,6 @@
 .join-room .join-room-form button:hover {
   box-shadow: none;
   cursor: pointer;
-  margin-top: 16px;
+  margin-top: 8px;
   margin-bottom: -4px;
 }

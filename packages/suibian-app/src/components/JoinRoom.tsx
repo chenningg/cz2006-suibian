@@ -37,6 +37,7 @@ class JoinRoom extends Component {
                 id="roomCode"
                 placeholder="Room code"
                 className="username-input"
+                autoComplete="off"
                 required
               />
               <br></br>
@@ -46,6 +47,7 @@ class JoinRoom extends Component {
                 id="username"
                 placeholder="Username"
                 className="username-input"
+                autoComplete="off"
                 required
               />
               <br></br>

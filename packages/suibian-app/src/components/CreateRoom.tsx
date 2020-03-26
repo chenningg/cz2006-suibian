@@ -98,6 +98,8 @@ class CreateRoom extends Component<{}, socketState> {
                 id="username"
                 placeholder="Username"
                 className="username-input"
+                autoComplete="off"
+                required
               />
               <br></br>
               <button>Create Room</button>
