@@ -1,0 +1,3 @@
+type DisplayName = {
+  id: string;
+};
