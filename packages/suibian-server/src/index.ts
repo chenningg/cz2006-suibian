@@ -3,6 +3,7 @@ import express from "express";
 import router from "./routes";
 import path from "path";
 import sockets from "./sockets";
+import { db } from "./config/sequelize";
 const app = express();
 
 //defining ports
@@ -15,5 +16,10 @@ app.use(router);
 
 const httpServer = sockets.startSocketServer(app);
 httpServer.listen(PORT, () => {
-    console.log(`Server is listening to port ${PORT}`);
+  console.log(`Server is listening to port ${PORT}`);
 });
+
+// Test DB
+db.authenticate()
+  .then(() => console.log("Database connected ..."))
+  .catch(err => console.log("Error: " + err));

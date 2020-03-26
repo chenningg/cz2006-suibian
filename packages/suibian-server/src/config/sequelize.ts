@@ -1,9 +1,8 @@
-import Sequelize from "sequelize";
+import { Sequelize } from "sequelize";
 
 //! placeholder db password info
-export const sequelize = new Sequelize();
-
-module.exports = new Sequelize("hawkers", "postgres", "Marysheep@97", {
+// connection to db - create models etc.
+export const db = new Sequelize("suibian", "postgres", "123456", {
   host: "localhost",
   dialect: "postgres",
 
