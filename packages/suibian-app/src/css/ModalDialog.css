@@ -1,0 +1,107 @@
+/* Dialog box */
+.modal-dialog {
+  height: 40px;
+  width: 100%;
+  padding: 5px 30px;
+  text-align: center;
+  display: block;
+  position: absolute;
+  top: 60px;
+  margin: 0 auto;
+}
+
+.modal-dialog p {
+  color: white;
+  font-size: 1.1rem;
+  line-height: 1.6rem;
+  font-weight: 500;
+}
+
+/* Color settings */
+.modal-warning {
+  background-color: #cc5858;
+}
+
+.modal-confirmation {
+  background-color: #58cc5a;
+}
+
+.modal-default {
+  background-color: #61b5cf;
+}
+
+/* Time to live settings */
+.ttl-1 {
+  -webkit-animation: cssAnimation 1s forwards;
+  animation: cssAnimation 1s forwards;
+}
+
+.ttl-2 {
+  -webkit-animation: cssAnimation 2s forwards;
+  animation: cssAnimation 2s forwards;
+}
+
+.ttl-3 {
+  -webkit-animation: cssAnimation 3s forwards;
+  animation: cssAnimation 3s forwards;
+}
+
+.ttl-4 {
+  -webkit-animation: cssAnimation 4s forwards;
+  animation: cssAnimation 4s forwards;
+}
+
+.ttl-5 {
+  -webkit-animation: cssAnimation 5s forwards;
+  animation: cssAnimation 5s forwards;
+}
+
+.ttl-6 {
+  -webkit-animation: cssAnimation 6s forwards;
+  animation: cssAnimation 6s forwards;
+}
+
+.ttl-7 {
+  -webkit-animation: cssAnimation 7s forwards;
+  animation: cssAnimation 7s forwards;
+}
+
+.ttl-8 {
+  -webkit-animation: cssAnimation 8s forwards;
+  animation: cssAnimation 8s forwards;
+}
+
+.ttl-9 {
+  -webkit-animation: cssAnimation 9s forwards;
+  animation: cssAnimation 9s forwards;
+}
+
+.ttl-10 {
+  -webkit-animation: cssAnimation 10s forwards;
+  animation: cssAnimation 10s forwards;
+}
+
+/* Keyframes for fade out */
+
+@keyframes cssAnimation {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes cssAnimation {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
