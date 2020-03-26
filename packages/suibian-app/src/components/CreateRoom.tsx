@@ -98,7 +98,7 @@ class CreateRoom extends Component<{}, socketState> {
                 required
               />
               <br></br>
-              <button>Create Room</button>
+              <button>CREATE ROOM</button>
             </form>
           </div>
         </div>

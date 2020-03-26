@@ -14,7 +14,9 @@
 }
 
 .roompage .room-code {
+  display: block;
 }
+
 .roompage .room-page-display .name-container {
   margin-left: 1em;
   margin-bottom: 5px;
