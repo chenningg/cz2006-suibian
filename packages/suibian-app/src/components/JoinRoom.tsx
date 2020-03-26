@@ -1,7 +1,5 @@
 import React, { Component, FormEvent, ChangeEvent } from "react";
-import { Icon } from "@material-ui/core";
 import NavBar from "./NavBar";
-import { Link } from "react-router-dom";
 import "../css/JoinRoom.css";
 
 class JoinRoom extends Component {

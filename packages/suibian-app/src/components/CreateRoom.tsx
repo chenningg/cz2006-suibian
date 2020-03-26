@@ -1,5 +1,4 @@
 import React, { Component, FormEvent, ChangeEvent } from "react";
-import { Icon } from "@material-ui/core";
 import NavBar from "./NavBar";
 import "../css/CreateRoom.css";
 import socketIOClient from "socket.io-client";
@@ -28,11 +27,8 @@ class CreateRoom extends Component<{}, socketState> {
   }
 
   onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    {
-      /* 
-          // @ts-ignore */
-      this.setState({ [e.target.id]: e.target.value });
-    }
+    // @ts-ignore */
+    this.setState({ [e.target.id]: e.target.value });
   };
 
   connectSocket = async () => {

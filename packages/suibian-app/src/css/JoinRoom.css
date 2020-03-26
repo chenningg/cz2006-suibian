@@ -39,7 +39,7 @@
 }
 
 .join-room .join-room-form button {
-  margin-top: 4px;
+  margin-top: 2px;
   font-weight: 600;
   font-size: 1rem;
   width: 212px;
@@ -50,6 +50,6 @@
 .join-room .join-room-form button:hover {
   box-shadow: none;
   cursor: pointer;
-  margin-top: 8px;
+  margin-top: 6px;
   margin-bottom: -4px;
 }
