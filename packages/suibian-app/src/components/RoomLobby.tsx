@@ -36,7 +36,7 @@ class RoomLobby extends Component {
               <UserList users={this.state.users} />
             </div>
             <Link className="start-room" to="instruction-page">
-              START
+              START ROOM
             </Link>
           </div>
         </div>
