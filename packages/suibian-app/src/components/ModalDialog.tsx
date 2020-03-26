@@ -19,7 +19,7 @@ class ModalDialog extends Component<DialogProp> {
   // We can access DialogProp above with this.props
   render() {
     let modalClasses =
-      "modal-dialog ttl-" +
+      "modal-dialog flex-container flex-center-v flex-center-h ttl-" +
       (this.props.ttl?.toString() || "2") +
       " modal-" +
       (this.props.modalType || "default");
