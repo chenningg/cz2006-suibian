@@ -7,7 +7,9 @@ import "../css/RoomLobby.css";
 class RoomLobby extends Component {
   // State
   state = {
-    showModal: false,
+    roomID: "1997",
+    enoughUsers: false,
+    canStart: false,
     users: []
   };
 
@@ -17,12 +19,9 @@ class RoomLobby extends Component {
       <>
         <NavBar />
         <div className="room-lobby">
-          <ModalDialog
-            message="User preferences saved!"
-            modalType="confirmation"
-            ttl={2}
-            show={this.state.showModal}
-          />
+          <div className="app-content flex-container flex-col flex-center-h flex-center-v">
+            <h1 className="title">Room #{this.state.roomID}</h1>
+          </div>
         </div>
       </>
     );

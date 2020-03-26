@@ -1,3 +1,0 @@
-type DisplayName = {
-  id: string;
-};
