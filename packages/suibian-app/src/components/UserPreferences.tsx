@@ -1,5 +1,4 @@
 import React, { Component, useState } from "react";
-import "../css/PageBase.css";
 import "../css/UserPreferences.css";
 import { Switch } from "@material-ui/core";
 import NavBar from "./NavBar";
@@ -9,8 +8,12 @@ const preferences: Array<Preference> = [
   { type: "Halal" },
   { type: "Vegetarian" },
   { type: "Vegan" },
-  { type: "Bhuddhist" }
+  { type: "Buddhist" }
 ];
+
+const preferencesList = preferences.map(preference => (
+  <PreferenceItem preference={preference} />
+));
 
 class UserPreferences extends Component {
   render() {
@@ -22,18 +25,8 @@ class UserPreferences extends Component {
           </div>
 
           <div className="page-container user-preference-container">
-            {/* <h1>User Preferences</h1> */}
-
-            <PreferenceItem preference={preferences[0]} />
-            <PreferenceItem preference={preferences[1]} />
-            <PreferenceItem preference={preferences[2]} />
-            <PreferenceItem preference={preferences[3]} />
-            <PreferenceItem preference={preferences[0]} />
-            <PreferenceItem preference={preferences[1]} />
-            <PreferenceItem preference={preferences[2]} />
-            <PreferenceItem preference={preferences[3]} />
-            <PreferenceItem preference={preferences[2]} />
-            <PreferenceItem preference={preferences[3]} />
+            <h1>User Preferences</h1>
+            {preferencesList}
           </div>
         </div>
       </React.Fragment>

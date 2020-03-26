@@ -1,0 +1,164 @@
+/* ========= GLOBAL CSS (These are defaults that apply to all pages) =========*/
+/* If you want to overwrite any of these, do so in a separate css file specific to that page. */
+
+/* ========= Base elements reset ========= */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#root {
+  overflow: auto;
+}
+
+/* ========= Font styles, links, linebreaks ========= */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: black;
+}
+
+h1 {
+  font-size: 2.3rem;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 25px;
+}
+
+h2 {
+  font-size: 2.2rem;
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.2rem;
+  margin-top: 0px;
+  margin-bottom: 12px;
+}
+
+.link,
+a {
+  text-decoration: none;
+}
+
+.link:hover,
+a:hover {
+  text-decoration: underline;
+}
+
+br {
+  margin: 15px 0px;
+}
+
+hr {
+  margin-top: 15px;
+}
+
+.remove-text-decoration {
+  text-decoration: none;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ========= Containers, flex and layouts =========*/
+.app-content {
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0px auto;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.flex-height-100 {
+  height: 100vh;
+}
+
+.flex-width-100 {
+  width: 100vw;
+}
+
+/* Adjust flex direction */
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+/* Flex justification classes */
+.flex-center-h {
+  justify-content: center;
+}
+
+.flex-center-v {
+  align-items: center;
+}
+
+.flex-spaced-evenly {
+  justify-content: space-evenly;
+}
+
+.flex-spaced-between {
+  justify-content: space-between;
+}
+
+.flex-spaced-around {
+  justify-content: space-around;
+}
+
+/* ========= Buttons, input and forms =========*/
+button {
+  border: none;
+  border-radius: 6px;
+  background-color: #c92c2c;
+  color: white;
+  height: 40px;
+  padding: 10px 30px;
+  text-align: center;
+}
+
+/* ========= Images and icons =========*/
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+figure {
+  margin: 0;
+  padding: 0;
+}
+
+/* ========= Misc =========*/
+.hide {
+  display: none;
+  visibility: hidden;
+}
+
+.center {
+  margin: 0 auto;
+}
