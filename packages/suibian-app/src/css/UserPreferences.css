@@ -1,4 +1,114 @@
-.user-preference-container {
-  flex-direction: column !important;
-  width: 100vw;
+.user-preferences .app-content {
+  /* Firefox */
+  height: -moz-calc(100vh - 60px);
+  /* WebKit */
+  height: -webkit-calc(100vh - 60px);
+  /* Opera */
+  height: -o-calc(100vh - 60px);
+  /* Standard */
+  height: calc(100vh - 60px);
+}
+
+.user-preferences .title {
+  height: 70px;
+}
+
+.user-preferences .user-preferences-form {
+  height: 300px;
+}
+
+.user-preferences .join-room-form input {
+  width: 212px;
+  height: 40px;
+  margin-bottom: 12px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.user-preferences .user-preferences-form button {
+  font-weight: 600;
+  font-size: 1rem;
+  width: 212px;
+  height: 40px;
+  box-shadow: 0px 4px #910909;
+}
+
+.user-preferences .user-preferences-form button:hover {
+  box-shadow: none;
+  cursor: pointer;
+  margin-top: 4px;
+  margin-bottom: -4px;
+}
+
+.user-preferences .user-preferences-form .preference {
+  width: 220px;
+  margin: 0 auto;
+}
+
+.user-preferences .user-preferences-form .preference-type {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+/* Slider css */
+/* The switch - the box around the slider */
+.user-preferences .user-preferences-form .switch-container {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 30px;
+}
+
+/* The slider */
+.user-preferences .user-preferences-form .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  display: inline-block;
+}
+
+.user-preferences .user-preferences-form .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.user-preferences .user-preferences-form input:checked + .slider {
+  background-color: #2196f3;
+}
+
+.user-preferences .user-preferences-form input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+.user-preferences .user-preferences-form input:checked + .slider:before {
+  -webkit-transform: translateX(21px);
+  -ms-transform: translateX(21px);
+  transform: translateX(21px);
+}
+
+/* Rounded sliders */
+.user-preferences .user-preferences-form .slider.round {
+  border-radius: 22px;
+  height: 30px;
+  width: 52px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

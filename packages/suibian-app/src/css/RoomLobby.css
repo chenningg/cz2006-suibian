@@ -1,0 +1,14 @@
+.room-lobby .app-content {
+  /* Firefox */
+  height: -moz-calc(100vh - 60px);
+  /* WebKit */
+  height: -webkit-calc(100vh - 60px);
+  /* Opera */
+  height: -o-calc(100vh - 60px);
+  /* Standard */
+  height: calc(100vh - 60px);
+}
+
+.room-lobby .title {
+  height: 70px;
+}
