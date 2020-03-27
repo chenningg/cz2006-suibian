@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import User from "../types/User";
+import "../css/UserList.css";
 
 export type UserListProperty = {
   users: User[];
@@ -8,24 +9,15 @@ export type UserListProperty = {
 // Display function to show a list of all users
 const UserList = ({ users }: UserListProperty) => {
   const userList = users.map(user => {
-    return user.age > 1 ? (
-      <div className="user-list" key={user.id}>
-        <p>
-          <b>Name: {user.name}</b>
-          <br></br>
-          Age: {user.age}, Gender: {user.gender}
-        </p>
-        <button
-          // Anonymous function so it doesn't call the function, but only when clicked.
-          onClick={() => {
-            deleteUser(user.id);
-          }}
-        >
-          Delete
-        </button>
-        <hr></hr>
+    return (
+      <div
+        className="user-list-row flex-container flex-row flex-center-h flex-center-v flex-spaced-between"
+        key={user.id}
+      >
+        <p>{user.username}</p>
+        <p className={user.isOwner ? "room-owner" : "hide"}>OWNER</p>
       </div>
-    ) : null;
+    );
   });
 
   // Return our userList that has been mapped
@@ -33,3 +25,5 @@ const UserList = ({ users }: UserListProperty) => {
   // Make sure to put {} so it knows it is JSX, not plain html
   return <>{userList}</>;
 };
+
+export { UserList };
