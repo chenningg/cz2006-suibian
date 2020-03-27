@@ -2,16 +2,16 @@ import path from "path";
 import Room from "../models/Rooms";
 
 //* Create room doesn't create new entry, it is an UPDATE (room code is assigned)
-function createRoomQuery() {
+async function createRoomQuery() {
   let res_roomcode: string;
-  Room.findOne({
+  await Room.findOne({
     where: {
       roomstatus: "AVAIL"
     }
   })
-    .then((result: any) => {
+    .then(async (result: any) => {
       res_roomcode = result.dataValues.roomcode;
-      Room.update(
+      await Room.update(
         { roomstatus: "ACTIVE" },
         {
           where: {
