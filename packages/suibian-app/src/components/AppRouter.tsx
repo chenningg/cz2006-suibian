@@ -7,8 +7,8 @@ import SelectLocation from "./SelectLocation";
 import RoomLobby from "./RoomLobby";
 import InstructionPage from "./InstructionPage";
 import RoomPage from "./RoomPage";
-import VotePage from "./VotePage";
 import Recommendations from "./Recommendations";
+import VotePage from "./VotePage";
 import Eatery from "./Eatery";
 import WaitPage from "./WaitPage";
 
