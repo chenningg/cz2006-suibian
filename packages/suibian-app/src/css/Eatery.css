@@ -1,0 +1,52 @@
+.eatery .app-content {
+  /* Firefox */
+  height: -moz-calc(100vh - 60px);
+  /* WebKit */
+  height: -webkit-calc(100vh - 60px);
+  /* Opera */
+  height: -o-calc(100vh - 60px);
+  /* Standard */
+  height: calc(100vh - 60px);
+}
+
+.eatery .eateryname {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-block-start: 0.4em;
+  margin-block-end: 0.4em;
+}
+
+.eatery .map {
+  width: 350px;
+  height: 350px;
+}
+
+.eatery .map .location {
+  margin-bottom: 6px;
+}
+
+.eatery .gmaps-button {
+  margin-top: 15px;
+  background-color: #2faa52;
+  width: 250px;
+  height: 40px;
+  padding: 10px 30px;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  font-weight: 500;
+  z-index: 50;
+}
+
+.eatery .foodstall-name {
+  font-size: 23px;
+  font-weight: 500;
+  margin-block-start: 10px;
+}
+.eatery .address {
+  font-size: 14px;
+  font-weight: 400;
+  margin-block-start: 6px;
+}
