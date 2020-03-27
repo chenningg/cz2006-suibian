@@ -38,7 +38,7 @@
 }
 
 .create-room .create-room-form button {
-  margin-top: 12px;
+  margin-top: 14px;
   font-weight: 600;
   font-size: 1rem;
   width: 212px;
@@ -49,6 +49,6 @@
 .create-room .create-room-form button:hover {
   box-shadow: none;
   cursor: pointer;
-  margin-top: 16px;
+  margin-top: 18px;
   margin-bottom: -4px;
 }

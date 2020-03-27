@@ -3,9 +3,24 @@
   background-image: url(../images/background.jpg);
 }
 
-.home .main-menu {
+.home .description {
   margin-top: 10px;
-  height: 200px;
+}
+
+.home .description p {
+  font-weight: 600;
+  width: 300px;
+  height: 40px;
+  font-size: 1.3rem;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 5px 10px;
+  border-radius: 6px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.home .main-menu {
+  margin-top: 20px;
+  height: 120px;
 }
 
 .home .main-menu-button {
@@ -14,11 +29,11 @@
   box-shadow: 0px 4px #910909;
   background-color: #c92c2c;
   color: white;
-  width: 160px;
-  height: 40px;
-  padding: 10px 30px;
+  width: 180px;
+  height: 50px;
+  padding: 14px 30px;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 1rem;
   display: block;
 }
 
@@ -26,6 +41,7 @@
   box-shadow: none;
   margin-top: 4px;
   margin-bottom: -4px;
+  text-decoration: none;
 }
 
 .home .user-prefs {
@@ -34,7 +50,7 @@
   color: white;
   position: fixed;
   bottom: 0px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 600;
   width: 150px;
   height: 40px;

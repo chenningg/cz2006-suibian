@@ -67,7 +67,12 @@ br {
 }
 
 hr {
-  margin-top: 15px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+  width: 100%;
+  height: 1px;
+  border: 0;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .remove-text-decoration {
@@ -131,6 +136,14 @@ hr {
   justify-content: space-around;
 }
 
+.flex-start {
+  justify-content: start;
+}
+
+.flex-end {
+  justify-content: end;
+}
+
 /* ========= Buttons, input and forms =========*/
 button {
   border: none;
@@ -157,6 +170,8 @@ figure {
 .hide {
   display: none;
   visibility: hidden;
+  width: 0;
+  height: 0;
 }
 
 .center {
