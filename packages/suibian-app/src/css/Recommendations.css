@@ -1,0 +1,65 @@
+.recommendations .app-content {
+  /* Firefox */
+  height: -moz-calc(100vh - 60px);
+  /* WebKit */
+  height: -webkit-calc(100vh - 60px);
+  /* Opera */
+  height: -o-calc(100vh - 60px);
+  /* Standard */
+  height: calc(100vh - 60px);
+}
+
+.recommendations .recommendations-list {
+  height: 600px;
+}
+
+.recommendations .recommendations-list .recommendation {
+  width: 310px;
+  margin: 0 auto;
+}
+
+.recommendations .recommendations-list .recommendation .card {
+  width: 310px;
+  height: 150px;
+  box-shadow: 0px 2px 4px #cccaca;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  margin-top: -32px;
+}
+
+.recommendations .recommendations-list .recommendation .card .card-body {
+  font-weight: 400;
+  margin-left: 1.2em;
+}
+
+.recommendations .recommendations-list .recommendation .card .card-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.recommendations .recommendations-list .recommendation .card .card-text {
+  margin-top: -15px;
+  margin-left: -15px;
+  font-size: 1rem;
+}
+
+.button {
+  background-color: white;
+  width: 310px;
+  height: 150px;
+  padding: 0;
+  text-align: unset;
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.recommendations
+  .recommendations-list
+  .recommendation
+  .card
+  .card-text
+  .numlikes {
+  margin-top: -15px;
+  margin-left: 20px;
+  font-size: 0.8rem;
+  color: #707070;
+}
