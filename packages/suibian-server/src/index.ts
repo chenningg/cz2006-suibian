@@ -1,10 +1,9 @@
 import * as dotenv from "dotenv-extended";
 import express from "express";
-import router from "./queries";
+import router from "./routes";
 import path from "path";
 import sockets from "./sockets";
 import { db } from "./config/sequelize";
-import bodyParser from "body-parser";
 const app = express();
 
 //defining ports
@@ -17,17 +16,10 @@ app.use(router);
 
 const httpServer = sockets.startSocketServer(app);
 httpServer.listen(PORT, () => {
-  console.log(`Server is listening to port ${PORT}`);
+    console.log(`Server is listening to port ${PORT}`);
 });
 
 // Test DB
 db.authenticate()
-  .then(() => console.log("Database connected ..."))
-  .catch((err: any) => console.log("Error: " + err));
-
-// Body Parser
-app.use(bodyParser.urlencoded({ extended: false }));
-
-// app.listen(PORT, () => {
-//   console.log(`(App Listen )Server is listening to port ${PORT}`);
-// });
+    .then(() => console.log("Database connected ..."))
+    .catch((err: any) => console.log("Error: " + err));
