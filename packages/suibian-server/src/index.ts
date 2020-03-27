@@ -20,10 +20,10 @@ httpServer.listen(PORT, () => {
 });
 
 // Test DB
-db.authenticate()
-  .then(() => console.log("Database connected ..."))
-  .catch(err => console.log("Error: " + err));
+// db.authenticate()
+//   .then(() => console.log("Database connected ..."))
+//   .catch(err => console.log("Error: " + err));
 
-app.listen(PORT, () => {
-  console.log(`(App Listen )Server is listening to port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`(App Listen )Server is listening to port ${PORT}`);
+// });
