@@ -1,7 +1,7 @@
 import { db } from "../config/sequelize";
 import { DataTypes } from "sequelize";
 
-//Room food that store sells schema
+//schema for food that stall sells
 export const FoodStallSell = db.define("FoodStallSell", {
   FoodId: {
     type: DataTypes.INTEGER,
