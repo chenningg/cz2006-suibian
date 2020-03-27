@@ -1,15 +1,26 @@
 import { Sequelize } from "sequelize";
+import * as dotenv from "dotenv-extended";
 
 //! placeholder db password info
 // connection to db - create models etc.
-export const db = new Sequelize("suibian", "postgres", "123456", {
-  host: "localhost",
-  dialect: "postgres",
+const databaseName = process.env.DATABASENAME || "suibian";
+const databaseUsername = process.env.DATABASEUSERNAME || "";
+const databasePassword = process.env.DATABASEPASSWORD || "";
+const DATABASEURL = process.env.DATABASEURL;
 
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
-});
+export const db = new Sequelize(
+    databaseName,
+    databaseUsername,
+    databasePassword,
+    {
+        host: DATABASEURL,
+        dialect: "postgres",
+
+        pool: {
+            max: 5,
+            min: 0,
+            acquire: 30000,
+            idle: 10000
+        }
+    }
+);
