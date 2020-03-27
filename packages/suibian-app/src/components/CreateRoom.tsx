@@ -3,6 +3,7 @@ import NavBar from "./NavBar";
 import "../css/CreateRoom.css";
 import socketIOClient from "socket.io-client";
 import { socketCommands } from "@suibian/commons";
+import { Link } from "react-router-dom";
 
 export type socketState = {
   endpoint: string;
@@ -98,7 +99,12 @@ class CreateRoom extends Component<{}, socketState> {
                 required
               />
               <br></br>
-              <button>CREATE ROOM</button>
+              <Link
+                to="/roomlobby"
+                className="main-menu-button remove-text-decoration center"
+              >
+                <button>CREATE ROOM</button>
+              </Link>
             </form>
           </div>
         </div>

@@ -3,20 +3,17 @@ import NavBar from "./NavBar";
 import "../css/InstructionPage.css";
 import socketIOClient from "socket.io-client";
 import { socketCommands } from "@suibian/commons";
-import { Favorite, Close, Timer as Clock } from "@material-ui/icons";
+import { Favorite, Block, Timer as Clock } from "@material-ui/icons";
 import Timer from "react-compound-timer";
-import { red } from "@material-ui/core/colors";
+import { Redirect } from "react-router-dom";
 
 export type socketState = {
   endpoint: string;
   socket: suibianSocket | null;
   username: string;
   roomCode: number;
+  redirect: boolean;
 };
-
-interface suibianSocket extends SocketIOClient.Socket {
-  emit(event: socketCommands, data: any): SocketIOClient.Socket;
-}
 
 const styles = {
   largeIcon: {
@@ -29,6 +26,10 @@ const styles = {
   }
 };
 
+interface suibianSocket extends SocketIOClient.Socket {
+  emit(event: socketCommands, data: any): SocketIOClient.Socket;
+}
+
 class InstructionPage extends Component<{}, socketState> {
   constructor(props: {}) {
     super(props);
@@ -36,14 +37,10 @@ class InstructionPage extends Component<{}, socketState> {
       endpoint: "http://localhost:4000/",
       socket: null,
       username: "",
-      roomCode: 0
+      roomCode: 0,
+      redirect: false
     };
   }
-
-  // onChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   // @ts-ignore */
-  //   this.setState({ [e.target.id]: e.target.value });
-  // };
 
   connectSocket = async () => {
     if (this.state.socket) {
@@ -68,42 +65,27 @@ class InstructionPage extends Component<{}, socketState> {
     }
   };
 
-  // changeUsername = () => {
-  //   if (this.state.socket) {
-  //     this.state.socket.emit("changeUsername", {
-  //       userName: this.state.username,
-  //       message: this.state.username
-  //     });
-  //   }
-  // };
-
-  // createRoom = (e: FormEvent) => {
-  //   e.preventDefault();
-  //   if (this.state.socket) {
-  //     this.changeUsername();
-  //     this.state.socket.emit("createRoom", {
-  //       username: this.state.username,
-  //       roomCode: this.state.roomCode
-  //     });
-  //   }
-  // };
-
   componentDidMount() {
     this.connectSocket().then(() => this.registerSocketListeners());
+    setTimeout(() => {
+      this.setState({
+        redirect: true
+      });
+    }, 10000);
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={"/votepage"} />;
+    }
+
     return (
       <>
         <NavBar />
         <div className="instruction-page">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             <h1 className="title">Before we begin...</h1>
-            <br />
-            <form
-              className="create-room-form"
-              // onSubmit={e => this.createRoom(e)}
-            >
+            <form className="create-room-form">
               <div className="vote-button-container">
                 <div className="vote-button">
                   <p>
@@ -117,7 +99,7 @@ class InstructionPage extends Component<{}, socketState> {
                 <div></div>
                 <div className="vote-button">
                   <p>
-                    <Close className="dislike" style={styles.largeIcon} />
+                    <Block className="dislike" style={styles.largeIcon} />
                   </p>
                   <p>Ewww no!</p>
                   <p>
@@ -126,7 +108,6 @@ class InstructionPage extends Component<{}, socketState> {
                 </div>
               </div>
             </form>
-            <br />
             <br />
             <Clock style={styles.mediumIcon} />
             <Timer initialTime={10000} direction="backward">
