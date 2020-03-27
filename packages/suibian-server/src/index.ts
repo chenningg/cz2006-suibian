@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv-extended";
 import express from "express";
-import router from "./routes";
+import router from "./queries";
 import path from "path";
 import sockets from "./sockets";
 import { db } from "./config/sequelize";

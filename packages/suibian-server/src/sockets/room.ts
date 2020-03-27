@@ -1,6 +1,6 @@
 import socketio from "socket.io";
 import shortid from "shortid";
-import Room from "../models/Rooms";
+import createRoomQuery from "../queries/rooms";
 import {
   httpStatus,
   joinRoomPayload,
@@ -48,7 +48,8 @@ export const sendError = (
 };
 
 export const createRoom = (socket: suibianSocket) => {
-  const roomcode = shortid.generate();
+  const roomcode = createRoomQuery();
+  //@ts-ignore
   socket.join(roomcode, () => {
     socket.emit("createRoom", Object.keys(socket.rooms));
   });
