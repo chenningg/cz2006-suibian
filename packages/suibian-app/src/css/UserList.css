@@ -1,0 +1,19 @@
+.user-list-row {
+  width: 300px;
+  height: 35px;
+  padding: 5px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.user-list-row p {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: -2px;
+}
+
+.user-list-row .room-owner {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #c92c2c;
+}

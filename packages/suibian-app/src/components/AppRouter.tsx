@@ -5,6 +5,7 @@ import JoinRoom from "./JoinRoom";
 import UserPreferences from "./UserPreferences";
 import SelectLocation from "./SelectLocation";
 import RoomLobby from "./RoomLobby";
+import InstructionPage from "./InstructionPage";
 import RoomPage from "./RoomPage";
 import Recommendations from "./Recommendations";
 import Eatery from "./Eatery";
@@ -24,6 +25,7 @@ function AppRouter() {
         <Route path="/userpreferences" component={UserPreferences}></Route>
         <Route path="/selectlocation" component={SelectLocation}></Route>
         <Route path="/roomlobby" component={RoomLobby}></Route>
+        <Route path="/instructionpage" component={InstructionPage}></Route>
         <Route path="/roompage" component={RoomPage}></Route>
         <Route path="/recommendations" component={Recommendations}></Route>
         <Route path="/eatery" component={Eatery}></Route>
