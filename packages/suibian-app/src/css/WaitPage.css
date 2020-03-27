@@ -1,0 +1,12 @@
+.wait-page .app-content {
+  /* Firefox */
+  height: -moz-calc(100vh);
+  /* WebKit */
+  height: -webkit-calc(100vh);
+  /* Opera */
+  height: -o-calc(100vh);
+  /* Standard */
+  height: calc(100vh);
+
+  background-color: #c92c2c;
+}

@@ -10,6 +10,7 @@ import RoomPage from "./RoomPage";
 import VotePage from "./VotePage";
 import Recommendations from "./Recommendations";
 import Eatery from "./Eatery";
+import WaitPage from "./WaitPage";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -31,6 +32,7 @@ function AppRouter() {
         <Route path="/votepage" component={VotePage}></Route>
         <Route path="/recommendations" component={Recommendations}></Route>
         <Route path="/eatery" component={Eatery}></Route>
+        <Route path="/waitpage" component={WaitPage}></Route>
       </Switch>
     </Router>
   );
