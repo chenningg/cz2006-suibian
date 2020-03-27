@@ -1,8 +1,8 @@
 interface User {
-  userID: string;
+  id: string;
   username: string;
   isOwner: boolean;
-  preferences: Preference[];
+  preferences?: Preference[];
 }
 
 export default User;
