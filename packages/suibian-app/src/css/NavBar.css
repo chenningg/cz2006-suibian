@@ -9,8 +9,8 @@
   flex-grow: 1;
 }
 
-.navbar .navbar-logo-container a {
-  margin-right: 60px;
+.navbar .navbar-logo-container img {
+  margin-right: 50px;
 }
 
 .navbar .navbar-logo {
