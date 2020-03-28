@@ -1,6 +1,5 @@
 //app components
 import React, { Component, ChangeEvent } from "react";
-import NavBar from "./NavBar";
 
 //socket
 import socketIOClient from "socket.io-client";
@@ -113,7 +112,7 @@ class VotePage extends Component<{}, socketState> {
     this.state.votes.push(vote);
 
     this.setState({ index: this.state.index + 1 });
-    if (this.state.index == this.foods.length - 1) {
+    if (this.state.index === this.foods.length - 1) {
       this.setState({
         redirect: true
       });
