@@ -26,23 +26,6 @@ export const broadcastRoom = (
     socketio.in(roomcode).emit("broadcastMessage", message);
 };
 
-export const sendError = (
-    socket: suibianSocket,
-    statusCode: number,
-    errorMessage: string
-) => {
-    socket.emit(
-        "socketError",
-        {
-            statusCode,
-            errorMessage
-        },
-        err => {
-            console.log(`error message is ${err}`);
-        }
-    );
-};
-
 export const createRoom = async (socket: suibianSocket) => {
     const roomcode = await createRoomQuery();
 

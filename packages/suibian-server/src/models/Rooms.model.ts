@@ -4,8 +4,12 @@ import {
     CreatedAt,
     UpdatedAt,
     Model,
-    PrimaryKey
+    PrimaryKey,
+    BelongsToMany,
+    HasMany
 } from "sequelize-typescript";
+
+import User from "./user.model";
 
 @Table({
     tableName: "rooms",
@@ -25,6 +29,9 @@ class Rooms extends Model<Rooms> {
 
     @Column
     roomcreationtime!: string;
+
+    @HasMany(() => User)
+    users!: User[];
 }
 
 export default Rooms;
