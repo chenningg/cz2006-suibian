@@ -1,30 +1,30 @@
 import {
-    Table,
-    Column,
-    CreatedAt,
-    UpdatedAt,
-    Model
+  Table,
+  Column,
+  CreatedAt,
+  UpdatedAt,
+  Model
 } from "sequelize-typescript";
 
 @Table
 export class Room extends Model<Room> {
-    @Column
-    roomcode!: string;
+  @Column
+  roomcode!: string;
 
-    @Column
-    roomstatus!: string;
+  @Column
+  roomstatus!: string;
 
-    @Column
-    numberparticipants!: number;
+  @Column
+  numberparticipants!: number;
 
-    @Column
-    roomcreationtime!: string;
+  @Column
+  roomcreationtime!: string;
 
-    @CreatedAt
-    @Column
-    createdAt!: Date;
+  @CreatedAt
+  @Column
+  createdAt!: Date;
 
-    @UpdatedAt
-    @Column
-    updatedAt!: Date;
+  @UpdatedAt
+  @Column
+  updatedAt!: Date;
 }
