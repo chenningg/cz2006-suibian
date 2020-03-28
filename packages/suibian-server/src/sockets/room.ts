@@ -1,19 +1,27 @@
 import socketio from "socket.io";
-import createRoomQuery from "../queries/rooms";
+import { createRoomQuery, joinRoomQuery } from "../queries/room";
 import {
     httpStatus,
     joinRoomPayload,
     roomMessagePayload,
     suibianSocket
 } from "@suibian/commons";
+import { sendError } from "./messaging";
+import { listSocketsRoom } from "./utils";
+import sockets from ".";
 
-export const joinRoom = (
+export const joinRoom = async (
     socket: suibianSocket,
     socketio: socketio.Server,
     data: joinRoomPayload
 ) => {
-    //TODO: Add in writing to database for persistent storage
-    socket.join(data.roomcode, () => socket.emit("joinRoom", socket.rooms));
+    const { username, roomcode } = data;
+    await joinRoomQuery(username, roomcode);
+
+    //obtain a list of users in the room
+    socket.join(data.roomcode, () =>
+        socket.emit("joinRoom", listSocketsRoom(socketio, roomcode))
+    );
 };
 
 export const broadcastRoom = (
@@ -25,30 +33,16 @@ export const broadcastRoom = (
     socketio.in(roomcode).emit("broadcastMessage", message);
 };
 
-export const sendError = (
-    socket: suibianSocket,
-    statusCode: number,
-    errorMessage: string
-) => {
-    socket.emit(
-        "socketError",
-        {
-            statusCode,
-            errorMessage
-        },
-        err => {
-            console.log(`error message is ${err}`);
-        }
-    );
-};
-
-export const createRoom = async (socket: suibianSocket) => {
+export const createRoom = async (
+    socket: suibianSocket
+): Promise<string | void> => {
     const roomcode = await createRoomQuery();
 
     if (roomcode) {
         socket.join(roomcode, () => {
             socket.emit("createRoom", roomcode);
         });
+        return roomcode;
     } else {
         sendError(
             socket,
@@ -100,4 +94,8 @@ export const closeRoom = (
         });
         console.log(`socket rooms ${socketio.sockets.adapter.rooms[roomcode]}`);
     });
+};
+
+export const startRoom = (io: socketio.Server, roomcode: string) => {
+    //TODO Add in entries in the database & change room status
 };
