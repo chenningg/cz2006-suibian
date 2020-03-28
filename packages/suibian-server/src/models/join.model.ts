@@ -20,7 +20,7 @@ type votingStatus = "waiting" | "voting" | "completed";
 class Join extends Model<Join> {
     @ForeignKey(() => User)
     @Column
-    username!: string;
+    userId!: string;
 
     @ForeignKey(() => Rooms)
     @Column
