@@ -10,6 +10,8 @@ import {
 import Rooms from "./rooms.model";
 import User from "./user.model";
 
+type votingStatus = "waiting" | "voting" | "completed";
+
 @Table({
     tableName: "join",
     createdAt: false,
@@ -18,14 +20,14 @@ import User from "./user.model";
 class Join extends Model<Join> {
     @ForeignKey(() => User)
     @Column
-    user!: number;
+    username!: string;
 
     @ForeignKey(() => Rooms)
     @Column
     roomcode!: string;
 
     @Column
-    votingStatus!: string;
+    votingStatus!: votingStatus;
 }
 
 export default Join;
