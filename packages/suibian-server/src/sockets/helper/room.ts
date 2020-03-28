@@ -4,14 +4,11 @@ import {
     joinRoomQuery,
     updateRoomNumbersQuery
 } from "../../queries/room";
-import {
-    httpStatus,
-    joinRoomPayload,
-    roomMessagePayload,
-    suibianSocket
-} from "@suibian/commons";
-import { sendError } from "./messaging";
+import { httpStatus, joinRoomPayload, suibianSocket } from "@suibian/commons";
+import { sendError, broadcastRoom } from "./messaging";
 import { listSocketsRoom } from "./utils";
+
+const socketUserMapping = new Map();
 
 export const joinRoom = async (
     socket: suibianSocket,
@@ -21,9 +18,26 @@ export const joinRoom = async (
     const { username, roomcode } = data;
     await joinRoomQuery(username, roomcode);
     await updateRoomNumbersQuery(roomcode, 1); // increment the number of people in the room
-    await socket.join(data.roomcode, () =>
-        socket.emit("joinRoom", listSocketsRoom(socketio, roomcode))
-    );
+
+    socketUserMapping.set(socket.id, username);
+
+    //list all sockets
+    socket.join(data.roomcode, async () => {
+        const socketList = listSocketsRoom(
+            socketio,
+            roomcode,
+            socketUserMapping
+        );
+        console.log(`the socket list is ${socketList}`);
+        await broadcastRoom(
+            socketio,
+            {
+                roomcode,
+                payload: socketList
+            },
+            "joinRoom" //broadcast using joinRoom socket command
+        );
+    });
 };
 
 export const createRoom = async (

@@ -30,10 +30,6 @@ export default {
                 closeRoom(io, socket, roomcode);
             });
 
-            socket.on("broadcastMessage", (data: roomMessagePayload) => {
-                broadcastRoom(io, data);
-            });
-
             socket.on("createRoom", async (data: { username: string }) => {
                 //first user creates a room and also joins the room
                 const { username } = data;
