@@ -1,13 +1,15 @@
+//app components
 import React from "react";
-import User from "../types/User";
+
+//css
 import "../css/UserList.css";
 
-export type UserListProperty = {
+export type UserListProps = {
   users: User[];
 };
 
 // Display function to show a list of all users
-const UserList = ({ users }: UserListProperty) => {
+const UserList = ({ users }: UserListProps) => {
   const userList = users.map(user => {
     return (
       <div

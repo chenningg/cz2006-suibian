@@ -1,7 +1,12 @@
+//app components
 import React, { Component } from "react";
-import "../css/Home.css";
-import suibian_home_logo from "../images/suibian_full_logo.png";
+
+//other compoents
 import { Link } from "react-router-dom";
+
+//css
+import suibian_home_logo from "../images/suibian_full_logo.png";
+import "../css/Home.css";
 
 class Home extends Component {
   // State
@@ -63,6 +68,7 @@ class Home extends Component {
 
   timerRef;
 
+  //methods
   generateRandomIndex = () => {
     return Math.ceil(Math.random() * this.foodDescription.length) - 1;
   };

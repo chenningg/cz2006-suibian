@@ -1,19 +1,14 @@
-import React, { Component, FormEvent, ChangeEvent } from "react";
+//app components
+import React, { Component } from "react";
 import NavBar from "./NavBar";
-import "../css/InstructionPage.css";
-import socketIOClient from "socket.io-client";
-import { socketCommands } from "@suibian/commons";
+
+//other components
 import { Favorite, Block, Timer as Clock } from "@material-ui/icons";
 import Timer from "react-compound-timer";
 import { Redirect } from "react-router-dom";
 
-export type socketState = {
-  endpoint: string;
-  socket: suibianSocket | null;
-  username: string;
-  roomCode: number;
-  redirect: boolean;
-};
+//css
+import "../css/InstructionPage.css";
 
 const styles = {
   largeIcon: {
@@ -26,47 +21,14 @@ const styles = {
   }
 };
 
-interface suibianSocket extends SocketIOClient.Socket {
-  emit(event: socketCommands, data: any): SocketIOClient.Socket;
-}
-
-class InstructionPage extends Component<{}, socketState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      endpoint: "http://localhost:4000/",
-      socket: null,
-      username: "",
-      roomCode: 0,
-      redirect: false
-    };
-  }
-
-  connectSocket = async () => {
-    if (this.state.socket) {
-      console.log("socket is already conencted");
-      return;
-    }
-
-    // initializing the connection
-    const { endpoint } = this.state;
-    const socket = await socketIOClient(endpoint);
-    console.log("socket created");
-    this.setState({ socket });
+class InstructionPage extends Component {
+  //state
+  state = {
+    redirect: false
   };
 
-  registerSocketListeners = () => {
-    console.log(this.state.socket);
-    if (this.state.socket) {
-      console.log("registering socket listeners");
-      this.state.socket.on("instructionPage", (data: any) => {
-        console.log(data);
-      });
-    }
-  };
-
+  //methods
   componentDidMount() {
-    this.connectSocket().then(() => this.registerSocketListeners());
     setTimeout(() => {
       this.setState({
         redirect: true
@@ -84,33 +46,33 @@ class InstructionPage extends Component<{}, socketState> {
         <NavBar />
         <div className="instruction-page">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
-            <h1 className="title">Before we begin...</h1>
-            <form className="create-room-form">
-              <div className="vote-button-container">
-                <div className="vote-button">
-                  <p>
-                    <Favorite className="like" style={styles.largeIcon} />
-                  </p>
-                  <p>Sedaaaap!</p>
-                  <p>
-                    Everyone needs to try this <b>NOW</b>
-                  </p>
-                </div>
-                <div></div>
-                <div className="vote-button">
-                  <p>
-                    <Block className="dislike" style={styles.largeIcon} />
-                  </p>
-                  <p>Ewww no!</p>
-                  <p>
-                    No one should <b>EVER</b> eat this
-                  </p>
-                </div>
+            <h1>Before we begin...</h1>
+
+            <div className="vote-button-container">
+              <div className="vote-button">
+                <p>
+                  <Favorite className="like" style={styles.largeIcon} />
+                </p>
+                <p>Sedaaaap!</p>
+                <p>
+                  Everyone needs to try this <b>NOW</b>
+                </p>
               </div>
-            </form>
+              <div></div>
+              <div className="vote-button">
+                <p>
+                  <Block className="dislike" style={styles.largeIcon} />
+                </p>
+                <p>Ewww no!</p>
+                <p>
+                  No one should <b>EVER</b> eat this
+                </p>
+              </div>
+            </div>
+
             <br />
             <Clock style={styles.mediumIcon} />
-            <Timer initialTime={10000} direction="backward">
+            <Timer initialTime={7500} direction="backward">
               {() => (
                 <h1>
                   <Timer.Seconds />

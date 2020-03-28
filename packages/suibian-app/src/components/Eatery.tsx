@@ -1,7 +1,12 @@
+//app components
 import React, { Component } from "react";
 import NavBar from "./NavBar";
-import "../css/Eatery.css";
+
+//other components
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
+
+//css
+import "../css/Eatery.css";
 
 const mapStyles = {
   width: 350,
@@ -19,6 +24,12 @@ class Eatery extends Component<{ google: string }> {
     activeMarker: {}, //Shows the active marker upon click
     selectedPlace: this.placename //Shows the infoWindow to the selected place upon a marker
   };
+
+  //variables
+  eateryname = "Albert Food Centre";
+  foodstall = "Hock Lee Fishball Noodle";
+
+  //methods
   onMarkerClick = (props, marker, e) =>
     this.setState({
       selectedPlace: props,
@@ -34,14 +45,11 @@ class Eatery extends Component<{ google: string }> {
       });
     }
   };
-    
-  eateryname = "Albert Food Centre";
-  foodstall = "Hock Lee Fishball Noodle";
 
   render() {
     return (
       <>
-        <NavBar />
+        <NavBar backPage="recommendations" />
         <div className="eatery">
           <div className="app-content flex-container flex-col  flex-center-v">
             <h2 className="eateryname">{this.eateryname}</h2>
@@ -74,7 +82,6 @@ class Eatery extends Component<{ google: string }> {
                 this.state.zoom +
                 "z"
               }
-
               className="gmaps-button"
             >
               View in Maps
@@ -84,6 +91,7 @@ class Eatery extends Component<{ google: string }> {
             <img
               className="foodstall"
               src="https://picsum.photos/id/1062/350/200"
+              alt={this.foodstall}
             ></img>
             <text className="address">
               #01-94 Albert Centre Market &amp; Food Centre
@@ -98,5 +106,3 @@ class Eatery extends Component<{ google: string }> {
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDEaux00JCnvfiaqExfJHY5cu-oe8fSOxA"
 })(Eatery);
-
-

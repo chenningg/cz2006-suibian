@@ -1,17 +1,12 @@
+//app components
 import React, { Component } from "react";
-import "../css/WaitPage.css";
-import socketIOClient from "socket.io-client";
-import { socketCommands } from "@suibian/commons";
+
+//other components
 import { HourglassEmpty } from "@material-ui/icons";
 import { Redirect } from "react-router-dom";
 
-export type socketState = {
-  endpoint: string;
-  socket: suibianSocket | null;
-  username: string;
-  roomCode: number;
-  redirect: boolean;
-};
+//css
+import "../css/WaitPage.css";
 
 const styles = {
   hugeIcon: {
@@ -20,47 +15,14 @@ const styles = {
   }
 };
 
-interface suibianSocket extends SocketIOClient.Socket {
-  emit(event: socketCommands, data: any): SocketIOClient.Socket;
-}
-
-class WaitPage extends Component<{}, socketState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      endpoint: "http://localhost:4000/",
-      socket: null,
-      username: "",
-      roomCode: 0,
-      redirect: false
-    };
-  }
-
-  connectSocket = async () => {
-    if (this.state.socket) {
-      console.log("socket is already conencted");
-      return;
-    }
-
-    // initializing the connection
-    const { endpoint } = this.state;
-    const socket = await socketIOClient(endpoint);
-    console.log("socket created");
-    this.setState({ socket });
+class WaitPage extends Component {
+  //state
+  state = {
+    redirect: false
   };
 
-  registerSocketListeners = () => {
-    console.log(this.state.socket);
-    if (this.state.socket) {
-      console.log("registering socket listeners");
-      this.state.socket.on("waitPage", (data: any) => {
-        console.log(data);
-      });
-    }
-  };
-
+  //methods
   componentDidMount() {
-    this.connectSocket().then(() => this.registerSocketListeners());
     setTimeout(() => {
       this.setState({
         redirect: true

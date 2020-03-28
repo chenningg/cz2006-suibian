@@ -1,8 +1,13 @@
+//app components
 import React, { Component } from "react";
 import NavBar from "./NavBar";
-import "../css/Recommendations.css";
+
+//other components
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
+
+//css
+import "../css/Recommendations.css";
 
 class Recomendations extends Component {
   //State?
@@ -20,7 +25,6 @@ class Recomendations extends Component {
       className="recommendation flex-container flex row flex-spaced-between"
       key={recommendation.header}
     >
-      {/* <p className="recommendation-header">{recommendation.header}</p> */}
       <button className="button">
         <Link
           to="/eatery"
@@ -50,6 +54,7 @@ class Recomendations extends Component {
     </div>
   ));
 
+  //methods
   render() {
     return (
       <>
