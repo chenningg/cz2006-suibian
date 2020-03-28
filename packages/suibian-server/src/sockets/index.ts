@@ -1,12 +1,7 @@
 import express from "express";
 import socketio from "socket.io";
-import {
-    joinRoom,
-    broadcastRoom,
-    createRoom,
-    getRoomInfo,
-    closeRoom
-} from "./room";
+import { joinRoom, createRoom, closeRoom, startRoom } from "./helper/room";
+import { broadcastRoom } from "./helper/messaging";
 import {
     suibianSocket,
     joinRoomPayload,
@@ -39,13 +34,18 @@ export default {
                 broadcastRoom(io, data);
             });
 
-            socket.on("createRoom", (data: { username: string }) => {
-                createRoom(socket);
-                console.log(io.sockets.adapter.rooms);
+            socket.on("createRoom", async (data: { username: string }) => {
+                //first user creates a room and also joins the room
+                const { username } = data;
+                const roomcode = await createRoom(socket);
+                if (roomcode) {
+                    joinRoom(socket, io, { username, roomcode });
+                }
             });
 
-            socket.on("startRoom", (data: roomMessagePayload) => {
-                // startRoom();
+            socket.on("startRoom", (data: { roomcode: string }) => {
+                const { roomcode } = data;
+                startRoom(io, roomcode);
             });
 
             socket.on("getRoomInfo", (data: { roomcode: string }) => {

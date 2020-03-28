@@ -4,7 +4,8 @@ import React from "react";
 //css
 import "../css/UserList.css";
 
-export type UserListProps = {
+
+type UserListProps = {
   users: User[];
 };
 
@@ -28,4 +29,4 @@ const UserList = ({ users }: UserListProps) => {
   return <>{userList}</>;
 };
 
-export { UserList };
+export default UserList;
