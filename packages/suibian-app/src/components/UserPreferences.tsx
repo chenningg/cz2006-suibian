@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 //other components
 import ModalDialog from "./ModalDialog";
 import { connect } from "react-redux";
+import ReduxState from "../types/ReduxState";
 
 //css
 import "../css/UserPreferences.css";
