@@ -1,0 +1,1 @@
+type roomStatus = "open" | "locked";

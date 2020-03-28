@@ -54,6 +54,7 @@ class Recomendations extends Component {
     </div>
   ));
 
+  //methods
   render() {
     return (
       <>
