@@ -4,13 +4,13 @@ import React from "react";
 //css
 import "../css/UserList.css";
 
-export type UserListProperty = {
+type UserListProperty = {
   users: User[];
 };
 
 // Display function to show a list of all users
-const UserList = ({ users }: UserListProperty) => {
-  const userList = users.map(user => {
+const UserList = (props: UserListProperty) => {
+  const userList = props.users.map(user => {
     return (
       <div
         className="user-list-row flex-container flex-row flex-center-h flex-center-v flex-spaced-between"
@@ -28,4 +28,4 @@ const UserList = ({ users }: UserListProperty) => {
   return <>{userList}</>;
 };
 
-export { UserList };
+export default UserList;
