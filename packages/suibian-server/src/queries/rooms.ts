@@ -1,5 +1,5 @@
 import path from "path";
-import Room from "../models/Rooms";
+import { Room } from "../models/Rooms.model";
 
 async function createRoomQuery(): Promise<string> {
     let res_roomcode: string;
@@ -9,7 +9,7 @@ async function createRoomQuery(): Promise<string> {
         }
     });
     res_roomcode = result.dataValues.roomcode;
-    await Room.update(
+    const number = await Room.update(
         { roomstatus: "ACTIVE" },
         {
             where: {
@@ -17,6 +17,7 @@ async function createRoomQuery(): Promise<string> {
             }
         }
     );
+    console.log(`Number of affected rows ${number}`);
     return res_roomcode;
 }
 
