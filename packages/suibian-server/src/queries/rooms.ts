@@ -10,11 +10,9 @@ async function createRoom(): Promise<string | void> {
                 roomstatus: "AVAIL"
             }
         });
-        console.log(result);
 
         if (result) {
             res_roomcode = result.getDataValue("roomcode");
-            console.log(`room code is ${res_roomcode}`);
             const number = await Rooms.update(
                 { roomstatus: "ACTIVE" },
                 {
@@ -23,7 +21,6 @@ async function createRoom(): Promise<string | void> {
                     }
                 }
             );
-            console.log(`Number of affected rows ${number}`);
             return res_roomcode;
         }
     } catch (err) {

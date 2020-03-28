@@ -3,7 +3,6 @@ import * as dotenv from "dotenv-extended";
 import path from "path";
 
 dotenv.load({
-    silent: false,
     includeProcessEnv: true,
     path: path.resolve(__dirname, "../.env")
 });

@@ -19,7 +19,7 @@ httpServer.listen(PORT, () => {
     console.log(`Server is listening to port ${PORT}`);
 });
 
-// Test DB
+// Instantiate db connection
 db.authenticate()
     .then(() => console.log("Database connected ..."))
     .catch((err: any) => console.log("Error: " + err));
