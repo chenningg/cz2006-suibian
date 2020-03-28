@@ -33,7 +33,7 @@ class RoomLobby extends Component {
   render() {
     return (
       <>
-        <NavBar />
+        <NavBar backPage="createroom" />
         <div className="room-lobby">
           <div className="app-content flex-container flex-col flex-center-v flex-center-h flex-start">
             <h1 className="title">Room #{this.state.roomID}</h1>
