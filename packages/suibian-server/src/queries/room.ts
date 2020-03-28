@@ -1,6 +1,7 @@
 import path from "path";
 import Rooms from "../models/rooms.model";
 import Join from "../models/join.model";
+import Vote from "../models/vote.model";
 import shortid from "shortid";
 import { sendError } from "../sockets/helper/messaging";
 shortid.characters(
@@ -75,11 +76,14 @@ export const closeRoomQuery = async (roomcode: string) => {
         roomcode: roomcode
       }
     });
+    await Vote.destroy({
+      where: {
+        roomcode: roomcode
+      }
+    });
   } catch (err) {
     console.log(err);
   }
 };
-
-//TODO: delete entries from vote table upon room closure
 
 export const getRoomDetailsQuery = async (roomcode: string) => {};

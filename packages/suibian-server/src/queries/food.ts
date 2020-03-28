@@ -7,7 +7,8 @@ export const foodImageQuery = async (
     // returns Array<Food> in JSON
     const foodArray = await Food.findAll({
       order: "random()",
-      limit: queryLimit
+      limit: queryLimit,
+      raw: true // return without metadata
     });
 
     return JSON.stringify(foodArray);
