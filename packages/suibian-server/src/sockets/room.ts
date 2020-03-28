@@ -42,12 +42,20 @@ export const sendError = (
     );
 };
 
-export const createRoom = (socket: suibianSocket) => {
-    const roomcode = createRoomQuery();
-    //@ts-ignore
-    socket.join(roomcode, () => {
-        socket.emit("createRoom", Object.keys(socket.rooms));
-    });
+export const createRoom = async (socket: suibianSocket) => {
+    const roomcode = await createRoomQuery();
+
+    if (roomcode) {
+        socket.join(roomcode, () => {
+            socket.emit("createRoom", roomcode);
+        });
+    } else {
+        sendError(
+            socket,
+            httpStatus.badRequest,
+            "No more spare roomes left to join"
+        );
+    }
 };
 
 export const getRoomInfo = (
