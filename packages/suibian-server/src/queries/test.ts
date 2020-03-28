@@ -13,11 +13,12 @@ const testCreateRoom = async () => {
     return roomcode;
 };
 
-intializeDB().then(testCreateRoom);
-// .then(roomcode => {
-//     if (roomcode) {
-//         joinRoomQuery("alvin", roomcode);
-//     } else {
-//         console.log("no room code returned");
-//     }
-// });
+intializeDB()
+    .then(testCreateRoom)
+    .then(roomcode => {
+        if (roomcode) {
+            joinRoomQuery("alvin", roomcode);
+        } else {
+            console.log("no room code returned");
+        }
+    });

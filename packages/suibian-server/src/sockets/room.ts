@@ -8,7 +8,6 @@ import {
 } from "@suibian/commons";
 import { sendError } from "./messaging";
 import { listSocketsRoom } from "./utils";
-import sockets from ".";
 
 export const joinRoom = async (
     socket: suibianSocket,
