@@ -1,9 +1,16 @@
+//app components
 import React, { Component, FormEvent, ChangeEvent } from "react";
 import NavBar from "./NavBar";
-import "../css/CreateRoom.css";
+
+//socket
 import socketIOClient from "socket.io-client";
 import { socketCommands } from "@suibian/commons";
+
+//other components
 import { Link } from "react-router-dom";
+
+//css
+import "../css/CreateRoom.css";
 
 export type socketState = {
   endpoint: string;

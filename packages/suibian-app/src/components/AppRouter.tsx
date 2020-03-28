@@ -1,3 +1,4 @@
+//app components
 import React from "react";
 import Home from "./Home";
 import CreateRoom from "./CreateRoom";
@@ -6,14 +7,15 @@ import UserPreferences from "./UserPreferences";
 import SelectLocation from "./SelectLocation";
 import RoomLobby from "./RoomLobby";
 import InstructionPage from "./InstructionPage";
-import RoomPage from "./RoomPage";
-import Recommendations from "./Recommendations";
 import VotePage from "./VotePage";
-import Eatery from "./Eatery";
 import WaitPage from "./WaitPage";
+import Recommendations from "./Recommendations";
+import Eatery from "./Eatery";
 
+//other components
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+//css
 import "../css/Global.css";
 
 function AppRouter() {
@@ -28,7 +30,6 @@ function AppRouter() {
         <Route path="/selectlocation" component={SelectLocation}></Route>
         <Route path="/roomlobby" component={RoomLobby}></Route>
         <Route path="/instructionpage" component={InstructionPage}></Route>
-        <Route path="/roompage" component={RoomPage}></Route>
         <Route path="/votepage" component={VotePage}></Route>
         <Route path="/recommendations" component={Recommendations}></Route>
         <Route path="/eatery" component={Eatery}></Route>

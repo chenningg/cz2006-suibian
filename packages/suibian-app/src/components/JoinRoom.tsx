@@ -1,7 +1,12 @@
+//app components
 import React, { Component, FormEvent, ChangeEvent } from "react";
 import NavBar from "./NavBar";
-import "../css/JoinRoom.css";
+
+//other components
 import { Link } from "react-router-dom";
+
+//css
+import "../css/JoinRoom.css";
 
 class JoinRoom extends Component {
   // State
@@ -21,7 +26,7 @@ class JoinRoom extends Component {
       [e.target.id]: e.target.value
     });
   };
-    
+
   render() {
     return (
       <>

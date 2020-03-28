@@ -1,7 +1,12 @@
+//app components
 import React, { Component } from "react";
 import NavBar from "./NavBar";
-import "../css/Eatery.css";
+
+//other components
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
+
+//css
+import "../css/Eatery.css";
 
 const mapStyles = {
   width: 350,
@@ -34,7 +39,7 @@ class Eatery extends Component<{ google: string }> {
       });
     }
   };
-    
+
   eateryname = "Albert Food Centre";
   foodstall = "Hock Lee Fishball Noodle";
 
@@ -74,7 +79,6 @@ class Eatery extends Component<{ google: string }> {
                 this.state.zoom +
                 "z"
               }
-
               className="gmaps-button"
             >
               View in Maps
@@ -98,5 +102,3 @@ class Eatery extends Component<{ google: string }> {
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDEaux00JCnvfiaqExfJHY5cu-oe8fSOxA"
 })(Eatery);
-
-
