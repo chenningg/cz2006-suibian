@@ -130,9 +130,9 @@ class VotePage extends Component<{}, socketState> {
   }
 
   render() {
-    // if (this.state.redirect) {
-    //   return <Redirect to={"/waitpage"} />;
-    // }
+    if (this.state.redirect) {
+      return <Redirect to={"/waitpage"} />;
+    }
 
     return (
       <>
