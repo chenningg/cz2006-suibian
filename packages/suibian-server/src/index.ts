@@ -3,7 +3,7 @@ import express from "express";
 import router from "./routes";
 import path from "path";
 import sockets from "./sockets";
-import models from "./models";
+import { db } from "./sequelize";
 const app = express();
 
 //defining ports
@@ -20,8 +20,6 @@ httpServer.listen(PORT, () => {
 });
 
 // Test DB
-//@ts-ignore
-models.db
-    .authenticate()
+db.authenticate()
     .then(() => console.log("Database connected ..."))
     .catch((err: any) => console.log("Error: " + err));
