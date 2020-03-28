@@ -40,8 +40,13 @@ export default {
                 broadcastRoom(io, data);
             });
 
-            socket.on("createRoom", (data: { username: string }) => {
-                createRoom(socket);
+            socket.on("createRoom", async (data: { username: string }) => {
+                //first user creates a room and also joins the room
+                const { username } = data;
+                const roomcode = await createRoom(socket);
+                if (roomcode) {
+                    joinRoom(socket, io, { username, roomcode });
+                }
             });
 
             socket.on("startRoom", (data: { roomcode: string }) => {

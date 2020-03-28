@@ -8,7 +8,7 @@ import {
     ForeignKey
 } from "sequelize-typescript";
 import Food from "./food.model";
-import Room from "./rooms.model";
+import Room from "../rooms.model";
 
 @Table({
     tableName: "foodlisting",

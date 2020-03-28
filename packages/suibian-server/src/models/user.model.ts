@@ -9,8 +9,6 @@ import {
     BelongsTo
 } from "sequelize-typescript";
 import Rooms from "./rooms.model";
-import { col } from "sequelize/types";
-import { Room } from "socket.io";
 
 @Table({
     tableName: "user",
