@@ -1,11 +1,18 @@
+//app components
 import React, { Component, FormEvent, ChangeEvent } from "react";
 import NavBar from "./NavBar";
-import "../css/InstructionPage.css";
+
+//socket
 import socketIOClient from "socket.io-client";
 import { socketCommands } from "@suibian/commons";
+
+//other components
 import { Favorite, Block, Timer as Clock } from "@material-ui/icons";
 import Timer from "react-compound-timer";
 import { Redirect } from "react-router-dom";
+
+//css
+import "../css/InstructionPage.css";
 
 export type socketState = {
   endpoint: string;

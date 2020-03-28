@@ -1,5 +1,7 @@
+//app components
 import React from "react";
-import User from "../types/User";
+
+//css
 import "../css/UserList.css";
 
 export type UserListProperty = {

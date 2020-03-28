@@ -1,7 +1,12 @@
+//app components
 import React, { Component } from "react";
-import { UserList } from "./UserList";
 import NavBar from "./NavBar";
+import { UserList } from "./UserList";
+
+//other components
 import { Link } from "react-router-dom";
+
+//css
 import "../css/RoomLobby.css";
 
 class RoomLobby extends Component {

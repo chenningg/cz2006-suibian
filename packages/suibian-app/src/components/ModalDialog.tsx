@@ -1,4 +1,7 @@
+//app components
 import React, { Component } from "react";
+
+//css
 import "../css/ModalDialog.css";
 
 /* To use this, import ModalDialog from "./ModalDialog"

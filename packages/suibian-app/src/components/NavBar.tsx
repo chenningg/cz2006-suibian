@@ -1,8 +1,13 @@
+//app components
 import React, { Component } from "react";
-import "../css/NavBar.css";
-import suibianLogo from "../images/suibian_full_logo_white.png";
+
+//other components
 import { Icon } from "@material-ui/core";
 import { Link } from "react-router-dom";
+
+//css
+import "../css/NavBar.css";
+import suibianLogo from "../images/suibian_full_logo_white.png";
 
 class NavBar extends Component {
   render() {

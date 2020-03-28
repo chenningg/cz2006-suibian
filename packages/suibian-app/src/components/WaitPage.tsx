@@ -1,9 +1,16 @@
+//app components
 import React, { Component } from "react";
-import "../css/WaitPage.css";
+
+//socket
 import socketIOClient from "socket.io-client";
 import { socketCommands } from "@suibian/commons";
+
+//other components
 import { HourglassEmpty } from "@material-ui/icons";
 import { Redirect } from "react-router-dom";
+
+//css
+import "../css/WaitPage.css";
 
 export type socketState = {
   endpoint: string;

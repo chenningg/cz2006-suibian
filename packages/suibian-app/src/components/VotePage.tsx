@@ -1,13 +1,18 @@
-import React, { Component, FormEvent, ChangeEvent } from "react";
+//app components
+import React, { Component, ChangeEvent } from "react";
 import NavBar from "./NavBar";
-import "../css/VotePage.css";
+
+//socket
 import socketIOClient from "socket.io-client";
 import { socketCommands } from "@suibian/commons";
+
+//other components
 import { Favorite, Block, Timer as Clock } from "@material-ui/icons";
 import Timer from "react-compound-timer";
-import Vote from "../types/Vote";
 import { Redirect } from "react-router-dom";
-import Food from "../types/Food";
+
+//css
+import "../css/VotePage.css";
 
 export type socketState = {
   endpoint: string;
