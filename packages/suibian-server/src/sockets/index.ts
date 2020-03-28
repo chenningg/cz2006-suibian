@@ -3,32 +3,32 @@ import socketio from "socket.io";
 import { joinRoom, createRoom, closeRoom, startRoom } from "./helper/room";
 import { broadcastRoom } from "./helper/messaging";
 import {
-    suibianSocket,
-    joinRoomPayload,
-    roomMessagePayload
+  suibianSocket,
+  joinRoomPayload,
+  roomMessagePayload
 } from "@suibian/commons";
 const http = require("http");
 
 export default {
-    startSocketServer: function(app: express.Router) {
-        const httpServer = http.Server(app);
-        const io = socketio.listen(httpServer);
+  startSocketServer: function(app: express.Router) {
+    const httpServer = http.Server(app);
+    const io = socketio.listen(httpServer);
 
-        io.on("connection", (socket: suibianSocket) => {
-            console.log(`socket ${socket.id} connected`);
+    io.on("connection", (socket: suibianSocket) => {
+      console.log(`socket ${socket.id} connected`);
 
-            socket.on("disconnect", () =>
-                console.log(`socket ${socket.id} disconnected`)
-            );
+      socket.on("disconnect", () =>
+        console.log(`socket ${socket.id} disconnected`)
+      );
 
             socket.on("joinRoom", async (data: joinRoomPayload) => {
                 await joinRoom(socket, io, data);
             });
 
-            socket.on("closeRoom", (data: { roomcode: string }) => {
-                const { roomcode } = data;
-                closeRoom(io, socket, roomcode);
-            });
+      socket.on("closeRoom", (data: { roomcode: string }) => {
+        const { roomcode } = data;
+        closeRoom(io, socket, roomcode);
+      });
 
             socket.on("createRoom", async (data: { username: string }) => {
                 //first user creates a room and also joins the room
@@ -39,14 +39,14 @@ export default {
                 }
             });
 
-            socket.on("startRoom", (data: { roomcode: string }) => {
-                const { roomcode } = data;
-                startRoom(io, roomcode);
-            });
+      socket.on("startRoom", (data: { roomcode: string }) => {
+        const { roomcode } = data;
+        startRoom(io, roomcode);
+      });
 
             socket.on("getRoomInfo", (data: { roomcode: string }) => {});
         });
 
-        return httpServer;
-    }
+    return httpServer;
+  }
 };
