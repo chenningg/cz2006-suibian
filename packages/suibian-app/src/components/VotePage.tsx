@@ -2,10 +2,6 @@
 import React, { Component, ChangeEvent } from "react";
 import NavBar from "./NavBar";
 
-//socket
-import socketIOClient from "socket.io-client";
-import { socketCommands } from "@suibian/commons";
-
 //other components
 import { Favorite, Block, Timer as Clock } from "@material-ui/icons";
 import Timer from "react-compound-timer";
@@ -14,20 +10,6 @@ import { Redirect } from "react-router-dom";
 //css
 import "../css/VotePage.css";
 import "../css/InstructionPage.css";
-
-export type socketState = {
-  endpoint: string;
-  socket: suibianSocket | null;
-  username: string;
-  roomCode: number;
-  index: number;
-  votes: Vote[];
-  redirect: boolean;
-};
-
-interface suibianSocket extends SocketIOClient.Socket {
-  emit(event: socketCommands, data: any): SocketIOClient.Socket;
-}
 
 const styles = {
   largeIcon: {
@@ -40,80 +22,56 @@ const styles = {
   }
 };
 
-class VotePage extends Component<{}, socketState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      endpoint: "http://localhost:4000/",
-      socket: null,
-      username: "",
-      roomCode: 0,
-      index: 0,
-      votes: [],
-      redirect: false
-    };
-    this.handleVote = this.handleVote.bind(this);
-  }
+class VotePage extends Component {
+  //state
+  state = {
+    index: 0,
+    foods: [
+      {
+        name: "Bak Chor Mee",
+        imgurl:
+          "https://www.linsfood.com/wp-content/uploads/2017/02/Bak-Chor-Mee.jpg"
+      },
+      {
+        name: "Chicken Rice",
+        imgurl:
+          "https://www.thespruceeats.com/thmb/ltMha1iXJIttnXv9EDQf9WFSrEE=/3896x2922/smart/filters:no_upscale()/hainanese-chicken-rice-very-detailed-recipe-3030408-hero-0a742f08c72044e999202a44e30a1ea7.jpg"
+      },
+      {
+        name: "Burrito",
+        imgurl:
+          "https://www.thespruceeats.com/thmb/Hn65vI6v55aIBCwMQaf0SWcVLYI=/2048x1360/filters:fill(auto,1)/vegetarian-bean-and-rice-burrito-recipe-3378550-9_preview-5b2417e1ff1b780037a58cda.jpeg"
+      }
+    ] as Food[],
+    votes: [] as Vote[],
+    redirect: false
+  };
 
-  foods = [
-    {
-      name: "Bak Chor Mee",
-      imgurl:
-        "https://www.linsfood.com/wp-content/uploads/2017/02/Bak-Chor-Mee.jpg"
-    },
-    {
-      name: "Chicken Rice",
-      imgurl:
-        "https://www.thespruceeats.com/thmb/ltMha1iXJIttnXv9EDQf9WFSrEE=/3896x2922/smart/filters:no_upscale()/hainanese-chicken-rice-very-detailed-recipe-3030408-hero-0a742f08c72044e999202a44e30a1ea7.jpg"
-    },
-    {
-      name: "Burrito",
-      imgurl:
-        "https://www.thespruceeats.com/thmb/Hn65vI6v55aIBCwMQaf0SWcVLYI=/2048x1360/filters:fill(auto,1)/vegetarian-bean-and-rice-burrito-recipe-3378550-9_preview-5b2417e1ff1b780037a58cda.jpeg"
-    }
-  ];
-
-  foodsList = this.foods.map(food => (
+  //variables
+  foodsList = this.state.foods.map(food => (
     <div>
       <h1>{food.name}</h1>
-      <img className="food-image" src={food.imgurl} />
+      <img className="food-image" src={food.imgurl} alt={food.name} />
     </div>
   ));
 
-  connectSocket = async () => {
-    if (this.state.socket) {
-      console.log("socket is already conencted");
-      return;
-    }
-
-    // initializing the connection
-    const { endpoint } = this.state;
-    const socket = await socketIOClient(endpoint);
-    console.log("socket created");
-    this.setState({ socket });
-  };
-
-  registerSocketListeners = () => {
-    console.log(this.state.socket);
-    if (this.state.socket) {
-      console.log("registering socket listeners");
-      this.state.socket.on("votePage", (data: any) => {
-        console.log(data);
-      });
-    }
-  };
-
+  //methods
   handleVote = (e: ChangeEvent<EventTarget>, like: boolean) => {
     e.preventDefault();
     let vote: Vote = {
       like: like,
-      name: this.foods[this.state.index].name
+      name: this.state.foods[this.state.index].name
     };
 
-    this.state.votes.push(vote);
+    this.setState({
+      votes: this.state.votes.concat([vote])
+    });
 
-    this.setState({ index: this.state.index + 1 });
-    if (this.state.index === this.foods.length - 1) {
+    this.setState({
+      index: this.state.index + 1
+    });
+
+    if (this.state.index === this.state.foods.length - 1) {
       this.setState({
         redirect: true
       });
@@ -121,7 +79,6 @@ class VotePage extends Component<{}, socketState> {
   };
 
   componentDidMount() {
-    this.connectSocket().then(() => this.registerSocketListeners());
     setTimeout(() => {
       this.setState({
         redirect: true
@@ -152,7 +109,7 @@ class VotePage extends Component<{}, socketState> {
               </div>
               <div className="vote-button">
                 <Clock style={styles.mediumIcon} />
-                <Timer initialTime={20000} direction="backward">
+                <Timer initialTime={20500} direction="backward">
                   {() => (
                     <h1>
                       <Timer.Seconds />

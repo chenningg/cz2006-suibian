@@ -68,6 +68,7 @@ class Home extends Component {
 
   timerRef;
 
+  //methods
   generateRandomIndex = () => {
     return Math.ceil(Math.random() * this.foodDescription.length) - 1;
   };
