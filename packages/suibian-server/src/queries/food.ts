@@ -9,10 +9,10 @@ export const foodImageQuery = async (
     // returns Array<Food> in JSON
     const foodArray = await Food.findAll({
       order: "random()",
-      limit: queryLimit,
-      raw: true // gives us dataValues
+      limit: queryLimit
     });
-    return foodArray;
+
+    return JSON.stringify(foodArray);
   } catch (err) {
     console.log(err);
   }
