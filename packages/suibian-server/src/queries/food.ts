@@ -6,10 +6,13 @@ export const foodImageQuery = async (
   queryLimit: number
 ): Promise<string | void> => {
   try {
-    const image_urls = await Food.findAll({
+    // returns Array<Food> in JSON
+    const foodArray = await Food.findAll({
       order: "random()",
-      limit: queryLimit
+      limit: queryLimit,
+      raw: true // gives us dataValues
     });
+    return foodArray;
   } catch (err) {
     console.log(err);
   }

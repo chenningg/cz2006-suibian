@@ -63,4 +63,21 @@ export const updateRoomNumbersQuery = async (
   }
 };
 
+export const closeRoomQuery = async (roomcode: string) => {
+  try {
+    await Join.destroy({
+      where: {
+        roomcode: roomcode
+      }
+    });
+    await Rooms.destroy({
+      where: {
+        roomcode: roomcode
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const getRoomDetailsQuery = async (roomcode: string) => {};
