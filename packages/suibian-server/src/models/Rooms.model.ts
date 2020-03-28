@@ -12,20 +12,18 @@ import {
 import User from "./user.model";
 
 @Table({
-  tableName: "rooms",
-  createdAt: false,
-  updatedAt: false
+    tableName: "rooms"
 })
 class Rooms extends Model<Rooms> {
-  @PrimaryKey
-  @Column
-  roomcode!: string;
+    @PrimaryKey
+    @Column
+    roomcode!: string;
 
-  @Column
-  roomstatus!: string;
+    @Column
+    roomstatus!: string;
 
-  @Column
-  numberparticipants!: number;
+    @Column
+    numberparticipants!: number;
 
     @Column
     roomcreationtime!: string;
