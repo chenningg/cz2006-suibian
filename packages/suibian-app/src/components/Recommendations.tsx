@@ -58,7 +58,7 @@ class Recomendations extends Component {
   render() {
     return (
       <>
-        <NavBar />
+        <NavBar backPage="home" />
         <div className="recommendations">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             <h2 style={{ margin: 40, fontSize: "2rem" }}>Recommendations</h2>
