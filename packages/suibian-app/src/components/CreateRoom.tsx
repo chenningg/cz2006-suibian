@@ -1,8 +1,13 @@
 import React, { Component, FormEvent, ChangeEvent } from "react";
 import NavBar from "./NavBar";
+<<<<<<< Updated upstream
 import "../css/CreateRoom.css";
 import socketIOClient from "socket.io-client";
 import { socketCommands } from "@suibian/commons";
+=======
+import { findlatlng } from "../functions/findlatlng";
+//other components
+>>>>>>> Stashed changes
 import { Link } from "react-router-dom";
 
 export type socketState = {
@@ -103,7 +108,7 @@ class CreateRoom extends Component<{}, socketState> {
                 to="/roomlobby"
                 className="main-menu-button remove-text-decoration center"
               >
-                <button>CREATE ROOM</button>
+                <button onClick={findlatlng}>CREATE ROOM</button>
               </Link>
             </form>
           </div>
