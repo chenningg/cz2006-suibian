@@ -41,7 +41,6 @@ export default {
 
             socket.on("createRoom", (data: { username: string }) => {
                 createRoom(socket);
-                console.log(io.sockets.adapter.rooms);
             });
 
             socket.on("startRoom", (data: roomMessagePayload) => {
