@@ -4,29 +4,47 @@ import NavBar from "./NavBar";
 
 //other components
 import ModalDialog from "./ModalDialog";
+import { connect } from "react-redux";
 
 //css
 import "../css/UserPreferences.css";
 
-class UserPreferences extends Component {
+type StateProps = {
+  userPreferences: Preference[];
+};
+
+type DispatchProps = {
+  updatePreferences: (preferenceType: string) => void;
+};
+
+type State = {
+  showModal: boolean;
+};
+
+type Props = StateProps & DispatchProps;
+
+class UserPreferences extends Component<Props> {
   // State
-  state = {
-    halal: false,
-    vegetarian: false,
-    vegan: false,
-    buddhist: false,
+  state: State = {
     showModal: false
   };
 
-  // Variables
-  preferences: Array<Preference> = [
-    { type: "Halal", prefID: "0" },
-    { type: "Vegetarian", prefID: "1" },
-    { type: "Vegan", prefID: "2" },
-    { type: "Buddhist", prefID: "3" }
-  ];
+  // Methods
+  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.props.updatePreferences(e.target.id);
+    this.setState({
+      showModal: false
+    });
+  };
 
-  preferencesList = this.preferences.map(preference => (
+  handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    this.setState({
+      showModal: true
+    });
+  };
+
+  preferencesList = this.props.userPreferences.map(preference => (
     <div
       className="preference flex-container flex-row flex-spaced-between"
       key={preference.prefID}
@@ -35,34 +53,17 @@ class UserPreferences extends Component {
       <label className="switch-container">
         <input
           type="checkbox"
-          id={preference.type.toLowerCase()}
+          id={preference.type}
           className="preference-type-input"
-          value={preference.type.toLowerCase()}
           onChange={e => {
-            this.onChange(e);
+            this.handleChange(e);
           }}
+          defaultChecked={preference.value}
         />
         <span className="slider round"></span>
       </label>
     </div>
   ));
-
-  // Methods
-  onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      [e.target.id]: e.target.checked
-    });
-    this.setState({
-      showModal: false
-    });
-  };
-
-  onSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    this.setState({
-      showModal: true
-    });
-  };
 
   render() {
     return (
@@ -79,7 +80,7 @@ class UserPreferences extends Component {
             <h1>User Preferences</h1>
             <form
               className="user-preferences-form flex-container flex-col flex-center-v flex-spaced-around"
-              onSubmit={this.onSubmit}
+              onSubmit={this.handleSubmit}
             >
               {this.preferencesList}
               <button>Save preferences</button>
@@ -91,4 +92,23 @@ class UserPreferences extends Component {
   }
 }
 
-export default UserPreferences;
+// Redux functions
+const mapStateToProps = (state: ReduxState): StateProps => {
+  return {
+    userPreferences: state.userPreferences
+  };
+};
+
+// Links a dispatch function to a prop
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+  return {
+    updatePreferences: (preferenceType: string) => {
+      dispatch({
+        type: "UPDATE_USER_PREFERENCES",
+        preferenceType: preferenceType
+      });
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPreferences);
