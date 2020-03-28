@@ -21,8 +21,8 @@ export default {
                 console.log(`socket ${socket.id} disconnected`)
             );
 
-            socket.on("joinRoom", (data: joinRoomPayload) => {
-                joinRoom(socket, io, data);
+            socket.on("joinRoom", async (data: joinRoomPayload) => {
+                await joinRoom(socket, io, data);
             });
 
             socket.on("closeRoom", (data: { roomcode: string }) => {
@@ -39,7 +39,7 @@ export default {
                 const { username } = data;
                 const roomcode = await createRoom(socket);
                 if (roomcode) {
-                    joinRoom(socket, io, { username, roomcode });
+                    await joinRoom(socket, io, { username, roomcode });
                 }
             });
 

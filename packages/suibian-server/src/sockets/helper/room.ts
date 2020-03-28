@@ -21,7 +21,7 @@ export const joinRoom = async (
     const { username, roomcode } = data;
     await joinRoomQuery(username, roomcode);
     await updateRoomNumbersQuery(roomcode, 1); // increment the number of people in the room
-    await await socket.join(data.roomcode, () =>
+    await socket.join(data.roomcode, () =>
         socket.emit("joinRoom", listSocketsRoom(socketio, roomcode))
     );
 };

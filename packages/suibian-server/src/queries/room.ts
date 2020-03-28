@@ -13,7 +13,7 @@ export const createRoomQuery = async (): Promise<void | string> => {
         const room = await Rooms.create({
             roomcode,
             roomstatus: "open",
-            numberparticipants: 1 //user automatically joins the room he creates
+            numberparticipants: 0 //user automatically joins the room he creates
         });
         return roomcode;
     } catch (err) {
