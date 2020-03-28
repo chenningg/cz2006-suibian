@@ -17,10 +17,6 @@
   width: 130px;
 }
 
-.navbar .navbar-logo:hover {
-  width: 140px;
-}
-
 .navbar .navbar-back-icon-container {
   flex-basis: 60px;
   height: 100%;

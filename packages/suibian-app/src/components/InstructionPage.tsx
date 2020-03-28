@@ -81,7 +81,6 @@ class InstructionPage extends Component<{}, socketState> {
 
     return (
       <>
-        <NavBar />
         <div className="instruction-page">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             <h1 className="title">Before we begin...</h1>

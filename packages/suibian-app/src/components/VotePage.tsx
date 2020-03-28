@@ -130,7 +130,6 @@ class VotePage extends Component<{}, socketState> {
 
     return (
       <>
-        <NavBar />
         <div className="vote-page">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             {this.foodsList[this.state.index]}
