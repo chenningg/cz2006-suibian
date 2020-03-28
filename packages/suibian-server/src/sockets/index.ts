@@ -48,9 +48,7 @@ export default {
                 startRoom(io, roomcode);
             });
 
-            socket.on("getRoomInfo", (data: { roomcode: string }) => {
-                getRoomInfo(io, data);
-            });
+            socket.on("getRoomInfo", (data: { roomcode: string }) => {});
         });
 
         return httpServer;

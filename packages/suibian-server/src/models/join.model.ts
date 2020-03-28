@@ -1,12 +1,4 @@
-import {
-    Table,
-    Column,
-    CreatedAt,
-    UpdatedAt,
-    Model,
-    PrimaryKey,
-    ForeignKey
-} from "sequelize-typescript";
+import { Table, Column, Model, ForeignKey } from "sequelize-typescript";
 import Rooms from "./rooms.model";
 import User from "./user.model";
 
