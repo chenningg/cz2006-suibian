@@ -6,6 +6,7 @@ import {
     roomMessagePayload,
     suibianSocket
 } from "@suibian/commons";
+import { sendError } from "./messaging";
 
 export const joinRoom = (
     socket: suibianSocket,
@@ -100,4 +101,8 @@ export const closeRoom = (
         });
         console.log(`socket rooms ${socketio.sockets.adapter.rooms[roomcode]}`);
     });
+};
+
+export const startRoom = (io: socketio.Server, roomcode: string) => {
+    //TODO Add in entries in the database & change room status
 };

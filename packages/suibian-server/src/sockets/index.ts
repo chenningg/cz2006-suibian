@@ -2,11 +2,12 @@ import express from "express";
 import socketio from "socket.io";
 import {
     joinRoom,
-    broadcastRoom,
     createRoom,
     getRoomInfo,
-    closeRoom
+    closeRoom,
+    startRoom
 } from "./room";
+import { broadcastRoom } from "./messaging";
 import {
     suibianSocket,
     joinRoomPayload,
@@ -43,8 +44,9 @@ export default {
                 createRoom(socket);
             });
 
-            socket.on("startRoom", (data: roomMessagePayload) => {
-                // startRoom();
+            socket.on("startRoom", (data: { roomcode: string }) => {
+                const { roomcode } = data;
+                startRoom(io, roomcode);
             });
 
             socket.on("getRoomInfo", (data: { roomcode: string }) => {
