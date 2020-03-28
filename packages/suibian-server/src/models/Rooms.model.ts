@@ -25,9 +25,6 @@ class Rooms extends Model<Rooms> {
     @Column
     numberparticipants!: number;
 
-    @Column
-    roomcreationtime!: string;
-
     @HasMany(() => User)
     users!: User[];
 }

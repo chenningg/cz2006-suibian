@@ -16,7 +16,6 @@ import Rooms from "./rooms.model";
     updatedAt: false
 })
 class User extends Model<User> {
-    @PrimaryKey
     @Column
     username!: string;
 

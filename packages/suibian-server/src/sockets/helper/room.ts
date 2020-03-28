@@ -1,5 +1,9 @@
 import socketio from "socket.io";
-import { createRoomQuery, joinRoomQuery } from "../queries/room";
+import {
+    createRoomQuery,
+    joinRoomQuery,
+    updateRoomNumbersQuery
+} from "../../queries/room";
 import {
     httpStatus,
     joinRoomPayload,
@@ -16,20 +20,10 @@ export const joinRoom = async (
 ) => {
     const { username, roomcode } = data;
     await joinRoomQuery(username, roomcode);
-
-    //obtain a list of users in the room
-    socket.join(data.roomcode, () =>
+    await updateRoomNumbersQuery(roomcode, 1); // increment the number of people in the room
+    await await socket.join(data.roomcode, () =>
         socket.emit("joinRoom", listSocketsRoom(socketio, roomcode))
     );
-};
-
-export const broadcastRoom = (
-    socketio: socketio.Server,
-    data: roomMessagePayload
-) => {
-    //broadcast to all members in the room
-    const { username, message, roomcode } = data;
-    socketio.in(roomcode).emit("broadcastMessage", message);
 };
 
 export const createRoom = async (
@@ -49,13 +43,6 @@ export const createRoom = async (
             "No more spare roomes left to join"
         );
     }
-};
-
-export const getRoomInfo = (
-    socketio: socketio.Server,
-    data: { roomcode: string }
-) => {
-    //TODO query database to extract room information
 };
 
 export const getRoomSockets = (
