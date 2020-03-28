@@ -15,7 +15,7 @@ type NavBarProp = {
 
 class NavBar extends Component<NavBarProp> {
   render() {
-    let backLink = "/home";
+    let backLink = "/";
     if (this.props.backPage) {
       backLink = "/" + this.props.backPage;
     }
