@@ -1,6 +1,4 @@
 import Food from "../models/food.model";
-import shortid from "shortid";
-import { sendError } from "../sockets/helper/messaging";
 
 export const foodImageQuery = async (
   queryLimit: number

@@ -80,4 +80,6 @@ export const closeRoomQuery = async (roomcode: string) => {
   }
 };
 
+//TODO: delete entries from vote table upon room closure
+
 export const getRoomDetailsQuery = async (roomcode: string) => {};
