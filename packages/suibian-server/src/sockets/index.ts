@@ -21,37 +21,31 @@ export default {
         console.log(`socket ${socket.id} disconnected`)
       );
 
-      socket.on("joinRoom", (data: joinRoomPayload) => {
-        joinRoom(socket, io, data);
-      });
+            socket.on("joinRoom", async (data: joinRoomPayload) => {
+                await joinRoom(socket, io, data);
+            });
 
       socket.on("closeRoom", (data: { roomcode: string }) => {
         const { roomcode } = data;
         closeRoom(io, socket, roomcode);
       });
 
-      socket.on("broadcastMessage", (data: roomMessagePayload) => {
-        broadcastRoom(io, data);
-      });
-
-      socket.on("createRoom", async (data: { username: string }) => {
-        //first user creates a room and also joins the room
-        const { username } = data;
-        const roomcode = await createRoom(socket);
-        if (roomcode) {
-          joinRoom(socket, io, { username, roomcode });
-        }
-      });
+            socket.on("createRoom", async (data: { username: string }) => {
+                //first user creates a room and also joins the room
+                const { username } = data;
+                const roomcode = await createRoom(socket);
+                if (roomcode) {
+                    await joinRoom(socket, io, { username, roomcode });
+                }
+            });
 
       socket.on("startRoom", (data: { roomcode: string }) => {
         const { roomcode } = data;
         startRoom(io, roomcode);
       });
 
-      socket.on("getRoomInfo", (data: { roomcode: string }) => {
-        getRoomInfo(io, data);
-      });
-    });
+            socket.on("getRoomInfo", (data: { roomcode: string }) => {});
+        });
 
     return httpServer;
   }

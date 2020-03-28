@@ -46,14 +46,15 @@ export async function getLatLonSocketless(postalcode: string) {
 }
 
 export async function getRouteDetailsSocketless(
-  start_postal: string,
+  start_latlon: string,
   end_postal: string,
   token: string
 ) {
-  const startLocationData = await getLatLonSocketless(start_postal);
+  const startLocationData = JSON.parse(start_latlon);
   const endLocationData = await getLatLonSocketless(end_postal);
   if (startLocationData && endLocationData) {
-    const [start_lat, start_lon] = startLocationData;
+    // starting location passed in as JSON string
+    const { start_lat, start_lon } = startLocationData;
     const [end_lat, end_lon] = endLocationData;
 
     let base_url = "https://developers.onemap.sg/";
@@ -143,15 +144,15 @@ export async function getLatLonSocket(
 }
 
 export async function getRouteDetailsSocket(
-  start_postal: string,
+  start_latlon: string,
   end_postal: string,
   token: string,
   socket: suibianSocket
 ) {
-  const startLocationData = await getLatLonSocketless(start_postal);
+  const startLocationData = JSON.parse(start_latlon);
   const endLocationData = await getLatLonSocketless(end_postal);
   if (startLocationData && endLocationData) {
-    const [start_lat, start_lon] = startLocationData;
+    const { start_lat, start_lon } = startLocationData;
     const [end_lat, end_lon] = endLocationData;
 
     let base_url = "https://developers.onemap.sg/";
