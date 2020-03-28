@@ -34,7 +34,7 @@ class JoinRoom extends Component {
   render() {
     return (
       <>
-        <NavBar />
+        <NavBar backPage="home" />
         <div className="join-room">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             <h1 className="title">Join room</h1>

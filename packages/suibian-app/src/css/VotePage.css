@@ -8,3 +8,12 @@
   /* Standard */
   height: calc(100vh - 60px);
 }
+
+.food-image {
+  align-content: center;
+  height: 40vh;
+  max-height: 600px;
+  width: 100vw;
+  max-width: 600px;
+}
+/* style={{ alignContent: "center", height: "40vh", width: "100vw" }} */
