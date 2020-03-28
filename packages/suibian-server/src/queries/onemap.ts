@@ -1,7 +1,6 @@
 import { sendError } from "../sockets/messaging";
 import { suibianSocket } from "@suibian/commons/src";
 import { httpStatus } from "../../../commons/src/httpStatus";
-import { XMLHttpRequest } from "xmlhttprequest-ts";
 import axios from "axios";
 // token expires every 3 days (31 March)
 export const token =
