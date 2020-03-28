@@ -7,17 +7,15 @@ import {
     PrimaryKey,
     ForeignKey
 } from "sequelize-typescript";
-import Rooms from "../rooms.model";
-import User from "../user.model";
-
-type votingStatus = "waiting" | "voting" | "completed";
+import User from "./user.model";
+import Rooms from "./rooms.model";
 
 @Table({
-    tableName: "join",
+    tableName: "vote",
     createdAt: false,
     updatedAt: false
 })
-class Join extends Model<Join> {
+class Votes extends Model<Votes> {
     @ForeignKey(() => User)
     @Column
     username!: string;
@@ -27,7 +25,7 @@ class Join extends Model<Join> {
     roomcode!: string;
 
     @Column
-    votingStatus!: votingStatus;
+    vote!: boolean;
 }
 
-export default Join;
+export default Votes;

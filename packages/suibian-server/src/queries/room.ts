@@ -1,6 +1,6 @@
 import path from "path";
 import Rooms from "../models/rooms.model";
-import Join from "../models/testing/join.model";
+import Join from "../models/join.model";
 import shortid from "shortid";
 import { sendError } from "../sockets/messaging";
 shortid.characters(
