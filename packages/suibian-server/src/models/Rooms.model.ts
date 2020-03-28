@@ -3,11 +3,17 @@ import {
   Column,
   CreatedAt,
   UpdatedAt,
-  Model
+  Model,
+  PrimaryKey
 } from "sequelize-typescript";
 
-@Table
-export class Room extends Model<Room> {
+@Table({
+  tableName: "rooms",
+  createdAt: false,
+  updatedAt: false
+})
+class Rooms extends Model<Rooms> {
+  @PrimaryKey
   @Column
   roomcode!: string;
 
@@ -19,12 +25,6 @@ export class Room extends Model<Room> {
 
   @Column
   roomcreationtime!: string;
-
-  @CreatedAt
-  @Column
-  createdAt!: Date;
-
-  @UpdatedAt
-  @Column
-  updatedAt!: Date;
 }
+
+export default Rooms;
