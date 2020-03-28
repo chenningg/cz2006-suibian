@@ -13,6 +13,7 @@ import { Redirect } from "react-router-dom";
 
 //css
 import "../css/VotePage.css";
+import "../css/InstructionPage.css";
 
 export type socketState = {
   endpoint: string;
@@ -75,7 +76,7 @@ class VotePage extends Component<{}, socketState> {
   foodsList = this.foods.map(food => (
     <div>
       <h1 className="title">{food.name}</h1>
-      <img style={{ alignContent: "center" }} src={food.imgurl} />
+      <img className="food-image" src={food.imgurl} />
     </div>
   ));
 
@@ -135,32 +136,31 @@ class VotePage extends Component<{}, socketState> {
 
     return (
       <>
+        <NavBar />
         <div className="vote-page">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             {this.foodsList[this.state.index]}
 
             <br />
-            <form className="create-room-form">
-              <div className="vote-button-container">
-                <div className="vote-button">
-                  <p>
-                    <Favorite
-                      className="like"
-                      style={styles.largeIcon}
-                      onClick={e => this.handleVote(e, true)}
-                    />
-                  </p>
-                </div>
-                <div></div>
-                <div className="vote-button">
-                  <Block
-                    className="dislike"
+            <div className="vote-button-container">
+              <div className="vote-button">
+                <p>
+                  <Favorite
+                    className="like"
                     style={styles.largeIcon}
-                    onClick={e => this.handleVote(e, false)}
+                    onClick={e => this.handleVote(e, true)}
                   />
-                </div>
+                </p>
               </div>
-            </form>
+              <div></div>
+              <div className="vote-button">
+                <Block
+                  className="dislike"
+                  style={styles.largeIcon}
+                  onClick={e => this.handleVote(e, false)}
+                />
+              </div>
+            </div>
             <Clock style={styles.mediumIcon} />
             <Timer initialTime={20000} direction="backward">
               {() => (

@@ -46,7 +46,7 @@ class Eatery extends Component<{ google: string }> {
   render() {
     return (
       <>
-        <NavBar />
+        <NavBar backPage="recommendations" />
         <div className="eatery">
           <div className="app-content flex-container flex-col  flex-center-v">
             <h2 className="eateryname">{this.eateryname}</h2>

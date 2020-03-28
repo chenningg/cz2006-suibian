@@ -1,5 +1,5 @@
 //app components
-import React, { Component, FormEvent, ChangeEvent } from "react";
+import React, { Component } from "react";
 import NavBar from "./NavBar";
 
 //socket
@@ -88,6 +88,7 @@ class InstructionPage extends Component<{}, socketState> {
 
     return (
       <>
+        <NavBar />
         <div className="instruction-page">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             <h1 className="title">Before we begin...</h1>
@@ -116,7 +117,7 @@ class InstructionPage extends Component<{}, socketState> {
             </form>
             <br />
             <Clock style={styles.mediumIcon} />
-            <Timer initialTime={10000} direction="backward">
+            <Timer initialTime={7000} direction="backward">
               {() => (
                 <h1>
                   <Timer.Seconds />
