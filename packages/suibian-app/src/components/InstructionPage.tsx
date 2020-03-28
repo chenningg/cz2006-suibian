@@ -91,30 +91,30 @@ class InstructionPage extends Component<{}, socketState> {
         <NavBar />
         <div className="instruction-page">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
-            <h1 className="title">Before we begin...</h1>
-            <form className="create-room-form">
-              <div className="vote-button-container">
-                <div className="vote-button">
-                  <p>
-                    <Favorite className="like" style={styles.largeIcon} />
-                  </p>
-                  <p>Sedaaaap!</p>
-                  <p>
-                    Everyone needs to try this <b>NOW</b>
-                  </p>
-                </div>
-                <div></div>
-                <div className="vote-button">
-                  <p>
-                    <Block className="dislike" style={styles.largeIcon} />
-                  </p>
-                  <p>Ewww no!</p>
-                  <p>
-                    No one should <b>EVER</b> eat this
-                  </p>
-                </div>
+            <h1>Before we begin...</h1>
+
+            <div className="vote-button-container">
+              <div className="vote-button">
+                <p>
+                  <Favorite className="like" style={styles.largeIcon} />
+                </p>
+                <p>Sedaaaap!</p>
+                <p>
+                  Everyone needs to try this <b>NOW</b>
+                </p>
               </div>
-            </form>
+              <div></div>
+              <div className="vote-button">
+                <p>
+                  <Block className="dislike" style={styles.largeIcon} />
+                </p>
+                <p>Ewww no!</p>
+                <p>
+                  No one should <b>EVER</b> eat this
+                </p>
+              </div>
+            </div>
+
             <br />
             <Clock style={styles.mediumIcon} />
             <Timer initialTime={7000} direction="backward">

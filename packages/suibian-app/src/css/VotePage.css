@@ -12,8 +12,8 @@
 .food-image {
   align-content: center;
   height: 40vh;
-  max-height: 600px;
+  max-height: 250px;
   width: 100vw;
-  max-width: 600px;
+  max-width: 300px;
 }
 /* style={{ alignContent: "center", height: "40vh", width: "100vw" }} */
