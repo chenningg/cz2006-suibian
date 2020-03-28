@@ -45,13 +45,6 @@ export const createRoom = async (
     }
 };
 
-export const getRoomInfo = (
-    socketio: socketio.Server,
-    data: { roomcode: string }
-) => {
-    //TODO query database to extract room information
-};
-
 export const getRoomSockets = (
     socketio: socketio.Server,
     roomcode: string
