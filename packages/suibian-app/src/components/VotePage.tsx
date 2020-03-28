@@ -1,5 +1,6 @@
 //app components
 import React, { Component, ChangeEvent } from "react";
+import NavBar from "./NavBar";
 
 //socket
 import socketIOClient from "socket.io-client";
