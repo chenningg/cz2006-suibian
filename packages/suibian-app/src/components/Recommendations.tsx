@@ -25,7 +25,6 @@ class Recomendations extends Component {
       className="recommendation flex-container flex row flex-spaced-between"
       key={recommendation.header}
     >
-      {/* <p className="recommendation-header">{recommendation.header}</p> */}
       <button className="button">
         <Link
           to="/eatery"
@@ -58,7 +57,7 @@ class Recomendations extends Component {
   render() {
     return (
       <>
-        <NavBar backPage="home" />
+        <NavBar />
         <div className="recommendations">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             <h2 style={{ margin: 40, fontSize: "2rem" }}>Recommendations</h2>
