@@ -24,6 +24,12 @@ class Eatery extends Component<{ google: string }> {
     activeMarker: {}, //Shows the active marker upon click
     selectedPlace: this.placename //Shows the infoWindow to the selected place upon a marker
   };
+
+  //variables
+  eateryname = "Albert Food Centre";
+  foodstall = "Hock Lee Fishball Noodle";
+
+  //methods
   onMarkerClick = (props, marker, e) =>
     this.setState({
       selectedPlace: props,
@@ -39,9 +45,6 @@ class Eatery extends Component<{ google: string }> {
       });
     }
   };
-
-  eateryname = "Albert Food Centre";
-  foodstall = "Hock Lee Fishball Noodle";
 
   render() {
     return (
@@ -88,6 +91,7 @@ class Eatery extends Component<{ google: string }> {
             <img
               className="foodstall"
               src="https://picsum.photos/id/1062/350/200"
+              alt={this.foodstall}
             ></img>
             <text className="address">
               #01-94 Albert Centre Market &amp; Food Centre
