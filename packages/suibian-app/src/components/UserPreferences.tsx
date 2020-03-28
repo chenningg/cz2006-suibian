@@ -1,7 +1,12 @@
+//app components
 import React, { Component, FormEvent, ChangeEvent } from "react";
-import "../css/UserPreferences.css";
 import NavBar from "./NavBar";
+
+//other components
 import ModalDialog from "./ModalDialog";
+
+//css
+import "../css/UserPreferences.css";
 
 class UserPreferences extends Component {
   // State

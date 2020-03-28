@@ -1,8 +1,13 @@
+//app components
 import React, { Component } from "react";
 import NavBar from "./NavBar";
-import "../css/Recommendations.css";
+
+//other components
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
+
+//css
+import "../css/Recommendations.css";
 
 class Recomendations extends Component {
   //State?
