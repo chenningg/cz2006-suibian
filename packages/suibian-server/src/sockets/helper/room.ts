@@ -25,12 +25,10 @@ export const joinRoom = async (
     await joinRoomQuery(username, roomCode);
     await updateRoomNumbersQuery(roomCode, 1); // increment the number of people in the room
 
-    if (isOwner) {
-        socketUserMapping.set(socket.id, {
-            username,
-            isOwner
-        });
-    }
+    socketUserMapping.set(socket.id, {
+        username,
+        isOwner
+    });
 
     //list all sockets
     socket.join(data.roomCode, async () => {
@@ -44,7 +42,7 @@ export const joinRoom = async (
             socketio,
             {
                 roomCode,
-                payload: socketList
+                payload: { roomCode, socketList }
             },
             "joinRoom" //broadcast using joinRoom socket command
         );
