@@ -6,7 +6,7 @@ import { Food } from "./Food";
 export type socketCommands =
   | "joinRoom"
   | "createRoom"
-  | "StartRoom"
+  | "startRoom"
   | "changeUsername"
   | "broadcastMessage"
   | "connection"
@@ -19,7 +19,7 @@ export type roomPayloadBase = {
 
 export type foodArrayPayload = {
   foodArray: Food[];
-}
+};
 
 export type createRoomPayload = {
   user: User;
