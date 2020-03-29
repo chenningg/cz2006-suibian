@@ -14,7 +14,8 @@ const initState = {
     socket: null,
     username: "",
     roomCode: 0
-  }
+  },
+  votes: []
 };
 
 // The one main reducer that can have sub reducers to translate actions > update the store
