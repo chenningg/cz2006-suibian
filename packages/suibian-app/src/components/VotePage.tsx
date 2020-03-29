@@ -53,21 +53,21 @@ class VotePage extends Component<Props> {
     index: 0,
     foods: [
       {
-        foodName: "Bak Chor Mee",
-        foodID: "123",
-        imgurl:
+        foodname: "Bak Chor Mee",
+        foodId: "123",
+        imageurl:
           "https://www.linsfood.com/wp-content/uploads/2017/02/Bak-Chor-Mee.jpg"
       },
       {
-        foodName: "Chicken Rice",
-        foodID: "456",
-        imgurl:
+        foodname: "Chicken Rice",
+        foodId: "456",
+        imageurl:
           "https://www.thespruceeats.com/thmb/ltMha1iXJIttnXv9EDQf9WFSrEE=/3896x2922/smart/filters:no_upscale()/hainanese-chicken-rice-very-detailed-recipe-3030408-hero-0a742f08c72044e999202a44e30a1ea7.jpg"
       },
       {
-        foodName: "Burrito",
-        foodID: "789",
-        imgurl:
+        foodname: "Burrito",
+        foodId: "789",
+        imageurl:
           "https://www.thespruceeats.com/thmb/Hn65vI6v55aIBCwMQaf0SWcVLYI=/2048x1360/filters:fill(auto,1)/vegetarian-bean-and-rice-burrito-recipe-3378550-9_preview-5b2417e1ff1b780037a58cda.jpeg"
       }
     ] as Food[],
@@ -82,8 +82,8 @@ class VotePage extends Component<Props> {
   //variables
   foodsList = this.state.foods.map(food => (
     <div>
-      <h1>{food.foodName}</h1>
-      <img className="food-image" src={food.imgurl} alt={food.foodName} />
+      <h1>{food.foodname}</h1>
+      <img className="food-image" src={food.imageurl} alt={food.foodname} />
     </div>
   ));
 
@@ -92,7 +92,7 @@ class VotePage extends Component<Props> {
     e.preventDefault();
     let vote: Vote = {
       like: like,
-      foodName: this.state.foods[this.state.index].foodName
+      foodId: this.state.foods[this.state.index].foodId
     };
 
     let updatedVotes = { ...this.state.votes };

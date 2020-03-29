@@ -1,7 +1,7 @@
 import ReduxState from "../types/ReduxState";
 
 // Initial state of our Redux store
-const initState = {
+const initState: ReduxState = {
   users: [],
   user: {
     username: "",
@@ -16,7 +16,6 @@ const initState = {
   socketState: {
     endpoint: "http://localhost:4000/",
     socket: null,
-    username: "",
     roomCode: ""
   },
   votes: null,
