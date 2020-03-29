@@ -47,11 +47,8 @@ class CreateRoom extends Component<Props> {
   // Function to handle creating room
   createRoom = (e: FormEvent) => {
     e.preventDefault();
-    this.props.updateUser("isOwner", true);
 
     if (this.props.socketState.socket) {
-      console.log(this.props.user.isOwner);
-
       this.props.socketState.socket.emit("createRoom", {
         user: this.props.user
       });

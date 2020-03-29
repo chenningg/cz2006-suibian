@@ -37,6 +37,7 @@ type DispatchProps = {
     value: string | number | suibianSocketClient | null
   ) => void;
   updateUsers: (users: User[]) => void;
+  updateUser: (key: string, value: boolean) => void;
 };
 
 type Props = StateProps & DispatchProps;
@@ -79,6 +80,7 @@ class AppRouter extends Component<Props> {
       this.props.socketState.socket.on("createRoom", (data: any) => {
         if (data) {
           console.log(`Room #${data.roomCode} created.`);
+          this.props.updateUser("isOwner", true);
           this.props.updateSocketState("roomCode", data.roomCode);
         } else {
           console.log(`Error! No data received from createRoom event.`);
@@ -87,7 +89,6 @@ class AppRouter extends Component<Props> {
 
       // On join room event fire, I log my data
       this.props.socketState.socket.on("joinRoom", (data: any) => {
-        console.log({ ...data });
         if (data) {
           console.log(`Joined room #${data.roomCode}.`);
           this.props.updateSocketState("roomCode", data.roomCode);
@@ -148,6 +149,13 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
       dispatch({
         type: "UPDATE_USERS",
         users: users
+      });
+    },
+    updateUser: (key, value) => {
+      dispatch({
+        type: "UPDATE_USER",
+        key: key,
+        value: value
       });
     }
   };
