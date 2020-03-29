@@ -25,24 +25,28 @@ export const joinRoom = async (
   await joinRoomQuery(username, roomCode);
   await updateRoomNumbersQuery(roomCode, 1); // increment the number of people in the room
 
-  socketUserMapping.set(socket.id, {
-    username,
-    isOwner
-  });
+    socketUserMapping.set(socket.id, {
+        username,
+        isOwner
+    });
 
-  //list all sockets
-  socket.join(data.roomCode, async () => {
-    const socketList = listSocketsRoom(socketio, roomCode, socketUserMapping);
-    console.log(`the socket list is ${socketList}`);
-    await broadcastRoom(
-      socketio,
-      {
-        roomCode,
-        payload: socketList
-      },
-      "joinRoom" //broadcast using joinRoom socket command
-    );
-  });
+    //list all sockets
+    socket.join(data.roomCode, async () => {
+        const socketList = listSocketsRoom(
+            socketio,
+            roomCode,
+            socketUserMapping
+        );
+        console.log(`the socket list is ${socketList}`);
+        await broadcastRoom(
+            socketio,
+            {
+                roomCode,
+                payload: { roomCode, socketList }
+            },
+            "joinRoom" //broadcast using joinRoom socket command
+        );
+    });
 };
 
 export const createRoom = async (
