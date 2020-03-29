@@ -13,7 +13,13 @@ import {
 })
 class Stalls extends Model<Stalls> {
     @Column
-    imageUrl!: string;
+    imageurl!: string;
+
+    @Column
+    hawkercenter!: string;
+
+    @Column
+    stallname!: string;
 
     @Column
     address!: string;
@@ -21,16 +27,15 @@ class Stalls extends Model<Stalls> {
     @Column({
         type: DataType.TIME
     })
-    opentime!: number;
+    openinghours!: number;
 
     @Column({
         type: DataType.TIME
     })
-    closetime!: number;
+    closinghour!: number;
 
-    @AllowNull
     @Column
-    rating!: number;
+    postalcode!: number;
 }
 
 export default Stalls;
