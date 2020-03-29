@@ -32,7 +32,6 @@ class Recomendations extends Component {
           style={{ textDecoration: "none" }}
         >
           <Card className="card" border="light">
-            {/* <Card.Header></Card.Header> */}
             <Card.Body>
               <Card.Title>
                 <h4 style={{ paddingTop: 10 }}>{recommendation.header}</h4>
@@ -43,6 +42,7 @@ class Recomendations extends Component {
                   <br />
                   <li>{recommendation.text2}</li>
                 </ul>
+
                 <span className="numlikes">
                   {this.numVotes.toString()} friends liked this.
                 </span>

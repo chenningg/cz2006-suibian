@@ -14,7 +14,6 @@ import "../css/InstructionPage.css";
 
 // Sockets and Redux
 import { SocketState } from "../types/SocketState";
-import { suibianSocketClient } from "@suibian/commons";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
 
@@ -28,6 +27,7 @@ type OwnProps = {
 type StateProps = {
   socketState: SocketState;
   user: User;
+  votes: Votes;
 };
 
 type DispatchProps = {
@@ -54,19 +54,16 @@ class VotePage extends Component<Props> {
     foods: [
       {
         foodName: "Bak Chor Mee",
-        foodID: "123",
         imgurl:
           "https://www.linsfood.com/wp-content/uploads/2017/02/Bak-Chor-Mee.jpg"
       },
       {
         foodName: "Chicken Rice",
-        foodID: "456",
         imgurl:
           "https://www.thespruceeats.com/thmb/ltMha1iXJIttnXv9EDQf9WFSrEE=/3896x2922/smart/filters:no_upscale()/hainanese-chicken-rice-very-detailed-recipe-3030408-hero-0a742f08c72044e999202a44e30a1ea7.jpg"
       },
       {
         foodName: "Burrito",
-        foodID: "789",
         imgurl:
           "https://www.thespruceeats.com/thmb/Hn65vI6v55aIBCwMQaf0SWcVLYI=/2048x1360/filters:fill(auto,1)/vegetarian-bean-and-rice-burrito-recipe-3378550-9_preview-5b2417e1ff1b780037a58cda.jpeg"
       }
@@ -92,41 +89,37 @@ class VotePage extends Component<Props> {
     e.preventDefault();
     let vote: Vote = {
       like: like,
-      foodID: this.state.foods[this.state.index].foodID
+      foodName: this.state.foods[this.state.index].foodName
     };
 
-    // this.setState({
-    //   votes: this.state.votes.voteArray.concat([vote])
-    // });
+    let updatedVotes = { ...this.state.votes };
+    updatedVotes.voteArray.push(vote);
 
     this.setState({
+      votes: updatedVotes,
       index: this.state.index + 1
     });
 
     if (this.state.index === this.state.foods.length - 1) {
-      this.setState({
-        redirect: true
-      });
+      setTimeout(() => {
+        this.handleCompletion();
+      }, 1);
     }
   };
 
-  handleCompletion = (e: any) => {
-    e.preventDefault();
+  handleCompletion = () => {
+    this.props.updateVotes(this.state.votes);
+    console.log(this.props.votes);
+
+    this.setState({
+      redirect: true
+    });
   };
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        redirect: true
-      });
-      this.props.updateVotes(this.state.votes);
-    }, 20000);
-  }
-
   render() {
-    // if (this.state.redirect) {
-    //   return <Redirect to={"/waitpage"} />;
-    // }
+    if (this.state.redirect) {
+      return <Redirect to={"/waitpage"} />;
+    }
 
     return (
       <>
@@ -146,7 +139,13 @@ class VotePage extends Component<Props> {
               </div>
               <div className="vote-button">
                 <Clock style={styles.mediumIcon} />
-                <Timer initialTime={20500} direction="backward">
+                <Timer
+                  initialTime={20500}
+                  direction="backward"
+                  checkpoints={[
+                    { time: 0, callback: () => this.handleCompletion() }
+                  ]}
+                >
                   {() => (
                     <h1>
                       <Timer.Seconds />
@@ -175,7 +174,8 @@ class VotePage extends Component<Props> {
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
     socketState: state.socketState,
-    user: state.user
+    user: state.user,
+    votes: state.votes
   };
 };
 

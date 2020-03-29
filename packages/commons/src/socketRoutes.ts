@@ -19,7 +19,7 @@ export type roomPayloadBase = {
 
 export type foodArrayPayload = {
   foodArray: Food[];
-}
+};
 
 export type createRoomPayload = {
   user: User;
