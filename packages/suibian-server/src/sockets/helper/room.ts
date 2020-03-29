@@ -11,6 +11,7 @@ import {
   User
 } from "@suibian/commons";
 import { sendError, broadcastRoom } from "./messaging";
+import { foodImageQuery } from "../../queries/food";
 import { listSocketsRoom } from "./utils";
 
 const socketUserMapping = new Map<string, User>();
@@ -101,6 +102,12 @@ export const closeRoom = (
   });
 };
 
-export const startRoom = (io: socketio.Server, roomCode: string) => {
+export const startRoom = async (io: socketio.Server, roomCode: string) => {
   //TODO Add in entries in the database & change room status
+  const foodArrayString = await foodImageQuery(50);
+  if (foodArrayString != null) {
+    const foodArray = JSON.parse(foodArrayString);
+    return foodArray;
+  } //array of Food JSON objects
+  else return null;
 };
