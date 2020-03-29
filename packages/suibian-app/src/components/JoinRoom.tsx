@@ -7,7 +7,8 @@ import "../css/JoinRoom.css";
 import { withRouter } from "react-router-dom";
 
 // Sockets and Redux
-import * as SocketTypes from "../types/SocketState";
+import { SocketState } from "../types/SocketState";
+import { suibianSocketClient } from "@suibian/commons";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
 import { User } from "@suibian/commons";
@@ -20,14 +21,14 @@ type OwnProps = {
 };
 
 type StateProps = {
-  socketState: SocketTypes.SocketState;
+  socketState: SocketState;
   user: User;
 };
 
 type DispatchProps = {
   updateSocketState: (
     key: string,
-    value: string | number | SocketTypes.SuibianSocket
+    value: string | number | suibianSocketClient
   ) => void;
   updateUser: (key: string, value: string) => void;
 };
@@ -40,8 +41,10 @@ class JoinRoom extends Component<Props> {
     switch (e.target.id) {
       case "username":
         this.props.updateUser("username", e.target.value);
+        break;
       case "roomCode":
         this.props.updateSocketState("roomCode", e.target.value);
+        break;
     }
   };
 
@@ -51,8 +54,8 @@ class JoinRoom extends Component<Props> {
     console.log("Joining room...");
     if (this.props.socketState.socket) {
       this.props.socketState.socket.emit("joinRoom", {
-        username: this.props.user.username,
-        roomCode: this.props.socketState.roomCode
+        roomCode: this.props.socketState.roomCode,
+        user: this.props.user
       });
 
       // Redirect to room lobby
