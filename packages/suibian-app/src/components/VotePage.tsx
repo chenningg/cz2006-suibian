@@ -6,6 +6,7 @@ import NavBar from "./NavBar";
 import { Favorite, Block, Timer as Clock } from "@material-ui/icons";
 import Timer from "react-compound-timer";
 import { Redirect } from "react-router-dom";
+import { Vote } from "@suibian/commons";
 
 //css
 import "../css/VotePage.css";

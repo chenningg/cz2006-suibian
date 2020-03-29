@@ -17,7 +17,7 @@ const initState = {
     endpoint: "http://localhost:4000/",
     socket: null,
     username: "",
-    roomCode: 0
+    roomCode: ""
   },
   votes: []
 };
@@ -46,13 +46,12 @@ const RootReducer = (state: ReduxState = initState, action: any) => {
       return { ...state, socketState: newSocketState };
 
     case "UPDATE_USER":
-      let newUser = [...state.user];
+      let newUser = { ...state.user };
       newUser[action.key] = action.value;
       return { ...state, user: newUser };
 
     case "UPDATE_USERS":
-      let newUsers = [...action.users];
-      return { ...state, users: newUsers };
+      return { ...state, users: action.users };
   }
 
   return state;

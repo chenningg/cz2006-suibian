@@ -9,7 +9,8 @@ import { withRouter } from "react-router-dom";
 import "../css/CreateRoom.css";
 
 // Sockets and Redux
-import * as SocketTypes from "../types/SocketState";
+import { SocketState } from "../types/SocketState";
+import { suibianSocketClient } from "@suibian/commons";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
 import { findlatlng } from "../functions/findlatlng";
@@ -23,17 +24,17 @@ type OwnProps = {
 };
 
 type StateProps = {
-  socketState: SocketTypes.SocketState;
+  socketState: SocketState;
   user: User;
 };
 
 type DispatchProps = {
   updateSocketState: (
     key: string,
-    value: string | number | SocketTypes.SuibianSocket
+    value: string | number | suibianSocketClient
   ) => void;
 
-  updateUser: (key: string, value: string) => void;
+  updateUser: (key: string, value: string | boolean) => void;
 };
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -46,9 +47,10 @@ class CreateRoom extends Component<Props> {
   // Function to handle creating room
   createRoom = (e: FormEvent) => {
     e.preventDefault();
+
     if (this.props.socketState.socket) {
       this.props.socketState.socket.emit("createRoom", {
-        username: this.props.user.username
+        user: this.props.user
       });
 
       // Redirect to room lobby after creating room
@@ -85,7 +87,8 @@ class CreateRoom extends Component<Props> {
 // Redux functions
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
-    socketState: state.socketState
+    socketState: state.socketState,
+    user: state.user
   };
 };
 
@@ -95,6 +98,13 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
     updateSocketState: (key, value) => {
       dispatch({
         type: "UPDATE_SOCKET_STATE",
+        key: key,
+        value: value
+      });
+    },
+    updateUser: (key, value) => {
+      dispatch({
+        type: "UPDATE_USER",
         key: key,
         value: value
       });

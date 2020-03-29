@@ -1,12 +1,8 @@
 //creating socket
-import { socketCommands } from "@suibian/commons";
+import { suibianSocketClient } from "@suibian/commons";
 
 export type SocketState = {
   endpoint: string;
-  socket: SuibianSocket | null;
+  socket: suibianSocketClient | null;
   roomCode: string;
 };
-
-export interface SuibianSocket extends SocketIOClient.Socket {
-  emit(event: socketCommands, data: any): SocketIOClient.Socket;
-}

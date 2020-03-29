@@ -4,25 +4,23 @@ import Rooms from "./rooms.model";
 import Food from "./food.model";
 
 @Table({
-  tableName: "vote",
-  createdAt: false,
-  updatedAt: false
+    tableName: "vote"
 })
 class Votes extends Model<Votes> {
-  @ForeignKey(() => User)
-  @Column
-  username!: string;
+    @ForeignKey(() => User)
+    @Column
+    username!: string;
 
-  @ForeignKey(() => Rooms)
-  @Column
-  roomcode!: string;
+    @ForeignKey(() => Rooms)
+    @Column
+    roomcode!: string;
 
-  @ForeignKey(() => Food)
-  @Column
-  foodName!: string;
+    @ForeignKey(() => Food)
+    @Column
+    foodId!: string;
 
-  @Column
-  vote!: boolean;
+    @Column
+    vote!: boolean;
 }
 
 export default Votes;
