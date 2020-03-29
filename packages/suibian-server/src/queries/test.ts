@@ -2,35 +2,25 @@ import { Sequelize } from "sequelize";
 import * as dotenv from "dotenv-extended";
 import { db } from "../sequelize";
 import { createRoomQuery, joinRoomQuery } from "./room";
-import { getStallId } from "../queries/stall";
+import { countVoteQuery, createVoteQueryPerUser } from "./vote";
+import { any } from "bluebird";
 const path = require("path");
 
 const intializeDB = async () => {
-    await db.sync();
+    await db.sync({ force: true });
 };
 
-const testCreateRoom = async () => {
-  const roomcode = await createRoomQuery();
-  return roomcode;
+const testUploadVote = async () => {
+    const votes = { "john": String, "0046": String, [{ "001": String, True: Boolean }, { "002": String, True: Boolean }]};
+    await createVoteQueryPerUser(votes);
 };
 
-let data = {
-  "1": 2,
-  "2": 3
-};
-
-let datastring = JSON.stringify(data);
-
-const testGetStallId = async () => {
-  const sth = await getStallId(datastring);
-  return sth;
-};
-
-intializeDB().then(testGetStallId);
-//   .then(roomcode => {
-//     if (roomcode) {
-//       joinRoomQuery("alvin", roomcode);
-//     } else {
-//       console.log("no room code returned");
-//     }
-//   });
+intializeDB()
+    .then(testCreateRoom)
+    .then(roomcode => {
+        if (roomcode) {
+            joinRoomQuery("alvin", roomcode);
+        } else {
+            console.log("no room code returned");
+        }
+    });

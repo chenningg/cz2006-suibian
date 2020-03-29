@@ -2,10 +2,11 @@ import SocketIOServer from "socket.io";
 import { User } from "./User";
 import { httpStatus } from "./httpStatus";
 import { Food } from "./Food";
-import { Position } from "./Position";
+import { Vote } from "./Vote";
 
 export type socketCommands =
   | "joinRoom"
+  | "submitVote"
   | "createRoom"
   | "startRoom"
   | "votePage"
@@ -18,6 +19,12 @@ export type socketCommands =
 export type roomPayloadBase = {
   roomCode: string;
 };
+
+export type votePayload = {
+  roomCode: string;
+  username: string;
+  votes: Vote[];
+}
 
 export type foodArrayPayload = {
   foodArray: Food[];
