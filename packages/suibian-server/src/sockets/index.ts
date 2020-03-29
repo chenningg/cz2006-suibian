@@ -21,31 +21,31 @@ export default {
         console.log(`socket ${socket.id} disconnected`)
       );
 
-            socket.on("joinRoom", async (data: joinRoomPayload) => {
-                await joinRoom(socket, io, data);
-            });
-
-      socket.on("closeRoom", (data: { roomcode: string }) => {
-        const { roomcode } = data;
-        closeRoom(io, socket, roomcode);
+      socket.on("joinRoom", async (data: joinRoomPayload) => {
+        await joinRoom(socket, io, data);
       });
 
-            socket.on("createRoom", async (data: { username: string }) => {
-                //first user creates a room and also joins the room
-                const { username } = data;
-                const roomcode = await createRoom(socket);
-                if (roomcode) {
-                    await joinRoom(socket, io, { username, roomcode });
-                }
-            });
-
-      socket.on("startRoom", (data: { roomcode: string }) => {
-        const { roomcode } = data;
-        startRoom(io, roomcode);
+      socket.on("closeRoom", (data: { roomCode: string }) => {
+        const { roomCode } = data;
+        closeRoom(io, socket, roomCode);
       });
 
-            socket.on("getRoomInfo", (data: { roomcode: string }) => {});
-        });
+      socket.on("createRoom", async (data: { username: string }) => {
+        //first user creates a room and also joins the room
+        const { username } = data;
+        const roomCode = await createRoom(socket);
+        if (roomCode) {
+          await joinRoom(socket, io, { username, roomCode });
+        }
+      });
+
+      socket.on("startRoom", (data: { roomCode: string }) => {
+        const { roomCode } = data;
+        startRoom(io, roomCode);
+      });
+
+      socket.on("getRoomInfo", (data: { roomCode: string }) => {});
+    });
 
     return httpServer;
   }

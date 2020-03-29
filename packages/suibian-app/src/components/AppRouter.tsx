@@ -64,7 +64,14 @@ class AppRouter extends Component<Props> {
     console.log(this.props.socketState.socket);
     if (this.props.socketState.socket) {
       console.log("Registering socket listeners...");
+
+      // On create room event fire, I log my data
       this.props.socketState.socket.on("createRoom", (data: any) => {
+        console.log(data);
+      });
+
+      // On join room event fire, I log my data
+      this.props.socketState.socket.on("joinRoom", (data: any) => {
         console.log(data);
       });
     }
