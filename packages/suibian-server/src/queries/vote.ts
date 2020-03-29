@@ -37,3 +37,27 @@ export const countVoteQuery = async (
     console.log(err);
   }
 };
+
+// var list = {"you": 100, "me": 75, "foo": 116, "bar": 15};
+// keysSorted = Object.keys(list).sort(function(a,b){return list[a]-list[b]})
+// console.log(keysSorted);
+
+// TODO: take (top) number of food votes, then find hawker centres with these foods
+// TODO: rank hawker centres by distance
+export function processVoteQuery(queryresult: string, top: number) {
+  let result = JSON.parse(queryresult);
+  let result_len = Object.keys(result).length;
+  let top_len = Math.min(result_len, top);
+  if (top_len > 0) {
+    // array of sorted keys
+    let sorted_keys = Object.keys(result).sort((a, b) => result[a] - result[b]);
+    // type definition of vote results object
+    let vote_results: { [key: string]: boolean } = {};
+    for (let i = 0; i < top_len; i++) {
+      vote_results[sorted_keys[i]] = result[sorted_keys[i]];
+    }
+    return JSON.stringify(vote_results);
+  } else {
+    console.log("No results found!");
+  }
+}
