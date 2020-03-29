@@ -6,6 +6,7 @@ import NavBar from "./NavBar";
 import ModalDialog from "./ModalDialog";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
+import { Preference } from "@suibian/commons";
 
 //css
 import "../css/UserPreferences.css";
