@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import UserList from "./UserList";
+import RoomLobbyLoadingScreen from "./RoomLobbyLoadingScreen";
 
 //other components
 import { Link } from "react-router-dom";
@@ -16,18 +17,24 @@ import ReduxState from "../types/ReduxState";
 import { User } from "@suibian/commons";
 
 // Types
+type OwnProps = {
+  loaded: boolean;
+};
+
 type StateProps = {
   socketState: SocketTypes.SocketState;
   users: User[];
+  user: User;
 };
 
-type Props = StateProps;
+type Props = StateProps & OwnProps;
 
 class RoomLobby extends Component<Props> {
   render() {
-    return (
+    const backLink = this.props.user.isOwner ? "/createroom" : "/joinroom";
+    return this.props.users.length > 0 ? (
       <>
-        <NavBar />
+        <NavBar backPage={backLink} />
         <div className="room-lobby">
           <div className="app-content flex-container flex-col flex-center-v flex-center-h flex-start">
             <h1 className="title">Room #{this.props.socketState.roomCode}</h1>
@@ -40,6 +47,8 @@ class RoomLobby extends Component<Props> {
           </div>
         </div>
       </>
+    ) : (
+      <RoomLobbyLoadingScreen />
     );
   }
 }
@@ -47,6 +56,7 @@ class RoomLobby extends Component<Props> {
 // Redux functions
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
+    user: state.user,
     users: state.users,
     socketState: state.socketState
   };
