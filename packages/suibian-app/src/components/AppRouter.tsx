@@ -4,7 +4,6 @@ import Home from "./Home";
 import CreateRoom from "./CreateRoom";
 import JoinRoom from "./JoinRoom";
 import UserPreferences from "./UserPreferences";
-import SelectLocation from "./SelectLocation";
 import RoomLobby from "./RoomLobby";
 import InstructionPage from "./InstructionPage";
 import VotePage from "./VotePage";
@@ -86,7 +85,6 @@ class AppRouter extends Component<Props> {
           <Route path="/home" component={Home}></Route>
           <Route path="/joinroom" component={JoinRoom}></Route>
           <Route path="/userpreferences" component={UserPreferences}></Route>
-          <Route path="/selectlocation" component={SelectLocation}></Route>
           <Route path="/roomlobby" component={RoomLobby}></Route>
           <Route path="/instructionpage" component={InstructionPage}></Route>
           <Route path="/votepage" component={VotePage}></Route>
