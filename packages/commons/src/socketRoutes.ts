@@ -2,6 +2,7 @@ import SocketIOServer from "socket.io";
 import { User } from "./User";
 import { httpStatus } from "./httpStatus";
 import { Food } from "./Food";
+import { Position } from "./Position";
 
 export type socketCommands =
   | "joinRoom"
@@ -23,6 +24,7 @@ export type foodArrayPayload = {
 
 export type createRoomPayload = {
   user: User;
+  position: Position;
 };
 
 export type joinRoomPayload = {
