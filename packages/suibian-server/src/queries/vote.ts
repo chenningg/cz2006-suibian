@@ -19,6 +19,7 @@ export const createVoteQueryPerUser = async (uservote: any) => {
     return voteentry; // return for each element in the array
   });
   await Vote.bulkCreate(votebulkentry);
+  console.log("Votes passed to database");
 };
 
 export const countVoteQuery = async (
