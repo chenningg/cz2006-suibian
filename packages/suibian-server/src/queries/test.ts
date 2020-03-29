@@ -5,7 +5,7 @@ import { createRoomQuery, joinRoomQuery } from "./room";
 const path = require("path");
 
 const intializeDB = async () => {
-    await db.sync({ force: true });
+    await db.sync();
 };
 
 const testCreateRoom = async () => {
