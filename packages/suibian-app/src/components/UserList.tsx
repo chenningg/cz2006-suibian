@@ -4,6 +4,7 @@ import React from "react";
 //css
 import "../css/UserList.css";
 
+import { User } from "@suibian/commons";
 
 type UserListProps = {
   users: User[];
