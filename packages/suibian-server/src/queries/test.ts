@@ -7,7 +7,7 @@ import { any } from "bluebird";
 const path = require("path");
 
 const intializeDB = async () => {
-    await db.sync({ force: true });
+    await db.sync();
 };
 
 const testUploadVote = async () => {
