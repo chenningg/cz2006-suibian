@@ -2,13 +2,7 @@ import ReduxState from "../types/ReduxState";
 
 // Initial state of our Redux store
 const initState = {
-  roomID: "TEST",
-  users: [
-    { id: "0", username: "Robin", isOwner: true },
-    { id: "1", username: "Amy", isOwner: false },
-    { id: "2", username: "Hathaway", isOwner: false },
-    { id: "3", username: "Benny", isOwner: false }
-  ],
+  users: [],
   userPreferences: [
     { type: "Halal", prefID: "0", value: false },
     { type: "Vegetarian", prefID: "1", value: false },
@@ -42,6 +36,10 @@ const RootReducer = (state: ReduxState = initState, action: any) => {
       let newSocketState = { ...state.socketState };
       newSocketState[action.key] = action.value;
       return { ...state, socketState: newSocketState };
+
+    case "UPDATE_USERS":
+      let newUsers = [...action.users];
+      return { ...state, users: newUsers };
   }
 
   return state;
