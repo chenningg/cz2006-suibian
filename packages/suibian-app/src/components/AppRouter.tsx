@@ -25,6 +25,7 @@ import ReduxState from "../types/ReduxState";
 
 // Types
 type StateProps = {
+  users: User[];
   socketState: SocketTypes.SocketState;
 };
 
@@ -33,6 +34,7 @@ type DispatchProps = {
     key: string,
     value: string | number | SocketTypes.SuibianSocket | null
   ) => void;
+  updateUsers: (users: User[]) => void;
 };
 
 type Props = StateProps & DispatchProps;
@@ -71,12 +73,12 @@ class AppRouter extends Component<Props> {
 
       // On create room event fire, I log my data
       this.props.socketState.socket.on("createRoom", (data: any) => {
-        console.log(data);
+        console.log(`Room #${data} created.`);
       });
 
       // On join room event fire, I log my data
       this.props.socketState.socket.on("joinRoom", (data: any) => {
-        console.log(data);
+        this.props.updateUsers(data);
       });
     }
   };
@@ -111,6 +113,7 @@ class AppRouter extends Component<Props> {
 // Redux functions
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
+    users: state.users,
     socketState: state.socketState
   };
 };
@@ -123,6 +126,12 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
         type: "UPDATE_SOCKET_STATE",
         key: key,
         value: value
+      });
+    },
+    updateUsers: users => {
+      dispatch({
+        type: "UPDATE_USERS",
+        users: users
       });
     }
   };
