@@ -5,11 +5,6 @@ import NavBar from "./NavBar";
 //css
 import "../css/Eatery.css";
 
-const mapStyles = {
-  width: 350,
-  height: 350
-};
-
 class Eatery extends Component {
   //State
   placename = "BIG DICK LAKE";
