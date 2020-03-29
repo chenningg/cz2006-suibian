@@ -97,7 +97,7 @@ class UserPreferences extends Component<Props> {
 // Redux functions
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
-    userPreferences: state.userPreferences
+    userPreferences: state.user.preferences
   };
 };
 

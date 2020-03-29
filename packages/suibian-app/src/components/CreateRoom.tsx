@@ -13,6 +13,7 @@ import * as SocketTypes from "../types/SocketState";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
 import { findlatlng } from "../functions/findlatlng";
+import { User } from "@suibian/commons";
 
 // Types
 type OwnProps = {
@@ -23,6 +24,7 @@ type OwnProps = {
 
 type StateProps = {
   socketState: SocketTypes.SocketState;
+  user: User;
 };
 
 type DispatchProps = {
@@ -30,13 +32,15 @@ type DispatchProps = {
     key: string,
     value: string | number | SocketTypes.SuibianSocket
   ) => void;
+
+  updateUser: (key: string, value: string) => void;
 };
 
 type Props = StateProps & DispatchProps & OwnProps;
 
 class CreateRoom extends Component<Props> {
   handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.props.updateSocketState("username", e.target.value);
+    this.props.updateUser("username", e.target.value);
   };
 
   // Function to handle creating room
@@ -44,7 +48,7 @@ class CreateRoom extends Component<Props> {
     e.preventDefault();
     if (this.props.socketState.socket) {
       this.props.socketState.socket.emit("createRoom", {
-        username: this.props.socketState.username
+        username: this.props.user.username
       });
 
       // Redirect to room lobby after creating room
