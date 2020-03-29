@@ -36,9 +36,7 @@ class Stall extends Model<Stall> {
     @Column
     openinghours!: number;
 
-    @Column({
-        type: DataType.TIME
-    })
+    @Column
     closinghours!: number;
 
     @Column
