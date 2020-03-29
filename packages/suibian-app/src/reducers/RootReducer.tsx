@@ -17,7 +17,7 @@ const initState = {
     endpoint: "http://localhost:4000/",
     socket: null,
     username: "",
-    roomCode: 0
+    roomCode: ""
   },
   votes: []
 };
