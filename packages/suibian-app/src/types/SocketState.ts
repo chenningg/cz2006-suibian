@@ -4,8 +4,7 @@ import { socketCommands } from "@suibian/commons";
 export type SocketState = {
   endpoint: string;
   socket: SuibianSocket | null;
-  username: string;
-  roomCode: number;
+  roomCode: string;
 };
 
 export interface SuibianSocket extends SocketIOClient.Socket {
