@@ -16,10 +16,10 @@ app.use(router);
 
 const httpServer = sockets.startSocketServer(app);
 httpServer.listen(PORT, () => {
-  console.log(`Server is listening to port ${PORT}`);
+    console.log(`Server is listening to port ${PORT}`);
 });
 
 // Instantiate db connection
-db.sync({ force: true })
-  .then(() => console.log("Database connected ..."))
-  .catch((err: any) => console.log("Error: " + err));
+db.sync()
+    .then(() => console.log("Database connected ..."))
+    .catch((err: any) => console.log("Error: " + err));
