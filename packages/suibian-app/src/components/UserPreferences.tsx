@@ -6,6 +6,7 @@ import NavBar from "./NavBar";
 import ModalDialog from "./ModalDialog";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
+import { Preference } from "@suibian/commons";
 
 //css
 import "../css/UserPreferences.css";
@@ -96,7 +97,7 @@ class UserPreferences extends Component<Props> {
 // Redux functions
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
-    userPreferences: state.userPreferences
+    userPreferences: state.user.preferences
   };
 };
 
