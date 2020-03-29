@@ -22,7 +22,7 @@ import * as SocketTypes from "../types/SocketState";
 import socketIOClient from "socket.io-client";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
-import { User, Preference } from "@suibian/commons";
+import { User } from "@suibian/commons";
 
 // Types
 type StateProps = {
