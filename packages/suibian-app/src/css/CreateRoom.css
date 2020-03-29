@@ -7,14 +7,16 @@
   height: -o-calc(100vh - 60px);
   /* Standard */
   height: calc(100vh - 60px);
+
+  margin-top: 20px;
 }
 
 .create-room .title {
-  height: 70px;
+  height: 50px;
 }
 
 .create-room .create-room-form {
-  height: 200px;
+  height: 300px;
 }
 
 .create-room .create-room-form .label {
@@ -27,6 +29,7 @@
   padding: 10px;
   font-size: 1rem;
   border-radius: 6px;
+  margin-top: 20px;
   border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
@@ -38,7 +41,6 @@
 }
 
 .create-room .create-room-form button {
-  margin-top: 14px;
   font-weight: 600;
   font-size: 1rem;
   width: 212px;
@@ -49,6 +51,6 @@
 .create-room .create-room-form button:hover {
   box-shadow: none;
   cursor: pointer;
-  margin-top: 18px;
+  margin-top: 4px;
   margin-bottom: -4px;
 }
