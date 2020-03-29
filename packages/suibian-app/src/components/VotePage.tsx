@@ -1,15 +1,39 @@
 //app components
 import React, { Component, ChangeEvent } from "react";
 import NavBar from "./NavBar";
+import { Food, Vote, Votes, User } from "@suibian/commons";
 
 //other components
 import { Favorite, Block, Timer as Clock } from "@material-ui/icons";
 import Timer from "react-compound-timer";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 
 //css
 import "../css/VotePage.css";
 import "../css/InstructionPage.css";
+
+// Sockets and Redux
+import * as SocketTypes from "../types/SocketState";
+import { connect } from "react-redux";
+import ReduxState from "../types/ReduxState";
+
+// Types
+type OwnProps = {
+  history: any;
+  location: any;
+  match: any;
+};
+
+type StateProps = {
+  socketState: SocketTypes.SocketState;
+  user: User;
+};
+
+type DispatchProps = {
+  updateVotes: (votes: Votes) => void;
+};
+
+type Props = StateProps & DispatchProps & OwnProps;
 
 const styles = {
   largeIcon: {
@@ -22,7 +46,7 @@ const styles = {
   }
 };
 
-class VotePage extends Component {
+class VotePage extends Component<Props> {
   //state
   state = {
     index: 0,
@@ -78,11 +102,16 @@ class VotePage extends Component {
     }
   };
 
+  handleCompletion = (e: any) => {
+    e.preventDefault();
+  };
+
   componentDidMount() {
     setTimeout(() => {
       this.setState({
         redirect: true
       });
+      this.props.updateVotes({ username: this.props.socketState });
     }, 20000);
   }
 
@@ -134,4 +163,26 @@ class VotePage extends Component {
   }
 }
 
-export default VotePage;
+// Redux functions
+const mapStateToProps = (state: ReduxState): StateProps => {
+  return {
+    socketState: state.socketState,
+    user: state.user
+  };
+};
+
+// Links a dispatch function to a prop
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+  return {
+    updateVotes: votes => {
+      dispatch({
+        type: "UPDATE_VOTES",
+        votes: votes
+      });
+    }
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(VotePage)
+);

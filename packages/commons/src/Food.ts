@@ -1,4 +1,4 @@
-type Food = {
+export type Food = {
   name: string;
   imgurl: string;
 };
