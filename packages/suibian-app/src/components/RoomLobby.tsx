@@ -13,6 +13,7 @@ import "../css/RoomLobby.css";
 import * as SocketTypes from "../types/SocketState";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
+import { User } from "@suibian/commons";
 
 // Types
 type StateProps = {
