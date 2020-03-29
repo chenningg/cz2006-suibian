@@ -9,6 +9,7 @@ export type socketCommands =
   | "submitVote"
   | "createRoom"
   | "startRoom"
+  | "votePage"
   | "changeUsername"
   | "broadcastMessage"
   | "connection"
@@ -31,6 +32,7 @@ export type foodArrayPayload = {
 
 export type createRoomPayload = {
   user: User;
+  position: Position;
 };
 
 export type joinRoomPayload = {

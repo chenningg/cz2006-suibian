@@ -61,14 +61,12 @@ export default {
                 }
             });
 
-            socket.on("startRoom", async (data: roomPayloadBase) => {
+            socket.on("startRoom", async (data: startRoomPayload) => {
                 const { roomCode } = data;
                 const foodArray = await startRoom(io, roomCode);
-                broadcastRoom(
-                    io,
-                    { roomCode, payload: foodArray },
-                    "startRoom"
-                );
+                broadcastRoom(io, { roomCode, payload: foodArray }, "startRoom");
+                console.log("emitted food aray", foodArray);
+                console.log("emitted start rooom event to user");
             });
 
             socket.on("getRoomInfo", (data: roomPayloadBase) => { });

@@ -1,7 +1,7 @@
 import ReduxState from "../types/ReduxState";
 
 // Initial state of our Redux store
-const initState = {
+const initState: ReduxState = {
   users: [],
   user: {
     username: "",
@@ -16,10 +16,9 @@ const initState = {
   socketState: {
     endpoint: "http://localhost:4000/",
     socket: null,
-    username: "",
     roomCode: ""
   },
-  votes: null,
+  votes: [],
   foods: [],
   position: { latitude: 0, longitude: 0 }
 };
@@ -60,7 +59,7 @@ const RootReducer = (state: ReduxState = initState, action: any) => {
       let newFoods = [...action.foods];
       return { ...state, foods: newFoods };
 
-    case "UPDATE_VOTES":
+    case "SUBMIT_VOTES":
       let newVotes = { ...action.votes };
       return { ...state, votes: newVotes };
 

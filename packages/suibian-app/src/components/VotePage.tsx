@@ -1,7 +1,7 @@
 //app components
 import React, { Component, ChangeEvent } from "react";
 import NavBar from "./NavBar";
-import { Food, Vote, Votes, User } from "@suibian/commons";
+import { Food, Vote, User } from "@suibian/commons";
 
 //other components
 import { Favorite, Block, Timer as Clock } from "@material-ui/icons";
@@ -27,11 +27,12 @@ type OwnProps = {
 type StateProps = {
   socketState: SocketState;
   user: User;
-  votes: Votes;
+  votes: Vote[];
+  foods: Food[];
 };
 
 type DispatchProps = {
-  updateVotes: (votes: Votes) => void;
+  updateVotes: (votes: Vote[], username: string, roomCode: string) => void;
 };
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -51,39 +52,15 @@ class VotePage extends Component<Props> {
   //state
   state = {
     index: 0,
-    foods: [
-      {
-        foodName: "Bak Chor Mee",
-        foodID: "123",
-        imgurl:
-          "https://www.linsfood.com/wp-content/uploads/2017/02/Bak-Chor-Mee.jpg"
-      },
-      {
-        foodName: "Chicken Rice",
-        foodID: "456",
-        imgurl:
-          "https://www.thespruceeats.com/thmb/ltMha1iXJIttnXv9EDQf9WFSrEE=/3896x2922/smart/filters:no_upscale()/hainanese-chicken-rice-very-detailed-recipe-3030408-hero-0a742f08c72044e999202a44e30a1ea7.jpg"
-      },
-      {
-        foodName: "Burrito",
-        foodID: "789",
-        imgurl:
-          "https://www.thespruceeats.com/thmb/Hn65vI6v55aIBCwMQaf0SWcVLYI=/2048x1360/filters:fill(auto,1)/vegetarian-bean-and-rice-burrito-recipe-3378550-9_preview-5b2417e1ff1b780037a58cda.jpeg"
-      }
-    ] as Food[],
-    votes: {
-      username: this.props.user.username,
-      roomCode: this.props.socketState.roomCode,
-      voteArray: [] as Vote[]
-    } as Votes,
+    votes: [] as Vote[],
     redirect: false
   };
 
   //variables
-  foodsList = this.state.foods.map(food => (
+  foodsList = this.props.foods.map(food => (
     <div>
-      <h1>{food.foodName}</h1>
-      <img className="food-image" src={food.imgurl} alt={food.foodName} />
+      <h1>{food.foodname}</h1>
+      <img className="food-image" src={food.imageurl} alt={food.foodname} />
     </div>
   ));
 
@@ -92,18 +69,18 @@ class VotePage extends Component<Props> {
     e.preventDefault();
     let vote: Vote = {
       like: like,
-      foodName: this.state.foods[this.state.index].foodName
+      foodId: this.props.foods[this.state.index].foodId
     };
 
-    let updatedVotes = { ...this.state.votes };
-    updatedVotes.voteArray.push(vote);
+    let updatedVotes = [...this.state.votes];
+    updatedVotes.push(vote);
 
     this.setState({
       votes: updatedVotes,
       index: this.state.index + 1
     });
 
-    if (this.state.index === this.state.foods.length - 1) {
+    if (this.state.index === this.props.foods.length - 1) {
       setTimeout(() => {
         this.handleCompletion();
       }, 1);
@@ -111,8 +88,21 @@ class VotePage extends Component<Props> {
   };
 
   handleCompletion = () => {
-    this.props.updateVotes(this.state.votes);
-    console.log(this.props.votes);
+    this.props.updateVotes(
+      this.state.votes,
+      this.props.user.username,
+      this.props.socketState.roomCode
+    );
+    console.log("props" + this.props.votes);
+    console.log("state" + this.state.votes);
+
+    // if (this.props.socketState.socket) {
+    //   this.props.socketState.socket.emit("submitVote", {
+    //     username: this.props.user.username,
+    //     roomCode: this.props.socketState.roomCode,
+    //     votes: this.props.votes
+    //   });
+    // }
 
     this.setState({
       redirect: true
@@ -178,17 +168,20 @@ const mapStateToProps = (state: ReduxState): StateProps => {
   return {
     socketState: state.socketState,
     user: state.user,
-    votes: state.votes
+    votes: state.votes,
+    foods: state.foods
   };
 };
 
 // Links a dispatch function to a prop
 const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
-    updateVotes: votes => {
+    updateVotes: (votes, username, roomCode) => {
       dispatch({
-        type: "UPDATE_VOTES",
-        votes: votes
+        type: "SUBMIT_VOTES",
+        votes: votes,
+        username: username,
+        roomCode: roomCode
       });
     }
   };
