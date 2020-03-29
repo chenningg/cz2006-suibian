@@ -1,4 +1,4 @@
 export type Vote = {
-  foodID: string;
+  foodName: string;
   like: boolean;
 };
