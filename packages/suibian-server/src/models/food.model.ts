@@ -1,11 +1,4 @@
-import {
-    Table,
-    Column,
-    CreatedAt,
-    UpdatedAt,
-    Model,
-    PrimaryKey
-} from "sequelize-typescript";
+import { Table, Column, Model } from "sequelize-typescript";
 
 @Table({
     tableName: "food",

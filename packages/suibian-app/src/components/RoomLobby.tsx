@@ -6,6 +6,7 @@ import UserList from "./UserList";
 //other components
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import ReduxState from "../types/ReduxState";
 
 //css
 import "../css/RoomLobby.css";

@@ -1,5 +1,5 @@
 //app components
-import React, { Component } from "react";
+import React, { Component, ChangeEvent, FormEvent } from "react";
 import NavBar from "./NavBar";
 
 //other components
@@ -8,64 +8,91 @@ import { Link } from "react-router-dom";
 //css
 import "../css/CreateRoom.css";
 
-class CreateRoom extends Component {
-  // onChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   // @ts-ignore */
-  //   this.setState({ [e.target.id]: e.target.value });
-  // };
+// Sockets and Redux
+import * as SocketTypes from "../types/SocketState";
+import { connect } from "react-redux";
+import ReduxState from "../types/ReduxState";
 
-  // changeUsername = () => {
-  //   if (this.state.socket) {
-  //     this.state.socket.emit("changeUsername", {
-  //       userName: this.state.username,
-  //       message: this.state.username
-  //     });
-  //   }
-  // };
+// Types
+type StateProps = {
+    socketState: SocketTypes.SocketState;
+};
 
-  // createRoom = (e: FormEvent) => {
-  //   e.preventDefault();
-  //   if (this.state.socket) {
-  //     this.changeUsername();
-  //     this.state.socket.emit("createRoom", {
-  //       username: this.state.username,
-  //       roomCode: this.state.roomCode
-  //     });
-  //   }
-  // };
+type DispatchProps = {
+    updateSocketState: (
+        key: string,
+        value: string | number | SocketTypes.SuibianSocket
+    ) => void;
+};
 
-  render() {
-    return (
-      <>
-        <NavBar />
-        <div className="create-room">
-          <div className="app-content flex-container flex-col flex-center-h flex-center-v">
-            <h1 className="title">Create room</h1>
-            <form
-              className="create-room-form"
-              // onSubmit={e => this.createRoom(e)}
-            >
-              <input
-                // onChange={e => this.onChange(e)}
-                id="username"
-                placeholder="Username"
-                className="username-input"
-                autoComplete="off"
-                required
-              />
-              <br></br>
-              <Link
+type Props = StateProps & DispatchProps;
+
+class CreateRoom extends Component<Props> {
+    handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        this.props.updateSocketState("username", e.target.value);
+    };
+
+    createRoom = (e: FormEvent) => {
+        e.preventDefault();
+        if (this.props.socketState.socket) {
+            this.props.socketState.socket.emit("createRoom", {
+                username: this.props.socketState.username
+            });
+        }
+    };
+
+    render() {
+        return (
+            <>
+                <NavBar />
+                <div className="create-room">
+                    <div className="app-content flex-container flex-col flex-center-h flex-center-v">
+                        <h1 className="title">Create room</h1>
+                        <form
+                            className="create-room-form"
+                            onSubmit={this.createRoom}
+                        >
+                            <input
+                                onChange={this.handleChange}
+                                id="username"
+                                placeholder="Username"
+                                className="username-input"
+                                autoComplete="off"
+                                required
+                            />
+                            <br></br>
+                            {/* <Link
                 to="/roomlobby"
                 className="main-menu-button remove-text-decoration center"
-              >
-                <button>CREATE ROOM</button>
-              </Link>
-            </form>
-          </div>
-        </div>
-      </>
-    );
-  }
+              > */}
+                            <button>CREATE ROOM</button>
+                            {/* </Link> */}
+                        </form>
+                    </div>
+                </div>
+            </>
+        );
+    }
 }
 
-export default CreateRoom;
+// Redux functions
+const mapStateToProps = (state: ReduxState): StateProps => {
+    return {
+        socketState: state.socketState
+    };
+};
+
+// Links a dispatch function to a prop
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+    return {
+        updateSocketState: (key, value) => {
+            dispatch({
+                type: "UPDATE_SOCKET_STATE",
+                key: key,
+                value: value
+            });
+        }
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateRoom);
