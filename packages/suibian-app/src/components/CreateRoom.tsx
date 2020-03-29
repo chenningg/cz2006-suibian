@@ -12,6 +12,7 @@ import "../css/CreateRoom.css";
 import * as SocketTypes from "../types/SocketState";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
+import { findlatlng } from "../functions/findlatlng";
 
 // Types
 type OwnProps = {
