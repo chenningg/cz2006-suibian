@@ -47,6 +47,10 @@ const styles = {
 };
 
 class InstructionPage extends Component<Props> {
+  state = {
+    ready: false
+  };
+
   // Register socket to listen to events
   registerSocketListeners = () => {
     console.log(this.props.socketState.socket);
@@ -58,6 +62,12 @@ class InstructionPage extends Component<Props> {
         console.log(data);
         if (data) {
           this.props.updateFoods(data as Food[]);
+
+          this.setState({ ready: true });
+
+          console.log("look here");
+          console.log(this.state.ready);
+          console.log(this.props.foods);
         } else {
           console.log(`Error! No data received from startRoom event.`);
         }
@@ -69,13 +79,11 @@ class InstructionPage extends Component<Props> {
   componentDidMount() {
     this.registerSocketListeners();
 
-    setTimeout(() => {
-      if (this.props.socketState.socket) {
-        this.props.socketState.socket.emit("startRoom", {
-          roomCode: this.props.socketState.roomCode
-        });
-      }
-    }, 1000);
+    if (this.props.socketState.socket) {
+      this.props.socketState.socket.emit("startRoom", {
+        roomCode: this.props.socketState.roomCode
+      });
+    }
   }
 
   render() {
@@ -110,14 +118,14 @@ class InstructionPage extends Component<Props> {
 
             <br />
             <div className="loading-container">
-              <div className="loader" hidden={this.props.foods ? false : true}>
+              <div className="loader" hidden={this.state.ready}>
                 <Loader type="ThreeDots" color="#c92c2c" />
               </div>
 
               <Link
-                hidden={this.props.foods ? true : false}
                 to="/votepage"
                 className="main-menu-button remove-text-decoration center"
+                hidden={!this.state.ready}
               >
                 <button>LET'S GO!</button>
               </Link>
