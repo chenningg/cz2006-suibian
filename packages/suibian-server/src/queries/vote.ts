@@ -13,8 +13,8 @@ export const createVoteQueryPerUser = async (uservote: any) => {
     const voteentry = {
       username,
       roomcode,
-      foodName: vote.foodName,
-      like: vote.like
+      foodId: vote.foodId,
+      like: vote.vote
     };
     return voteentry; // return for each element in the array
   });
@@ -30,7 +30,7 @@ export const countVoteQuery = async (
         roomcode,
         like: true
       },
-      group: "foodName"
+      group: "foodId"
     });
     return JSON.stringify(result);
   } catch (err) {
@@ -56,6 +56,7 @@ export function processVoteQuery(queryresult: string, top: number) {
     for (let i = 0; i < top_len; i++) {
       vote_results[sorted_keys[i]] = result[sorted_keys[i]];
     }
+    // returns Json of foodID: string and number of votes: number
     return JSON.stringify(vote_results);
   } else {
     console.log("No results found!");

@@ -1,6 +1,6 @@
 type VoteType = {
-  foodName: string;
-  like: boolean;
+  foodId: string;
+  vote: boolean;
 };
 
 export default VoteType;
