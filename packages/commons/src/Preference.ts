@@ -1,4 +1,4 @@
-type Preference = {
+export type Preference = {
   type: string;
   prefID: string;
   value: boolean;
