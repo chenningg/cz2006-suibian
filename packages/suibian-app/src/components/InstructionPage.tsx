@@ -68,6 +68,7 @@ class InstructionPage extends Component<Props> {
   //methods
   componentDidMount() {
     this.registerSocketListeners();
+
     setTimeout(() => {
       if (this.props.socketState.socket) {
         this.props.socketState.socket.emit("startRoom", {
