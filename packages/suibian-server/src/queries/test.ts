@@ -2,11 +2,11 @@ import { Sequelize } from "sequelize";
 import * as dotenv from "dotenv-extended";
 import { db } from "../sequelize";
 import { createRoomQuery, joinRoomQuery } from "./room";
-import { getStallId } from "../queries/stall";
+import { getStallName, getHawkerCenter } from "../queries/stall";
 const path = require("path");
 
 const intializeDB = async () => {
-    await db.sync();
+  await db.sync();
 };
 
 const testCreateRoom = async () => {
@@ -21,12 +21,18 @@ let data = {
 
 let datastring = JSON.stringify(data);
 
-const testGetStallId = async () => {
-  const sth = await getStallId(datastring);
+const testGetHawker = async () => {
+  const sth = await getHawkerCenter(datastring);
+  return sth;
+};
+const testGetStallName = async () => {
+  const sth = await getStallName(datastring);
   return sth;
 };
 
-intializeDB().then(testGetStallId);
+intializeDB()
+  .then(testGetHawker)
+  .then(testGetStallName);
 //   .then(roomcode => {
 //     if (roomcode) {
 //       joinRoomQuery("alvin", roomcode);
