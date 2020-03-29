@@ -46,7 +46,6 @@ export default {
         const position = data.position;
         //set isOwner to true
         isOwner = true;
-        // @ts-ignore
         const roomCode = await createRoom(socket, position);
         if (roomCode) {
           const roomPayload = {

@@ -3,6 +3,7 @@ import { User } from "./User";
 import { httpStatus } from "./httpStatus";
 import { Food } from "./Food";
 import { Vote } from "./Vote";
+import { Position } from "./Position";
 
 export type socketCommands =
   | "joinRoom"
