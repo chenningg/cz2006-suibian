@@ -39,7 +39,7 @@ class Stall extends Model<Stall> {
     @Column({
         type: DataType.TIME
     })
-    closinghour!: number;
+    closinghours!: number;
 
     @Column
     postalcode!: number;
