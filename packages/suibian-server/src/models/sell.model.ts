@@ -3,7 +3,7 @@ import Stall from "./stall.model";
 import Food from "./food.model";
 
 @Table({
-    tableName: "vote",
+    tableName: "sell",
     createdAt: false,
     updatedAt: false
 })

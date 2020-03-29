@@ -10,7 +10,7 @@ import Food from "./food.model";
 import Sell from "./sell.model";
 
 @Table({
-    tableName: "foodstalls",
+    tableName: "stall",
     createdAt: false,
     updatedAt: false
 })
