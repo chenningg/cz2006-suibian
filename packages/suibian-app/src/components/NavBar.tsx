@@ -9,11 +9,11 @@ import { Link } from "react-router-dom";
 import "../css/NavBar.css";
 import suibianLogo from "../images/suibian_full_logo_white.png";
 
-type NavBarProp = {
+type OwnProps = {
   backPage?: string;
 };
 
-class NavBar extends Component<NavBarProp> {
+class NavBar extends Component<OwnProps> {
   render() {
     let backLink = "/";
     if (this.props.backPage) {
