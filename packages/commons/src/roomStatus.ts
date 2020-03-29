@@ -1,1 +1,1 @@
-type roomStatus = "open" | "locked";
+export type roomStatus = "open" | "locked";
