@@ -29,7 +29,11 @@ type StateProps = {
   socketState: SocketState;
 };
 
-type Props = StateProps & OwnProps;
+type DispatchProps = {
+  updateFoods: (foods: Food[]) => void;
+};
+
+type Props = StateProps & DispatchProps & OwnProps;
 
 const styles = {
   largeIcon: {
@@ -48,8 +52,29 @@ class InstructionPage extends Component<Props> {
     foods: []
   };
 
+  // Register socket to listen to events
+  registerSocketListeners = () => {
+    console.log(this.props.socketState.socket);
+    if (this.props.socketState.socket) {
+      console.log("Registering socket listeners...");
+
+      // On start room event fire, I log my data
+      this.props.socketState.socket.on("startRoom", (data: any) => {
+        if (data) {
+          console.log(`Food data received.`);
+          this.props.updateFoods(data.foodArray);
+          console.log("IT FINALLY WORKED FOODS IS IN" + this.props.foods);
+        } else {
+          console.log(`Error! No data received from startRoom event.`);
+        }
+      });
+    }
+  };
+
   //methods
   componentDidMount() {
+    this.registerSocketListeners();
+
     setTimeout(() => {
       this.setState({
         //temp, supposed to get from database
@@ -135,6 +160,18 @@ class InstructionPage extends Component<Props> {
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
     socketState: state.socketState
+  };
+};
+
+// Links a dispatch function to a prop
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+  return {
+    updateFoods: foods => {
+      dispatch({
+        type: "UPDATE_FOODS",
+        foods: foods
+      });
+    }
   };
 };
 
