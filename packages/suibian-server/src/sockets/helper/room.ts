@@ -106,8 +106,8 @@ export const startRoom = async (io: socketio.Server, roomCode: string) => {
   //TODO Add in entries in the database & change room status
   const foodArrayString = await foodImageQuery(50);
   if (foodArrayString != null) {
-    var foodarrayJSON = JSON.parse(foodArrayString);
+    const foodArray = JSON.parse(foodArrayString);
+    return foodArray;
   } //array of Food JSON objects
-
-  return foodarrayJSON;
+  else return null;
 };

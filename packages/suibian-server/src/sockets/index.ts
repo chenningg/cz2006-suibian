@@ -5,12 +5,13 @@ import {
     suibianSocket,
     joinRoomPayload,
     roomPayloadBase,
-    createRoomPayload
+    createRoomPayload,
 } from "@suibian/commons";
+import { broadcastRoom } from "./helper/messaging";
 const http = require("http");
 
 export default {
-    startSocketServer: function(app: express.Router) {
+    startSocketServer: function (app: express.Router) {
         const httpServer = http.Server(app);
         const io = socketio.listen(httpServer);
 
@@ -48,12 +49,13 @@ export default {
                 }
             });
 
-            socket.on("startRoom", (data: roomPayloadBase) => {
+            socket.on("startRoom", async (data: roomPayloadBase) => {
                 const { roomCode } = data;
-                startRoom(io, roomCode);
+                const foodArray = await startRoom(io, roomCode);
+                broadcastRoom(io, { roomCode, payload: foodArray }, "broadcastMessage")
             });
 
-            socket.on("getRoomInfo", (data: roomPayloadBase) => {});
+            socket.on("getRoomInfo", (data: roomPayloadBase) => { });
         });
 
         return httpServer;
