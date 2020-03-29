@@ -1,4 +1,4 @@
-type Vote = {
+export type Vote = {
   name: string;
   like: boolean;
 };
