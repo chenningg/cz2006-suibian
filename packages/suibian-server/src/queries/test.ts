@@ -9,9 +9,9 @@ const intializeDB = async () => {
   await db.sync();
 };
 
-const testCreateRoom = async () => {
-  const roomcode = await createRoomQuery();
-  return roomcode;
+const testUploadVote = async () => {
+    const votes = { "john": String, "0046": String, [{ "001": String, True: Boolean }, { "002": String, True: Boolean }]};
+    await createVoteQueryPerUser(votes);
 };
 
 let data = {

@@ -1,7 +1,7 @@
 import ReduxState from "../types/ReduxState";
 
 // Initial state of our Redux store
-const initState = {
+const initState: ReduxState = {
   users: [],
   user: {
     username: "",
@@ -16,11 +16,11 @@ const initState = {
   socketState: {
     endpoint: "http://localhost:4000/",
     socket: null,
-    username: "",
     roomCode: ""
   },
-  votes: null,
-  foods: []
+  votes: [],
+  foods: [],
+  position: { latitude: 0, longitude: 0 }
 };
 
 // The one main reducer that can have sub reducers to translate actions > update the store
@@ -59,9 +59,13 @@ const RootReducer = (state: ReduxState = initState, action: any) => {
       let newFoods = [...action.foods];
       return { ...state, foods: newFoods };
 
-    case "UPDATE_VOTES":
+    case "SUBMIT_VOTES":
       let newVotes = { ...action.votes };
       return { ...state, votes: newVotes };
+
+    case "UPDATE_POSITION":
+      let newPosition = { ...action.position };
+      return { ...state, position: newPosition };
   }
 
   return state;

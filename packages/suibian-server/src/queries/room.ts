@@ -1,20 +1,24 @@
-import path from "path";
 import Rooms from "../models/rooms.model";
 import Join from "../models/join.model";
 import Vote from "../models/vote.model";
 import shortid from "shortid";
-import { sendError } from "../sockets/helper/messaging";
+import { Position } from "@suibian/commons";
 shortid.characters(
   "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@"
 );
 
-export const createRoomQuery = async (): Promise<void | string> => {
+export const createRoomQuery = async (
+  position: Position
+): Promise<void | string> => {
   try {
     const roomcode = shortid.generate();
+    const { latitude, longitude } = position;
     const room = await Rooms.create({
       roomcode,
       roomstatus: "open",
-      numberparticipants: 0 //user automatically joins the room he creates
+      numberparticipants: 0, //user automatically joins the room he creates
+      lat: latitude,
+      lng: longitude
     });
     return roomcode;
   } catch (err) {

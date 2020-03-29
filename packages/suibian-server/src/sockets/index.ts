@@ -1,18 +1,20 @@
 import express from "express";
 import socketio from "socket.io";
 import { joinRoom, createRoom, closeRoom, startRoom } from "./helper/room";
+import { submitVote } from "./helper/vote";
 import {
     suibianSocket,
     joinRoomPayload,
     roomPayloadBase,
-    createRoomPayload
+    createRoomPayload,
+    votePayload
 } from "@suibian/commons";
 import { createUser } from "./helper/user";
 import { broadcastRoom } from "./helper/messaging";
 const http = require("http");
 
 export default {
-    startSocketServer: function(app: express.Router) {
+    startSocketServer: function (app: express.Router) {
         const httpServer = http.Server(app);
         const io = socketio.listen(httpServer);
 
@@ -32,6 +34,10 @@ export default {
                 const { roomCode } = data;
                 closeRoom(io, socket, roomCode);
             });
+
+            socket.on("submitVote", async (data: votePayload) => {
+                await submitVote(io, socket, data);
+            })
 
             socket.on("createRoom", async (data: createRoomPayload) => {
                 //first user creates a room and also joins the room
@@ -55,17 +61,15 @@ export default {
                 }
             });
 
-            socket.on("startRoom", async (data: roomPayloadBase) => {
+            socket.on("startRoom", async (data: startRoomPayload) => {
                 const { roomCode } = data;
                 const foodArray = await startRoom(io, roomCode);
-                broadcastRoom(
-                    io,
-                    { roomCode, payload: foodArray },
-                    "startRoom"
-                );
+                broadcastRoom(io, { roomCode, payload: foodArray }, "startRoom");
+                console.log("emitted food aray", foodArray);
+                console.log("emitted start rooom event to user");
             });
 
-            socket.on("getRoomInfo", (data: roomPayloadBase) => {});
+            socket.on("getRoomInfo", (data: roomPayloadBase) => { });
         });
 
         return httpServer;

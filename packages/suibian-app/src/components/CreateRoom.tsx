@@ -10,10 +10,9 @@ import "../css/CreateRoom.css";
 
 // Sockets and Redux
 import { SocketState } from "../types/SocketState";
-import { suibianSocketClient } from "@suibian/commons";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
-import { User } from "@suibian/commons";
+import { suibianSocketClient, User, Position } from "@suibian/commons";
 
 import MapSearch from "./MapSearch";
 
@@ -27,6 +26,7 @@ type OwnProps = {
 type StateProps = {
   socketState: SocketState;
   user: User;
+  position: Position;
 };
 
 type DispatchProps = {
@@ -57,7 +57,8 @@ class CreateRoom extends Component<Props> {
 
     if (this.props.socketState.socket) {
       this.props.socketState.socket.emit("createRoom", {
-        user: this.props.user
+        user: this.props.user,
+        position: this.props.position
       });
 
       // Redirect to room lobby after creating room
@@ -99,7 +100,8 @@ class CreateRoom extends Component<Props> {
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
     socketState: state.socketState,
-    user: state.user
+    user: state.user,
+    position: state.position
   };
 };
 

@@ -1,57 +1,29 @@
 import socketio from "socket.io";
 import {
-  createRoomQuery,
-  joinRoomQuery,
-  updateRoomNumbersQuery
-} from "../../queries/room";
+  createVoteQueryPerUser,
+  countVoteQuery
+} from "../../queries/vote";
 import {
   httpStatus,
-  joinRoomPayload,
+  votePayload,
   suibianSocket,
-  User,
-  Position
 } from "@suibian/commons";
-import { sendError, broadcastRoom } from "./messaging";
-import { foodImageQuery } from "../../queries/food";
-import { listSocketsRoom } from "./utils";
 
-const socketUserMapping = new Map<string, User>();
-
-export const joinRoom = async (
-  socket: suibianSocket,
+export const submitVote = async (
   socketio: socketio.Server,
-  data: joinRoomPayload
+  socket: suibianSocket,
+  data: votePayload
 ) => {
-  const { roomCode } = data;
-  const { username, isOwner } = data.user;
-  await joinRoomQuery(username, roomCode);
-  await updateRoomNumbersQuery(roomCode, 1); // increment the number of people in the room
-
-  socketUserMapping.set(socket.id, {
-    username,
-    isOwner
-  });
-
-  //list all sockets
-  socket.join(data.roomCode, async () => {
-    const users = listSocketsRoom(socketio, roomCode, socketUserMapping);
-    console.log(`the socket list is ${users}`);
-    await broadcastRoom(
-      socketio,
-      {
-        roomCode,
-        payload: { roomCode, users }
-      },
-      "joinRoom" //broadcast using joinRoom socket command
-    );
-  });
-};
+  const roomCode = data.roomCode;
+  const username = data.username;
+  const votes = data.votes;
+  createVoteQueryPerUser(data);
+}
 
 export const createRoom = async (
-  socket: suibianSocket,
-  position: Position
+  socket: suibianSocket
 ): Promise<string | void> => {
-  const roomCode = await createRoomQuery(position);
+  const roomCode = await createRoomQuery();
 
   if (roomCode) {
     socket.join(roomCode, () => {
