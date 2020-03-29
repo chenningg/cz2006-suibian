@@ -17,7 +17,7 @@ import Sell from "./sell.model";
 class Stall extends Model<Stall> {
     @PrimaryKey
     @Column
-    stallId!: number;
+    stallId!: string;
 
     @Column({
         type: DataType.TEXT

@@ -16,7 +16,7 @@ import Food from "./food.model";
 class Sell extends Model<Sell> {
     @PrimaryKey
     @Column
-    sellId!: number;
+    sellId!: string;
 
     @ForeignKey(() => Stall)
     @Column

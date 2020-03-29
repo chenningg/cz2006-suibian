@@ -17,7 +17,7 @@ import Sell from "./sell.model";
 class Food extends Model<Food> {
     @PrimaryKey
     @Column
-    foodId!: number;
+    foodId!: string;
 
     @Column
     foodname!: string;
