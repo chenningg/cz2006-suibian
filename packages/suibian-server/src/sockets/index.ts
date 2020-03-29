@@ -5,7 +5,8 @@ import {
   suibianSocket,
   joinRoomPayload,
   roomPayloadBase,
-  createRoomPayload
+  createRoomPayload,
+  startRoomPayload
 } from "@suibian/commons";
 import { createUser } from "./helper/user";
 import { broadcastRoom } from "./helper/messaging";
@@ -56,7 +57,7 @@ export default {
         }
       });
 
-      socket.on("startRoom", async (data: roomPayloadBase) => {
+      socket.on("startRoom", async (data: startRoomPayload) => {
         const { roomCode } = data;
         const foodArray = await startRoom(io, roomCode);
         broadcastRoom(io, { roomCode, payload: foodArray }, "startRoom");

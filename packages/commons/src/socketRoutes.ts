@@ -8,6 +8,7 @@ export type socketCommands =
   | "joinRoom"
   | "createRoom"
   | "startRoom"
+  | "votePage"
   | "changeUsername"
   | "broadcastMessage"
   | "connection"
