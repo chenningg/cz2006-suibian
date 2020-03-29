@@ -1,5 +1,4 @@
 //creating socket
-import socketIOClient from "socket.io-client";
 import { socketCommands } from "@suibian/commons";
 
 export type SocketState = {
