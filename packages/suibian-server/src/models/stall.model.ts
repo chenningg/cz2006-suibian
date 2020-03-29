@@ -3,15 +3,22 @@ import {
     Column,
     Model,
     DataType,
-    AllowNull
+    BelongsToMany,
+    PrimaryKey
 } from "sequelize-typescript";
+import Food from "./food.model";
+import Sell from "./sell.model";
 
 @Table({
     tableName: "foodstalls",
     createdAt: false,
     updatedAt: false
 })
-class Stalls extends Model<Stalls> {
+class Stall extends Model<Stall> {
+    @PrimaryKey
+    @Column
+    stallId!: number;
+
     @Column
     imageurl!: string;
 
@@ -36,6 +43,12 @@ class Stalls extends Model<Stalls> {
 
     @Column
     postalcode!: number;
+
+    @BelongsToMany(
+        () => Food,
+        () => Sell
+    )
+    foods!: Food[];
 }
 
-export default Stalls;
+export default Stall;
