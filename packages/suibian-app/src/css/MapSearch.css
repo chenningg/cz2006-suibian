@@ -11,6 +11,29 @@
   width: 85vw;
 }
 
+.map-search-input-container .autoLocationOn {
+  box-shadow: none;
+  height: 40px;
+  margin-top: 0;
+  cursor: pointer;
+  box-shadow: none;
+  background: #58cc5a;
+}
+
+.map-search-input-container .autoLocationOff {
+  width: 40px;
+  height: 40px;
+  margin-top: -8px;
+  display: inline-block !important;
+  background: #c92c2c;
+  color: white;
+  padding: 0;
+  position: relative;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  box-shadow: 0px 4px #910909;
+}
+
 .map-search-input {
   height: 40px;
   padding: 0px 10px;
@@ -79,6 +102,7 @@
 
 .map-search-suggestions li:hover {
   background: rgba(0, 0, 0, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .map-search-suggestions li br {

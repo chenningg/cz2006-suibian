@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng
@@ -8,8 +8,6 @@ import "../css/MapSearch.css";
 import { LocationOn } from "@material-ui/icons";
 
 // Sockets and Redux
-import { SocketState } from "../types/SocketState";
-import { suibianSocketClient } from "@suibian/commons";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
 import { Position } from "@suibian/commons";
@@ -38,15 +36,26 @@ const MapSearch = (props: Props) => {
     },
     debounce: 300
   });
+
+  // Create a stateful variable to display location string in text field
+  const [currLocation, setCurrLocation] = useState("");
+
+  // Stateful variable to log if autoLocation selected
+  const [autoLocation, setAutoLocation] = useState("autoLocationOff");
+
   const ref = useRef();
   // @ts-ignore
   useOnclickOutside(ref, () => {
     // When user clicks outside of the component, we can dismiss
     // the searched suggestions by calling this method
     clearSuggestions();
+    if (autoLocation === "autoLocationOn") {
+      setCurrLocation("Using current location");
+    }
   });
 
-  const handleClick = e => {
+  // If click on auto get current location, get user location and set text field to show it
+  const handleClickCurrLoc = e => {
     getPosition().then((res: any) => {
       const pos = {
         latitude: res.coords.latitude,
@@ -54,18 +63,27 @@ const MapSearch = (props: Props) => {
       };
       console.log("📍 Coordinates: ", pos);
       props.updatePosition(pos);
+      setCurrLocation("Using current location");
+      setAutoLocation("autoLocationOn");
     });
+  };
+
+  // Resets text field on click
+  const handleClickInputLoc = e => {
+    setCurrLocation("");
   };
 
   const handleInput = e => {
     // Update the keyword of the input element
     setValue(e.target.value);
+    setCurrLocation(e.target.value);
   };
 
   const handleSelect = ({ description }) => () => {
     // When user selects a place, we can replace the keyword without request data from API
     // by setting the second parameter as "false"
     setValue(description, false);
+    setCurrLocation(description);
     clearSuggestions();
 
     // Get latitude and longitude via utility functions
@@ -78,6 +96,7 @@ const MapSearch = (props: Props) => {
         };
         console.log("📍 Coordinates: ", pos);
         props.updatePosition(pos);
+        setAutoLocation("autoLocationOff");
       })
       .catch(error => {
         console.log("😱 Error: ", error);
@@ -118,13 +137,17 @@ const MapSearch = (props: Props) => {
     >
       <div className="map-search-input-container flex-container flex-row flex-center-h flex-center-v">
         <input
-          value={value}
+          value={currLocation}
           onChange={handleInput}
+          onClick={handleClickInputLoc}
           disabled={!ready}
           placeholder="Enter your eating location"
           className="map-search-input"
         />
-        <span className="map-locate-me-icon-container" onClick={handleClick}>
+        <span
+          className={`map-locate-me-icon-container ${autoLocation}`}
+          onClick={handleClickCurrLoc}
+        >
           <LocationOn className="map-locate-me-icon" />
         </span>
       </div>

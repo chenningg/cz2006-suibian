@@ -37,9 +37,10 @@ export default {
       socket.on("createRoom", async (data: createRoomPayload) => {
         //first user creates a room and also joins the room
         let { username, isOwner } = data.user;
+        const position = data.position;
         //set isOwner to true
         isOwner = true;
-        const roomCode = await createRoom(socket);
+        const roomCode = await createRoom(socket, position);
         if (roomCode) {
           const roomPayload = {
             roomCode,
@@ -60,8 +61,6 @@ export default {
         const { roomCode } = data;
         const foodArray = await startRoom(io, roomCode);
         broadcastRoom(io, { roomCode, payload: foodArray }, "startRoom");
-        console.log("emitted food aray", foodArray);
-        console.log("emitted start rooom event to user");
       });
 
       socket.on("getRoomInfo", (data: roomPayloadBase) => {});
