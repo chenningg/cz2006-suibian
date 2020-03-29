@@ -23,6 +23,12 @@ class Rooms extends Model<Rooms> {
   @Column
   numberparticipants!: number;
 
+  @Column
+  lat!: number;
+
+  @Column
+  lng!: number;
+
   @BelongsToMany(
     () => User,
     () => Join
