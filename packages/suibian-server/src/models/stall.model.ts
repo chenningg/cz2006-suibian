@@ -19,7 +19,9 @@ class Stall extends Model<Stall> {
     @Column
     stallId!: number;
 
-    @Column
+    @Column({
+        type: DataType.TEXT
+    })
     imageurl!: string;
 
     @Column

@@ -3,7 +3,8 @@ import {
     Column,
     Model,
     PrimaryKey,
-    BelongsToMany
+    BelongsToMany,
+    DataType
 } from "sequelize-typescript";
 import Stall from "./stall.model";
 import Sell from "./sell.model";
@@ -21,7 +22,9 @@ class Food extends Model<Food> {
     @Column
     foodname!: string;
 
-    @Column
+    @Column({
+        type: DataType.TEXT
+    })
     imageurl!: string;
 
     @BelongsToMany(

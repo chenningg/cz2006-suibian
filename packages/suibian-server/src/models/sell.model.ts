@@ -9,7 +9,9 @@ import Stall from "./stall.model";
 import Food from "./food.model";
 
 @Table({
-    tableName: "sell"
+    tableName: "sell",
+    createdAt: false,
+    updatedAt: false
 })
 class Sell extends Model<Sell> {
     @PrimaryKey

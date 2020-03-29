@@ -12,9 +12,7 @@ import Join from "./join.model";
 import Food from "./food.model";
 
 @Table({
-    tableName: "user",
-    createdAt: false,
-    updatedAt: false
+    tableName: "user"
 })
 class User extends Model<User> {
     @PrimaryKey
