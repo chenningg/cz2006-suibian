@@ -1,4 +1,4 @@
-import { Table, Column, Model } from "sequelize-typescript";
+import { Table, Column, Model, PrimaryKey } from "sequelize-typescript";
 
 @Table({
     tableName: "food",
@@ -6,6 +6,10 @@ import { Table, Column, Model } from "sequelize-typescript";
     updatedAt: false
 })
 class Food extends Model<Food> {
+    @PrimaryKey
+    @Column
+    foodID!: string;
+
     @Column
     foodName!: string;
 

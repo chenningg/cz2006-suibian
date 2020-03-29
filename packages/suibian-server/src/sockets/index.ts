@@ -52,7 +52,7 @@ export default {
             socket.on("startRoom", async (data: roomPayloadBase) => {
                 const { roomCode } = data;
                 const foodArray = await startRoom(io, roomCode);
-                broadcastRoom(io, { roomCode, payload: foodArray }, "broadcastMessage")
+                broadcastRoom(io, { roomCode, payload: foodArray }, "startRoom")
             });
 
             socket.on("getRoomInfo", (data: roomPayloadBase) => { });

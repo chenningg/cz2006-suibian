@@ -6,7 +6,7 @@ import { Food } from "./Food";
 export type socketCommands =
   | "joinRoom"
   | "createRoom"
-  | "StartRoom"
+  | "startRoom"
   | "changeUsername"
   | "broadcastMessage"
   | "connection"
