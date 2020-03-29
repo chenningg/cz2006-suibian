@@ -16,8 +16,10 @@ const initState = {
   socketState: {
     endpoint: "http://localhost:4000/",
     socket: null,
-    roomCode: ""
-  }
+    username: "",
+    roomCode: 0
+  },
+  votes: []
 };
 
 // The one main reducer that can have sub reducers to translate actions > update the store
