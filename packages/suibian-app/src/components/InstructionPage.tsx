@@ -63,19 +63,16 @@ class InstructionPage extends Component<Props> {
         foods: [
           {
             foodName: "Bak Chor Mee",
-            foodID: "123",
             imgurl:
               "https://www.linsfood.com/wp-content/uploads/2017/02/Bak-Chor-Mee.jpg"
           },
           {
             foodName: "Chicken Rice",
-            foodID: "456",
             imgurl:
               "https://www.thespruceeats.com/thmb/ltMha1iXJIttnXv9EDQf9WFSrEE=/3896x2922/smart/filters:no_upscale()/hainanese-chicken-rice-very-detailed-recipe-3030408-hero-0a742f08c72044e999202a44e30a1ea7.jpg"
           },
           {
             foodName: "Burrito",
-            foodID: "789",
             imgurl:
               "https://www.thespruceeats.com/thmb/Hn65vI6v55aIBCwMQaf0SWcVLYI=/2048x1360/filters:fill(auto,1)/vegetarian-bean-and-rice-burrito-recipe-3378550-9_preview-5b2417e1ff1b780037a58cda.jpeg"
           }
@@ -118,18 +115,13 @@ class InstructionPage extends Component<Props> {
             <div className="loading-container">
               <div
                 className="loader"
-                hidden={this.state.foods.length == 0 ? false : true}
+                hidden={this.state.foods.length === 0 ? false : true}
               >
-                <Loader
-                  type="ThreeDots"
-                  color="#c92c2c"
-                  height="100"
-                  width="100"
-                />
+                <Loader type="ThreeDots" color="#c92c2c" />
               </div>
 
               <Link
-                hidden={this.state.foods.length == 0 ? true : false}
+                hidden={this.state.foods.length === 0 ? true : false}
                 to="/votepage"
                 className="main-menu-button remove-text-decoration center"
               >
