@@ -18,8 +18,6 @@ export async function getStallId(
       raw: true
     });
     // contains sell entries that contain food people want
-    console.log("list of stall ids are");
-    console.log(JSON.stringify(stallidobject));
     return JSON.stringify(stallidobject);
   } catch (err) {
     console.log(err);
@@ -28,4 +26,19 @@ export async function getStallId(
 
 // getStallId(datastring);
 
-export async function getHawkerCenter(stallidsjson: string) {}
+export async function getHawkerCenter(stallidsjson: string) {
+  const stallidobject = JSON.parse(stallidsjson);
+  const stallidarray = Object.values(stallidobject);
+  try {
+    const hawkers = await Stall.findAll({
+      attributes: ["hawkercenter"],
+      where: {
+        stallId: { [Op.in]: stallidarray }
+      },
+      raw: true
+    });
+    return JSON.stringify(hawkers);
+  } catch (err) {
+    console.log(err);
+  }
+}
