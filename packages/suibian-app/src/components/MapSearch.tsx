@@ -31,8 +31,8 @@ const MapSearch = () => {
   const handleClick = e => {
     getPosition().then((res: any) => {
       console.log("📍 Coordinates: ", {
-        lat: res.coords.latitude,
-        lng: res.coords.longitude
+        latitude: res.coords.latitude,
+        longitude: res.coords.longitude
       });
       return { lat: res.coords.latitude, lng: res.coords.longitude };
     });
@@ -54,7 +54,7 @@ const MapSearch = () => {
       .then(results => getLatLng(results[0]))
       .then(({ lat, lng }) => {
         console.log("📍 Coordinates: ", { lat, lng });
-        return { lat, lng };
+        return { latitude: lat, longitude: lng };
       })
       .catch(error => {
         console.log("😱 Error: ", error);
