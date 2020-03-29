@@ -13,7 +13,8 @@ import "../css/VotePage.css";
 import "../css/InstructionPage.css";
 
 // Sockets and Redux
-import * as SocketTypes from "../types/SocketState";
+import { SocketState } from "../types/SocketState";
+import { suibianSocketClient } from "@suibian/commons";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
 
@@ -25,7 +26,7 @@ type OwnProps = {
 };
 
 type StateProps = {
-  socketState: SocketTypes.SocketState;
+  socketState: SocketState;
   user: User;
 };
 
@@ -52,30 +53,37 @@ class VotePage extends Component<Props> {
     index: 0,
     foods: [
       {
-        name: "Bak Chor Mee",
+        foodName: "Bak Chor Mee",
+        foodID: "123",
         imgurl:
           "https://www.linsfood.com/wp-content/uploads/2017/02/Bak-Chor-Mee.jpg"
       },
       {
-        name: "Chicken Rice",
+        foodName: "Chicken Rice",
+        foodID: "456",
         imgurl:
           "https://www.thespruceeats.com/thmb/ltMha1iXJIttnXv9EDQf9WFSrEE=/3896x2922/smart/filters:no_upscale()/hainanese-chicken-rice-very-detailed-recipe-3030408-hero-0a742f08c72044e999202a44e30a1ea7.jpg"
       },
       {
-        name: "Burrito",
+        foodName: "Burrito",
+        foodID: "789",
         imgurl:
           "https://www.thespruceeats.com/thmb/Hn65vI6v55aIBCwMQaf0SWcVLYI=/2048x1360/filters:fill(auto,1)/vegetarian-bean-and-rice-burrito-recipe-3378550-9_preview-5b2417e1ff1b780037a58cda.jpeg"
       }
     ] as Food[],
-    votes: [] as Vote[],
+    votes: {
+      username: this.props.user.username,
+      roomCode: this.props.socketState.roomCode,
+      voteArray: [] as Vote[]
+    } as Votes,
     redirect: false
   };
 
   //variables
   foodsList = this.state.foods.map(food => (
     <div>
-      <h1>{food.name}</h1>
-      <img className="food-image" src={food.imgurl} alt={food.name} />
+      <h1>{food.foodName}</h1>
+      <img className="food-image" src={food.imgurl} alt={food.foodName} />
     </div>
   ));
 
@@ -84,12 +92,12 @@ class VotePage extends Component<Props> {
     e.preventDefault();
     let vote: Vote = {
       like: like,
-      name: this.state.foods[this.state.index].name
+      foodID: this.state.foods[this.state.index].foodID
     };
 
-    this.setState({
-      votes: this.state.votes.concat([vote])
-    });
+    // this.setState({
+    //   votes: this.state.votes.voteArray.concat([vote])
+    // });
 
     this.setState({
       index: this.state.index + 1
@@ -111,14 +119,14 @@ class VotePage extends Component<Props> {
       this.setState({
         redirect: true
       });
-      this.props.updateVotes({ username: this.props.socketState });
+      this.props.updateVotes(this.state.votes);
     }, 20000);
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={"/waitpage"} />;
-    }
+    // if (this.state.redirect) {
+    //   return <Redirect to={"/waitpage"} />;
+    // }
 
     return (
       <>

@@ -1,4 +1,5 @@
 export type Food = {
-  name: string;
+  foodID: string;
+  foodName: string;
   imgurl: string;
 };

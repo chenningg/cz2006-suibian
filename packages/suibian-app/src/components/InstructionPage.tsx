@@ -12,7 +12,8 @@ import { Food } from "@suibian/commons";
 import "../css/InstructionPage.css";
 
 // Sockets and Redux
-import * as SocketTypes from "../types/SocketState";
+import { SocketState } from "../types/SocketState";
+import { suibianSocketClient } from "@suibian/commons";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
 
@@ -25,13 +26,13 @@ type OwnProps = {
 };
 
 type StateProps = {
-  socketState: SocketTypes.SocketState;
+  socketState: SocketState;
 };
 
 type DispatchProps = {
   updateSocketState: (
     key: string,
-    value: string | number | SocketTypes.SuibianSocket
+    value: string | number | suibianSocketClient
   ) => void;
 };
 
@@ -61,17 +62,20 @@ class InstructionPage extends Component<Props> {
         //temp, supposed to get from database
         foods: [
           {
-            name: "Bak Chor Mee",
+            foodName: "Bak Chor Mee",
+            foodID: "123",
             imgurl:
               "https://www.linsfood.com/wp-content/uploads/2017/02/Bak-Chor-Mee.jpg"
           },
           {
-            name: "Chicken Rice",
+            foodName: "Chicken Rice",
+            foodID: "456",
             imgurl:
               "https://www.thespruceeats.com/thmb/ltMha1iXJIttnXv9EDQf9WFSrEE=/3896x2922/smart/filters:no_upscale()/hainanese-chicken-rice-very-detailed-recipe-3030408-hero-0a742f08c72044e999202a44e30a1ea7.jpg"
           },
           {
-            name: "Burrito",
+            foodName: "Burrito",
+            foodID: "789",
             imgurl:
               "https://www.thespruceeats.com/thmb/Hn65vI6v55aIBCwMQaf0SWcVLYI=/2048x1360/filters:fill(auto,1)/vegetarian-bean-and-rice-burrito-recipe-3378550-9_preview-5b2417e1ff1b780037a58cda.jpeg"
           }
