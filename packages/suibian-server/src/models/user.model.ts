@@ -22,6 +22,10 @@ class User extends Model<User> {
     @Column
     userpreferences!: string;
 
+    @ForeignKey(() => Rooms)
+    @Column
+    roomcode!: string;
+
     @BelongsToMany(
         () => Rooms,
         () => Join
