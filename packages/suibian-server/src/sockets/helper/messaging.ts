@@ -1,28 +1,36 @@
 import socketio from "socket.io";
-import { roomMessagePayload, suibianSocket } from "@suibian/commons";
+import { suibianSocket, socketCommands } from "@suibian/commons";
 
 export const broadcastRoom = (
-    socketio: socketio.Server,
-    data: roomMessagePayload
+  socketio: socketio.Server,
+  data: {
+    roomCode: string;
+    payload: any;
+  },
+  socketCommand?: socketCommands
 ) => {
-    //broadcast to all members in the room
-    const { username, message, roomcode } = data;
-    socketio.in(roomcode).emit("broadcastMessage", message);
+  //broadcast to all members in the room
+  const { roomCode, payload } = data;
+  if (socketCommand) {
+    socketio.in(roomCode).emit(socketCommand, payload); //specify with specific flag
+  } else {
+    socketio.in(roomCode).emit("broadcastMessage", payload);
+  }
 };
 
 export const sendError = (
-    socket: suibianSocket,
-    statusCode: number,
-    errorMessage: string
+  socket: suibianSocket,
+  statusCode: number,
+  errorMessage: string
 ) => {
-    socket.emit(
-        "socketError",
-        {
-            statusCode,
-            errorMessage
-        },
-        err => {
-            console.log(`error message is ${err}`);
-        }
-    );
+  socket.emit(
+    "socketError",
+    {
+      statusCode,
+      errorMessage
+    },
+    err => {
+      console.log(`error message is ${err}`);
+    }
+  );
 };

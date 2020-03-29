@@ -1,38 +1,56 @@
 //app components
-import React, { Component } from "react";
+import React, { Component, ChangeEvent, FormEvent } from "react";
 import NavBar from "./NavBar";
 
 //other components
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 //css
 import "../css/CreateRoom.css";
 
-class CreateRoom extends Component {
-  // onChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   // @ts-ignore */
-  //   this.setState({ [e.target.id]: e.target.value });
-  // };
+// Sockets and Redux
+import * as SocketTypes from "../types/SocketState";
+import { connect } from "react-redux";
+import ReduxState from "../types/ReduxState";
+import { findlatlng } from "../functions/findlatlng";
 
-  // changeUsername = () => {
-  //   if (this.state.socket) {
-  //     this.state.socket.emit("changeUsername", {
-  //       userName: this.state.username,
-  //       message: this.state.username
-  //     });
-  //   }
-  // };
+// Types
+type OwnProps = {
+  history: any;
+  location: any;
+  match: any;
+};
 
-  // createRoom = (e: FormEvent) => {
-  //   e.preventDefault();
-  //   if (this.state.socket) {
-  //     this.changeUsername();
-  //     this.state.socket.emit("createRoom", {
-  //       username: this.state.username,
-  //       roomCode: this.state.roomCode
-  //     });
-  //   }
-  // };
+type StateProps = {
+  socketState: SocketTypes.SocketState;
+};
+
+type DispatchProps = {
+  updateSocketState: (
+    key: string,
+    value: string | number | SocketTypes.SuibianSocket
+  ) => void;
+};
+
+type Props = StateProps & DispatchProps & OwnProps;
+
+class CreateRoom extends Component<Props> {
+  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    this.props.updateSocketState("username", e.target.value);
+  };
+
+  // Function to handle creating room
+  createRoom = (e: FormEvent) => {
+    e.preventDefault();
+    if (this.props.socketState.socket) {
+      this.props.socketState.socket.emit("createRoom", {
+        username: this.props.socketState.username
+      });
+
+      // Redirect to room lobby after creating room
+      this.props.history.push("/roomlobby");
+    }
+  };
 
   render() {
     return (
@@ -41,12 +59,9 @@ class CreateRoom extends Component {
         <div className="create-room">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             <h1 className="title">Create room</h1>
-            <form
-              className="create-room-form"
-              // onSubmit={e => this.createRoom(e)}
-            >
+            <form className="create-room-form" onSubmit={this.createRoom}>
               <input
-                // onChange={e => this.onChange(e)}
+                onChange={this.handleChange}
                 id="username"
                 placeholder="Username"
                 className="username-input"
@@ -54,12 +69,7 @@ class CreateRoom extends Component {
                 required
               />
               <br></br>
-              <Link
-                to="/roomlobby"
-                className="main-menu-button remove-text-decoration center"
-              >
-                <button>CREATE ROOM</button>
-              </Link>
+              <button>CREATE ROOM</button>
             </form>
           </div>
         </div>
@@ -68,4 +78,26 @@ class CreateRoom extends Component {
   }
 }
 
-export default CreateRoom;
+// Redux functions
+const mapStateToProps = (state: ReduxState): StateProps => {
+  return {
+    socketState: state.socketState
+  };
+};
+
+// Links a dispatch function to a prop
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+  return {
+    updateSocketState: (key, value) => {
+      dispatch({
+        type: "UPDATE_SOCKET_STATE",
+        key: key,
+        value: value
+      });
+    }
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CreateRoom)
+);

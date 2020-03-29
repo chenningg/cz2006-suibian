@@ -4,7 +4,6 @@ import Home from "./Home";
 import CreateRoom from "./CreateRoom";
 import JoinRoom from "./JoinRoom";
 import UserPreferences from "./UserPreferences";
-import SelectLocation from "./SelectLocation";
 import RoomLobby from "./RoomLobby";
 import InstructionPage from "./InstructionPage";
 import VotePage from "./VotePage";
@@ -18,59 +17,75 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 //css
 import "../css/Global.css";
 
-//creating socket
+// Sockets and Redux
+import * as SocketTypes from "../types/SocketState";
 import socketIOClient from "socket.io-client";
-import { socketCommands } from "@suibian/commons";
+import { connect } from "react-redux";
+import ReduxState from "../types/ReduxState";
 
-export type socketState = {
-  endpoint: string;
-  socket: suibianSocket | null;
-  username: string;
-  roomCode: number;
+// Types
+type StateProps = {
+  socketState: SocketTypes.SocketState;
 };
 
-interface suibianSocket extends SocketIOClient.Socket {
-  emit(event: socketCommands, data: any): SocketIOClient.Socket;
-}
+type DispatchProps = {
+  updateSocketState: (
+    key: string,
+    value: string | number | SocketTypes.SuibianSocket | null
+  ) => void;
+};
+
+type Props = StateProps & DispatchProps;
 
 //component
-class AppRouter extends Component<{}, socketState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      endpoint: "http://localhost:4000/",
-      socket: null,
-      username: "",
-      roomCode: 0
-    };
+class AppRouter extends Component<Props> {
+  // Methods
+  // When component mounts, connect to a socket then register socket listeners
+  componentDidMount() {
+    this.connectSocket().then(() => this.registerSocketListeners());
   }
 
+  // When component unmounts, disconenct socket listeners
+  componentWillUnmount() {
+    this.deregisterSocketListeners();
+  }
+
+  // Connect to a socket
   connectSocket = async () => {
-    if (this.state.socket) {
-      console.log("socket is already conencted");
+    if (this.props.socketState.socket) {
+      console.log("Socket is already connected!");
       return;
     }
 
-    // initializing the connection
-    const { endpoint } = this.state;
-    const socket = await socketIOClient(endpoint);
-    console.log("socket created");
-    this.setState({ socket });
+    // Initializing the connection
+    const socket = await socketIOClient(this.props.socketState.endpoint);
+    console.log("Socket created!");
+    this.props.updateSocketState("socket", socket);
   };
 
+  // Register socket to listen to events
   registerSocketListeners = () => {
-    console.log(this.state.socket);
-    if (this.state.socket) {
-      console.log("registering socket listeners");
-      this.state.socket.on("createRoom", (data: any) => {
+    console.log(this.props.socketState.socket);
+    if (this.props.socketState.socket) {
+      console.log("Registering socket listeners...");
+
+      // On create room event fire, I log my data
+      this.props.socketState.socket.on("createRoom", (data: any) => {
+        console.log(data);
+      });
+
+      // On join room event fire, I log my data
+      this.props.socketState.socket.on("joinRoom", (data: any) => {
         console.log(data);
       });
     }
   };
 
-  componentDidMount() {
-    this.connectSocket().then(() => this.registerSocketListeners());
-  }
+  // Deregister socket listeners on unmount
+  deregisterSocketListeners = () => {
+    console.log("Deregistering socket listeners...");
+    this.props.updateSocketState("socket", null);
+  };
 
   render() {
     return (
@@ -81,7 +96,6 @@ class AppRouter extends Component<{}, socketState> {
           <Route path="/home" component={Home}></Route>
           <Route path="/joinroom" component={JoinRoom}></Route>
           <Route path="/userpreferences" component={UserPreferences}></Route>
-          <Route path="/selectlocation" component={SelectLocation}></Route>
           <Route path="/roomlobby" component={RoomLobby}></Route>
           <Route path="/instructionpage" component={InstructionPage}></Route>
           <Route path="/votepage" component={VotePage}></Route>
@@ -94,4 +108,24 @@ class AppRouter extends Component<{}, socketState> {
   }
 }
 
-export default AppRouter;
+// Redux functions
+const mapStateToProps = (state: ReduxState): StateProps => {
+  return {
+    socketState: state.socketState
+  };
+};
+
+// Links a dispatch function to a prop
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+  return {
+    updateSocketState: (key, value) => {
+      dispatch({
+        type: "UPDATE_SOCKET_STATE",
+        key: key,
+        value: value
+      });
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppRouter);

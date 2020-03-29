@@ -1,30 +1,30 @@
 import SocketIOServer from "socket.io";
 
 export type socketCommands =
-    | "joinRoom"
-    | "createRoom"
-    | "StartRoom"
-    | "changeUsername"
-    | "broadcastMessage"
-    | "connection"
-    | "disconnect"
-    | "socketError";
+  | "joinRoom"
+  | "createRoom"
+  | "StartRoom"
+  | "changeUsername"
+  | "broadcastMessage"
+  | "connection"
+  | "disconnect"
+  | "socketError";
 
 export type joinRoomPayload = {
-    username: string;
-    roomcode: string;
+  username: string;
+  roomCode: string;
 };
 
 export type roomMessagePayload = {
-    username: string;
-    message: string;
-    roomcode: string;
+  username: string;
+  message: string;
+  roomCode: string;
 };
 
 export interface suibianSocket extends SocketIOServer.Socket {
-    emit(
-        event: socketCommands,
-        data: any,
-        callback?: (params?: any) => void
-    ): boolean;
+  emit(
+    event: socketCommands,
+    data: any,
+    callback?: (params?: any) => void
+  ): boolean;
 }
