@@ -6,6 +6,7 @@ import { Vote } from "./Vote";
 
 export type socketCommands =
   | "joinRoom"
+  | "submitVote"
   | "createRoom"
   | "startRoom"
   | "submitVote"
@@ -17,6 +18,12 @@ export type socketCommands =
 
 export type roomPayloadBase = {
   roomCode: string;
+};
+
+export type votePayload = {
+  roomCode: string;
+  username: string;
+  votes: Vote[];
 };
 
 export type foodArrayPayload = {
@@ -46,12 +53,6 @@ export type roomMessagePayload = {
 export type errorPayload = {
   statusCode: httpStatus;
   errorMessage: string;
-};
-
-export type votePayload = {
-  roomCode: string;
-  username: string;
-  votes: Vote[];
 };
 
 export interface suibianSocket extends SocketIOServer.Socket {

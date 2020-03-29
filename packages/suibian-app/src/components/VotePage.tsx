@@ -96,13 +96,13 @@ class VotePage extends Component<Props> {
     console.log("props" + this.props.votes);
     console.log("state" + this.state.votes);
 
-    if (this.props.socketState.socket) {
-      this.props.socketState.socket.emit("submitVote", {
-        username: this.props.user.username,
-        roomCode: this.props.socketState.roomCode,
-        votes: this.props.votes
-      });
-    }
+    // if (this.props.socketState.socket) {
+    //   this.props.socketState.socket.emit("submitVote", {
+    //     username: this.props.user.username,
+    //     roomCode: this.props.socketState.roomCode,
+    //     votes: this.props.votes
+    //   });
+    // }
 
     this.setState({
       redirect: true

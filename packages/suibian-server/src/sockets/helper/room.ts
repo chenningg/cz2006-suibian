@@ -8,7 +8,8 @@ import {
   httpStatus,
   joinRoomPayload,
   suibianSocket,
-  User
+  User,
+  Position
 } from "@suibian/commons";
 import { sendError, broadcastRoom } from "./messaging";
 import { foodImageQuery } from "../../queries/food";
@@ -47,9 +48,10 @@ export const joinRoom = async (
 };
 
 export const createRoom = async (
-  socket: suibianSocket
+  socket: suibianSocket,
+  position: Position
 ): Promise<string | void> => {
-  const roomCode = await createRoomQuery();
+  const roomCode = await createRoomQuery(position);
 
   if (roomCode) {
     socket.join(roomCode, () => {
