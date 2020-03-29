@@ -1,8 +1,8 @@
 import { SocketState } from "./SocketState";
 
 type ReduxState = {
-  users: User[];
-  userPreferences: Preference[];
+  users: User[]; // Users in a room
+  user: User; // Current user data
   socketState: SocketState;
   votes: Vote[];
 };

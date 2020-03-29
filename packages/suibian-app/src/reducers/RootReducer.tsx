@@ -3,12 +3,16 @@ import ReduxState from "../types/ReduxState";
 // Initial state of our Redux store
 const initState = {
   users: [],
-  userPreferences: [
-    { type: "Halal", prefID: "0", value: false },
-    { type: "Vegetarian", prefID: "1", value: false },
-    { type: "Vegan", prefID: "2", value: false },
-    { type: "Buddhist", prefID: "3", value: false }
-  ],
+  user: {
+    username: "",
+    isOwner: false,
+    preferences: [
+      { type: "Halal", prefID: "0", value: false },
+      { type: "Vegetarian", prefID: "1", value: false },
+      { type: "Vegan", prefID: "2", value: false },
+      { type: "Buddhist", prefID: "3", value: false }
+    ]
+  },
   socketState: {
     endpoint: "http://localhost:4000/",
     socket: null,
@@ -22,7 +26,7 @@ const initState = {
 const RootReducer = (state: ReduxState = initState, action: any) => {
   switch (action.type) {
     case "UPDATE_USER_PREFERENCES":
-      let newUserPreferences = state.userPreferences.map(preference => {
+      let newUserPreferences = state.user.preferences.map(preference => {
         return preference.type === action.preferenceType
           ? {
               type: preference.type,
@@ -31,12 +35,20 @@ const RootReducer = (state: ReduxState = initState, action: any) => {
             }
           : preference;
       });
-      return { ...state, userPreferences: newUserPreferences };
+      return {
+        ...state,
+        user: { ...state.user, preferences: newUserPreferences }
+      };
 
     case "UPDATE_SOCKET_STATE":
       let newSocketState = { ...state.socketState };
       newSocketState[action.key] = action.value;
       return { ...state, socketState: newSocketState };
+
+    case "UPDATE_USER":
+      let newUser = [...state.user];
+      newUser[action.key] = action.value;
+      return { ...state, user: newUser };
 
     case "UPDATE_USERS":
       let newUsers = [...action.users];
