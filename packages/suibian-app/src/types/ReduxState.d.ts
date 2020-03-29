@@ -1,5 +1,6 @@
 import { SocketState } from "./SocketState";
 // import { User, Vote } from "@suibian/commons";
+import Food from "@suibian/commons";
 
 type ReduxState = {
   users: User[]; // Users in a room

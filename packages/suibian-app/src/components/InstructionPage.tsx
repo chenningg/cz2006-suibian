@@ -47,11 +47,6 @@ const styles = {
 };
 
 class InstructionPage extends Component<Props> {
-  // state
-  state = {
-    foods: []
-  };
-
   // Register socket to listen to events
   registerSocketListeners = () => {
     console.log(this.props.socketState.socket);
@@ -60,10 +55,9 @@ class InstructionPage extends Component<Props> {
 
       // On start room event fire, I log my data
       this.props.socketState.socket.on("startRoom", (data: any) => {
+        console.log(data);
         if (data) {
-          console.log(`Food data received.`);
-          this.props.updateFoods(data.foodArray);
-          console.log("IT FINALLY WORKED FOODS IS IN" + this.props.foods);
+          this.props.updateFoods(data as Food[]);
         } else {
           console.log(`Error! No data received from startRoom event.`);
         }
@@ -74,39 +68,13 @@ class InstructionPage extends Component<Props> {
   //methods
   componentDidMount() {
     this.registerSocketListeners();
-
-
-    if (this.props.socketState.socket) {
-      this.props.socketState.socket.emit("startRoom", {
-        roomCode: this.props.socketState.roomCode
-      });
-    }
-
     setTimeout(() => {
-      this.setState({
-        //temp, supposed to get from database
-        foods: [
-          {
-            foodName: "Bak Chor Mee",
-            foodID: "123",
-            imgurl:
-              "https://www.linsfood.com/wp-content/uploads/2017/02/Bak-Chor-Mee.jpg"
-          },
-          {
-            foodName: "Chicken Rice",
-            foodID: "456",
-            imgurl:
-              "https://www.thespruceeats.com/thmb/ltMha1iXJIttnXv9EDQf9WFSrEE=/3896x2922/smart/filters:no_upscale()/hainanese-chicken-rice-very-detailed-recipe-3030408-hero-0a742f08c72044e999202a44e30a1ea7.jpg"
-          },
-          {
-            foodName: "Burrito",
-            foodID: "789",
-            imgurl:
-              "https://www.thespruceeats.com/thmb/Hn65vI6v55aIBCwMQaf0SWcVLYI=/2048x1360/filters:fill(auto,1)/vegetarian-bean-and-rice-burrito-recipe-3378550-9_preview-5b2417e1ff1b780037a58cda.jpeg"
-          }
-        ] as Food[]
-      });
-    }, 3000);
+      if (this.props.socketState.socket) {
+        this.props.socketState.socket.emit("startRoom", {
+          roomCode: this.props.socketState.roomCode
+        });
+      }
+    }, 1000);
   }
 
   render() {
@@ -141,15 +109,12 @@ class InstructionPage extends Component<Props> {
 
             <br />
             <div className="loading-container">
-              <div
-                className="loader"
-                hidden={this.state.foods.length === 0 ? false : true}
-              >
+              <div className="loader" hidden={this.props.foods ? false : true}>
                 <Loader type="ThreeDots" color="#c92c2c" />
               </div>
 
               <Link
-                hidden={this.state.foods.length === 0 ? true : false}
+                hidden={this.props.foods ? true : false}
                 to="/votepage"
                 className="main-menu-button remove-text-decoration center"
               >
@@ -182,4 +147,4 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(InstructionPage));
+export default connect(mapStateToProps, mapDispatchToProps)(InstructionPage);
