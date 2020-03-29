@@ -5,7 +5,7 @@ import NavBar from "./NavBar";
 //other components
 import { Favorite, Block } from "@material-ui/icons";
 import Loader from "react-loader-spinner";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Food } from "@suibian/commons";
 
 //css
@@ -13,7 +13,6 @@ import "../css/InstructionPage.css";
 
 // Sockets and Redux
 import { SocketState } from "../types/SocketState";
-import { suibianSocketClient } from "@suibian/commons";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
 

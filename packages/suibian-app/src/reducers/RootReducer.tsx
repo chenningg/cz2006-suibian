@@ -18,7 +18,7 @@ const initState: ReduxState = {
     socket: null,
     roomCode: ""
   },
-  votes: null,
+  votes: [],
   foods: [],
   position: { latitude: 0, longitude: 0 }
 };
@@ -59,7 +59,7 @@ const RootReducer = (state: ReduxState = initState, action: any) => {
       let newFoods = [...action.foods];
       return { ...state, foods: newFoods };
 
-    case "UPDATE_VOTES":
+    case "SUBMIT_VOTES":
       let newVotes = { ...action.votes };
       return { ...state, votes: newVotes };
 

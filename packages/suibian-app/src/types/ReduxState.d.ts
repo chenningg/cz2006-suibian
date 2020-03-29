@@ -7,7 +7,7 @@ type ReduxState = {
   user: User; // Current user data
   position: Position;
   socketState: SocketState;
-  votes: Votes;
+  votes: Vote[];
   foods: Food[];
 };
 
