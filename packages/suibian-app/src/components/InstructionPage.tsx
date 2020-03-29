@@ -30,10 +30,7 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  updateSocketState: (
-    key: string,
-    value: string | number | suibianSocketClient
-  ) => void;
+  updateFoods: (foods: Food[]) => void;
 };
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -55,30 +52,61 @@ class InstructionPage extends Component<Props> {
     foods: []
   };
 
+  // Register socket to listen to events
+  registerSocketListeners = () => {
+    console.log(this.props.socketState.socket);
+    if (this.props.socketState.socket) {
+      console.log("Registering socket listeners...");
+
+      // On start room event fire, I log my data
+      this.props.socketState.socket.on("startRoom", (data: any) => {
+        if (data) {
+          console.log(`Food data received.`);
+          this.props.updateFoods(data.foodArray);
+          console.log("IT FINALLY WORKED FOODS IS IN" + this.props.foods);
+        } else {
+          console.log(`Error! No data received from startRoom event.`);
+        }
+      });
+    }
+  };
+
   //methods
   componentDidMount() {
+    this.registerSocketListeners();
+
+
+    if (this.props.socketState.socket) {
+      this.props.socketState.socket.emit("startRoom", {
+        roomCode: this.props.socketState.roomCode
+      });
+    }
+
     setTimeout(() => {
       this.setState({
         //temp, supposed to get from database
         foods: [
           {
             foodName: "Bak Chor Mee",
+            foodID: "123",
             imgurl:
               "https://www.linsfood.com/wp-content/uploads/2017/02/Bak-Chor-Mee.jpg"
           },
           {
             foodName: "Chicken Rice",
+            foodID: "456",
             imgurl:
               "https://www.thespruceeats.com/thmb/ltMha1iXJIttnXv9EDQf9WFSrEE=/3896x2922/smart/filters:no_upscale()/hainanese-chicken-rice-very-detailed-recipe-3030408-hero-0a742f08c72044e999202a44e30a1ea7.jpg"
           },
           {
             foodName: "Burrito",
+            foodID: "789",
             imgurl:
               "https://www.thespruceeats.com/thmb/Hn65vI6v55aIBCwMQaf0SWcVLYI=/2048x1360/filters:fill(auto,1)/vegetarian-bean-and-rice-burrito-recipe-3378550-9_preview-5b2417e1ff1b780037a58cda.jpeg"
           }
         ] as Food[]
       });
-    }, 5000);
+    }, 3000);
   }
 
   render() {
@@ -139,6 +167,18 @@ class InstructionPage extends Component<Props> {
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
     socketState: state.socketState
+  };
+};
+
+// Links a dispatch function to a prop
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+  return {
+    updateFoods: foods => {
+      dispatch({
+        type: "UPDATE_FOODS",
+        foods: foods
+      });
+    }
   };
 };
 

@@ -1,33 +1,38 @@
 import Vote from "../models/vote.model";
+import VoteType from "../../../commons/src/Vote";
 import { isColString } from "sequelize/types/lib/utils";
 
-export const createVoteQuery = async (
-  username: string,
-  roomcode: string
-): Promise<void> => {
-  try {
-    await Vote.create({
+//TODO: when front end sends votes over, then set user to finished voting
+
+export const createVoteQueryPerUser = async (uservote: any) => {
+  const { username, roomcode, votes } = uservote;
+  // votes is an array of user vote type
+  const votebulkentry = votes.map((vote: VoteType) => {
+    // map calls the function once for every element in array
+    // similar to foreach except it returns new array
+    const voteentry = {
       username,
       roomcode,
-      finishedvote: false
-    });
-  } catch (err) {
-    console.log(err);
-  }
+      foodName: vote.foodName,
+      like: vote.like
+    };
+    return voteentry; // return for each element in the array
+  });
+  await Vote.bulkCreate(votebulkentry);
 };
 
-export const checkVoteQuery = async (
-  username: string,
+export const countVoteQuery = async (
   roomcode: string
-): Promise<string | void> => {
+): Promise<string | undefined> => {
   try {
-    let finishedvote = await Vote.findOne({
+    const result = await Vote.count({
       where: {
-        username,
-        roomcode
-      }
+        roomcode,
+        like: true
+      },
+      group: "foodName"
     });
-    return JSON.stringify(finishedvote);
+    return JSON.stringify(result);
   } catch (err) {
     console.log(err);
   }

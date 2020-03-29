@@ -16,7 +16,7 @@ app.use(router);
 
 const httpServer = sockets.startSocketServer(app);
 httpServer.listen(PORT, () => {
-  console.log(`Server is listening to port ${PORT}`);
+    console.log(`Server is listening to port ${PORT}`);
 });
 
 // Instantiate db connection
