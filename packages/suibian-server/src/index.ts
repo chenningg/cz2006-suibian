@@ -21,5 +21,5 @@ httpServer.listen(PORT, () => {
 
 // Instantiate db connection
 db.sync()
-    .then(() => console.log("Database connected ..."))
-    .catch((err: any) => console.log("Error: " + err));
+  .then(() => console.log("Database connected ..."))
+  .catch((err: any) => console.log("Error: " + err));
