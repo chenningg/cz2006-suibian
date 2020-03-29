@@ -1,4 +1,6 @@
 import SocketIOServer from "socket.io";
+import { User } from "./User";
+import { httpStatus } from "./httpStatus";
 
 export type socketCommands =
     | "joinRoom"
@@ -15,12 +17,12 @@ export type roomPayloadBase = {
 };
 
 export type createRoomPayload = {
-    username: string;
+    user: User;
 };
 
 export type joinRoomPayload = {
     roomCode: string;
-    username: string;
+    user: User;
 };
 
 export type roomMessagePayload = {
@@ -29,10 +31,19 @@ export type roomMessagePayload = {
     roomCode: string;
 };
 
+export type errorPayload = {
+    statusCode: httpStatus;
+    errorMessage: string;
+};
+
 export interface suibianSocket extends SocketIOServer.Socket {
     emit(
         event: socketCommands,
-        data: any,
+        data:
+            | roomPayloadBase
+            | roomMessagePayload
+            | roomMessagePayload
+            | errorPayload,
         callback?: (params?: any) => void
     ): boolean;
 }

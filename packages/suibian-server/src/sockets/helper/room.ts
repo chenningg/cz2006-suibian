@@ -1,97 +1,112 @@
 import socketio from "socket.io";
 import {
-  createRoomQuery,
-  joinRoomQuery,
-  updateRoomNumbersQuery
+    createRoomQuery,
+    joinRoomQuery,
+    updateRoomNumbersQuery
 } from "../../queries/room";
-import { httpStatus, joinRoomPayload, suibianSocket } from "@suibian/commons";
+import {
+    httpStatus,
+    joinRoomPayload,
+    suibianSocket,
+    User
+} from "@suibian/commons";
 import { sendError, broadcastRoom } from "./messaging";
 import { listSocketsRoom } from "./utils";
 
-const socketUserMapping = new Map();
+const socketUserMapping = new Map<string, User>();
 
 export const joinRoom = async (
-  socket: suibianSocket,
-  socketio: socketio.Server,
-  data: joinRoomPayload
+    socket: suibianSocket,
+    socketio: socketio.Server,
+    data: joinRoomPayload
 ) => {
-  const { username, roomCode } = data;
-  await joinRoomQuery(username, roomCode);
-  await updateRoomNumbersQuery(roomCode, 1); // increment the number of people in the room
+    const { roomCode } = data;
+    const { username, isOwner } = data.user;
+    await joinRoomQuery(username, roomCode);
+    await updateRoomNumbersQuery(roomCode, 1); // increment the number of people in the room
 
-  socketUserMapping.set(socket.id, username);
+    if (isOwner) {
+        socketUserMapping.set(socket.id, {
+            username,
+            isOwner
+        });
+    }
 
-  //list all sockets
-  socket.join(data.roomCode, async () => {
-    const socketList = listSocketsRoom(socketio, roomCode, socketUserMapping);
-    console.log(`the socket list is ${socketList}`);
-    await broadcastRoom(
-      socketio,
-      {
-        roomCode,
-        payload: socketList
-      },
-      "joinRoom" //broadcast using joinRoom socket command
-    );
-  });
+    //list all sockets
+    socket.join(data.roomCode, async () => {
+        const socketList = listSocketsRoom(
+            socketio,
+            roomCode,
+            socketUserMapping
+        );
+        console.log(`the socket list is ${socketList}`);
+        await broadcastRoom(
+            socketio,
+            {
+                roomCode,
+                payload: socketList
+            },
+            "joinRoom" //broadcast using joinRoom socket command
+        );
+    });
 };
 
 export const createRoom = async (
-  socket: suibianSocket
+    socket: suibianSocket
 ): Promise<string | void> => {
-  const roomcode = await createRoomQuery();
+    const roomCode = await createRoomQuery();
 
-  if (roomcode) {
-    socket.join(roomcode, () => {
-      socket.emit("createRoom", roomcode);
-    });
-    return roomcode;
-  } else {
-    sendError(
-      socket,
-      httpStatus.badRequest,
-      "No more spare rooms left to join"
-    );
-  }
+    if (roomCode) {
+        socket.join(roomCode, () => {
+            socket.emit("createRoom", { roomCode });
+        });
+        return roomCode;
+    } else {
+        sendError(
+            socket,
+            httpStatus.badRequest,
+            "No more spare rooms left to join"
+        );
+    }
 };
 
 export const getRoomSockets = (
-  socketio: socketio.Server,
-  roomcode: string
+    socketio: socketio.Server,
+    roomCode: string
 ): socketio.Room => {
-  const room = socketio.sockets.adapter.rooms[roomcode];
-  return room;
+    const room = socketio.sockets.adapter.rooms[roomCode];
+    return room;
 };
 
 export const closeRoom = (
-  socketio: socketio.Server,
-  socket: suibianSocket,
-  roomcode: string
+    socketio: socketio.Server,
+    socket: suibianSocket,
+    roomCode: string
 ) => {
-  //TODO Remove room from the database
-  const roomInfo = getRoomSockets(socketio, roomcode);
-  if (!roomInfo) {
-    sendError(
-      socket,
-      httpStatus.badRequest,
-      "Room could not close because room code does not exist"
-    );
-    return;
-  }
-  const socketList = Object.keys(roomInfo["sockets"]);
-  socketList.forEach(socketId => {
-    const socket = socketio.sockets.connected[socketId];
-    socket.leave(roomcode, () => {
-      socketio.in(roomcode).emit("broadcastMessage", {
-        username: "null",
-        message: "room is closed",
-        roomcode: roomcode
-      });
+    //TODO Remove room from the database
+    const roomInfo = getRoomSockets(socketio, roomCode);
+    if (!roomInfo) {
+        sendError(
+            socket,
+            httpStatus.badRequest,
+            "Room could not close because room code does not exist"
+        );
+        return;
+    }
+    const socketList = Object.keys(roomInfo["sockets"]);
+    socketList.forEach(socketId => {
+        const socket = socketio.sockets.connected[socketId];
+        socket.leave(roomCode, () => {
+            socketio.in(roomCode).emit("broadcastMessage", {
+                username: "null",
+                message: "room is closed",
+                roomCode: roomCode
+            });
+        });
+        console.log(`socket rooms ${socketio.sockets.adapter.rooms[roomCode]}`);
     });
-    console.log(`socket rooms ${socketio.sockets.adapter.rooms[roomcode]}`);
-  });
 };
 
-export const startRoom = (io: socketio.Server, roomcode: string) => {
-  //TODO Add in entries in the database & change room status
+export const startRoom = (io: socketio.Server, roomCode: string) => {
+    //TODO Add in entries in the database & change room status
 };
