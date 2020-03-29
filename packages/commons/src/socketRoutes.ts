@@ -9,7 +9,7 @@ export type socketCommands =
   | "submitVote"
   | "createRoom"
   | "startRoom"
-  | "votePage"
+  | "submitVote"
   | "changeUsername"
   | "broadcastMessage"
   | "connection"
@@ -24,7 +24,7 @@ export type votePayload = {
   roomCode: string;
   username: string;
   votes: Vote[];
-}
+};
 
 export type foodArrayPayload = {
   foodArray: Food[];
@@ -70,7 +70,7 @@ export interface suibianSocket extends SocketIOServer.Socket {
 export interface suibianSocketClient extends SocketIOClient.Socket {
   emit(
     event: socketCommands,
-    data: createRoomPayload | joinRoomPayload | startRoomPayload,
+    data: createRoomPayload | joinRoomPayload | startRoomPayload | votePayload,
     callback?: (params?: any) => void
   ): SocketIOClient.Socket;
 }
