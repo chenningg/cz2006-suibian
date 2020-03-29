@@ -32,7 +32,9 @@ export default {
 
             socket.on("createRoom", async (data: createRoomPayload) => {
                 //first user creates a room and also joins the room
-                const { username, isOwner } = data.user;
+                let { username, isOwner } = data.user;
+                //set isOwner to true
+                isOwner = true;
                 const roomCode = await createRoom(socket);
                 if (roomCode) {
                     const roomPayload = {
