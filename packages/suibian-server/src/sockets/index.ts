@@ -7,6 +7,8 @@ import {
     roomPayloadBase,
     createRoomPayload
 } from "@suibian/commons";
+import { createUser } from "./helper/user";
+import { broadcastRoom } from "./helper/messaging";
 const http = require("http");
 
 export default {
@@ -22,6 +24,7 @@ export default {
             );
 
             socket.on("joinRoom", async (data: joinRoomPayload) => {
+                await createUser(data);
                 await joinRoom(socket, io, data);
             });
 
@@ -44,13 +47,22 @@ export default {
                             isOwner
                         }
                     };
+                    await createUser({
+                        roomCode,
+                        ...data
+                    });
                     await joinRoom(socket, io, roomPayload);
                 }
             });
 
-            socket.on("startRoom", (data: roomPayloadBase) => {
+            socket.on("startRoom", async (data: roomPayloadBase) => {
                 const { roomCode } = data;
-                startRoom(io, roomCode);
+                const foodArray = await startRoom(io, roomCode);
+                broadcastRoom(
+                    io,
+                    { roomCode, payload: foodArray },
+                    "startRoom"
+                );
             });
 
             socket.on("getRoomInfo", (data: roomPayloadBase) => {});

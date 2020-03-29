@@ -2,18 +2,10 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 
-//other components
-import { Map, GoogleApiWrapper, Marker, InfoWindow } from "google-maps-react";
-
 //css
 import "../css/Eatery.css";
 
-const mapStyles = {
-  width: 350,
-  height: 350
-};
-
-class Eatery extends Component<{ google: string }> {
+class Eatery extends Component {
   //State
   placename = "BIG DICK LAKE";
   state = {
@@ -53,25 +45,6 @@ class Eatery extends Component<{ google: string }> {
         <div className="eatery">
           <div className="app-content flex-container flex-col  flex-center-v">
             <h2 className="eateryname">{this.eateryname}</h2>
-            <div className="map">
-              <Map
-                style={mapStyles}
-                google={this.props.google}
-                zoom={this.state.zoom}
-                initialCenter={{ lat: this.state.lat, lng: this.state.lng }}
-              >
-                <Marker onClick={this.onMarkerClick} name={"bigDICKlake"} />
-                <InfoWindow
-                  marker={this.state.activeMarker}
-                  visible={this.state.showingInfoWindow}
-                  onClose={this.onClose}
-                >
-                  <div>
-                    <h4>{this.state.selectedPlace}</h4>
-                  </div>
-                </InfoWindow>
-              </Map>
-            </div>
             <a
               href={
                 "https://www.google.com/maps/@" +
@@ -103,6 +76,4 @@ class Eatery extends Component<{ google: string }> {
   }
 }
 
-export default GoogleApiWrapper({
-  apiKey: "AIzaSyDEaux00JCnvfiaqExfJHY5cu-oe8fSOxA"
-})(Eatery);
+export default Eatery;

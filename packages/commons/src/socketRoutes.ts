@@ -1,11 +1,12 @@
 import SocketIOServer from "socket.io";
 import { User } from "./User";
 import { httpStatus } from "./httpStatus";
+import { Food } from "./Food";
 
 export type socketCommands =
   | "joinRoom"
   | "createRoom"
-  | "StartRoom"
+  | "startRoom"
   | "changeUsername"
   | "broadcastMessage"
   | "connection"
@@ -16,6 +17,10 @@ export type roomPayloadBase = {
   roomCode: string;
 };
 
+export type foodArrayPayload = {
+  foodArray: Food[];
+};
+
 export type createRoomPayload = {
   user: User;
 };
@@ -23,6 +28,10 @@ export type createRoomPayload = {
 export type joinRoomPayload = {
   roomCode: string;
   user: User;
+};
+
+export type startRoomPayload = {
+  roomCode: string;
 };
 
 export type roomMessagePayload = {
@@ -51,7 +60,7 @@ export interface suibianSocket extends SocketIOServer.Socket {
 export interface suibianSocketClient extends SocketIOClient.Socket {
   emit(
     event: socketCommands,
-    data: createRoomPayload | joinRoomPayload,
+    data: createRoomPayload | joinRoomPayload | startRoomPayload,
     callback?: (params?: any) => void
   ): SocketIOClient.Socket;
 }

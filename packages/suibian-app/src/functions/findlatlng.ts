@@ -6,6 +6,7 @@ export function findlatlng() {
       handleLocationError,
       { timeout: 20000, enableHighAccuracy: true, maximumAge: 0 }
     );
+    return displayLocationInfo(navigator.geolocation.getCurrentPosition);
   } else {
     alert("Geolocation is not supported by your browser");
   }
@@ -17,9 +18,9 @@ function displayLocationInfo(position) {
     lng: position.coords.longitude
   };
   let jsonlatlng: string = JSON.stringify(latlng);
-  let parsejson = JSON.parse(jsonlatlng);
+  return jsonlatlng;
 
-  console.log(`latitude: ${parsejson.lat} | longitude: ${parsejson.lng}`);
+  console.log(`latitude: ${latlng.lat} | longitude: ${latlng.lng}`);
 }
 
 function handleLocationError(error) {

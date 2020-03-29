@@ -31,15 +31,21 @@ type StateProps = {
 type DispatchProps = {
   updateSocketState: (
     key: string,
-    value: string | number | suibianSocketClient
+    value: string | number | suibianSocketClient | null
   ) => void;
-
   updateUser: (key: string, value: string | boolean) => void;
+  updateUsers: (users: User[]) => void;
 };
 
 type Props = StateProps & DispatchProps & OwnProps;
 
 class CreateRoom extends Component<Props> {
+  // When mounting, delete all roomCode and users from this state
+  componentDidMount() {
+    this.props.updateSocketState("roomCode", "");
+    this.props.updateUsers([]);
+  }
+
   handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     this.props.updateUser("username", e.target.value);
   };
@@ -95,6 +101,12 @@ const mapStateToProps = (state: ReduxState): StateProps => {
 // Links a dispatch function to a prop
 const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
+    updateUsers: users => {
+      dispatch({
+        type: "UPDATE_USERS",
+        users: users
+      });
+    },
     updateSocketState: (key, value) => {
       dispatch({
         type: "UPDATE_SOCKET_STATE",
