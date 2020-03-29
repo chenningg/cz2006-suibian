@@ -13,8 +13,9 @@ import { SocketState } from "../types/SocketState";
 import { suibianSocketClient } from "@suibian/commons";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
-import { findlatlng } from "../functions/findlatlng";
 import { User } from "@suibian/commons";
+
+import MapSearch from "./MapSearch";
 
 // Types
 type OwnProps = {
@@ -69,9 +70,13 @@ class CreateRoom extends Component<Props> {
       <>
         <NavBar />
         <div className="create-room">
-          <div className="app-content flex-container flex-col flex-center-h flex-center-v">
+          <div className="app-content flex-container flex-col">
             <h1 className="title">Create room</h1>
-            <form className="create-room-form" onSubmit={this.createRoom}>
+            <form
+              className="create-room-form flex-container flex-col flex-center-v"
+              onSubmit={this.createRoom}
+            >
+              <MapSearch />
               <input
                 onChange={this.handleChange}
                 id="username"
