@@ -38,6 +38,7 @@ const MapSearch = (props: Props) => {
     },
     debounce: 300
   });
+
   const ref = useRef();
   // @ts-ignore
   useOnclickOutside(ref, () => {
