@@ -1,4 +1,3 @@
-
 import {
   Table,
   Column,
@@ -34,14 +33,10 @@ class Stall extends Model<Stall> {
   @Column
   address!: string;
 
-  @Column({
-    type: DataType.TIME
-  })
+  @Column
   openinghours!: number;
 
-  @Column({
-    type: DataType.TIME
-  })
+  @Column
   closinghours!: number;
 
   @Column

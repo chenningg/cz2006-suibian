@@ -3,7 +3,8 @@ import {
   Column,
   Model,
   PrimaryKey,
-  BelongsToMany
+  BelongsToMany,
+  DataType
 } from "sequelize-typescript";
 
 import User from "./user.model";
@@ -22,6 +23,12 @@ class Rooms extends Model<Rooms> {
 
   @Column
   numberparticipants!: number;
+
+  @Column(DataType.FLOAT)
+  lat!: number;
+
+  @Column(DataType.FLOAT)
+  lng!: number;
 
   @BelongsToMany(
     () => User,
