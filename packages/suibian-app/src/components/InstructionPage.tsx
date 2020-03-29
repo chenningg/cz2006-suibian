@@ -75,6 +75,13 @@ class InstructionPage extends Component<Props> {
   componentDidMount() {
     this.registerSocketListeners();
 
+
+    if (this.props.socketState.socket) {
+      this.props.socketState.socket.emit("startRoom", {
+        roomCode: this.props.socketState.roomCode
+      });
+    }
+
     setTimeout(() => {
       this.setState({
         //temp, supposed to get from database

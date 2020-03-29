@@ -30,6 +30,10 @@ export type joinRoomPayload = {
   user: User;
 };
 
+export type startRoomPayload = {
+  roomCode: string;
+};
+
 export type roomMessagePayload = {
   username: string;
   message: string;
@@ -56,7 +60,7 @@ export interface suibianSocket extends SocketIOServer.Socket {
 export interface suibianSocketClient extends SocketIOClient.Socket {
   emit(
     event: socketCommands,
-    data: createRoomPayload | joinRoomPayload,
+    data: createRoomPayload | joinRoomPayload | startRoomPayload,
     callback?: (params?: any) => void
   ): SocketIOClient.Socket;
 }
