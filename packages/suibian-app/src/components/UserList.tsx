@@ -16,7 +16,7 @@ const UserList = ({ users }: UserListProps) => {
     return (
       <div
         className="user-list-row flex-container flex-row flex-center-h flex-center-v flex-spaced-between"
-        key={user.id}
+        key={user.username}
       >
         <p>{user.username}</p>
         <p className={user.isOwner ? "room-owner" : "hide"}>OWNER</p>

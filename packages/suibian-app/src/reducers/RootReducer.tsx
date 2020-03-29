@@ -46,7 +46,7 @@ const RootReducer = (state: ReduxState = initState, action: any) => {
       return { ...state, socketState: newSocketState };
 
     case "UPDATE_USER":
-      let newUser = [...state.user];
+      let newUser = { ...state.user };
       newUser[action.key] = action.value;
       return { ...state, user: newUser };
 

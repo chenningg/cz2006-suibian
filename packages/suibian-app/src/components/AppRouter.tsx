@@ -18,7 +18,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "../css/Global.css";
 
 // Sockets and Redux
-import * as SocketTypes from "../types/SocketState";
+import { SocketState } from "../types/SocketState";
+import { suibianSocketClient } from "@suibian/commons";
 import socketIOClient from "socket.io-client";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
@@ -27,13 +28,13 @@ import { User } from "@suibian/commons";
 // Types
 type StateProps = {
   users: User[];
-  socketState: SocketTypes.SocketState;
+  socketState: SocketState;
 };
 
 type DispatchProps = {
   updateSocketState: (
     key: string,
-    value: string | number | SocketTypes.SuibianSocket | null
+    value: string | number | suibianSocketClient | null
   ) => void;
   updateUsers: (users: User[]) => void;
 };
@@ -61,7 +62,9 @@ class AppRouter extends Component<Props> {
     }
 
     // Initializing the connection
-    const socket = await socketIOClient(this.props.socketState.endpoint);
+    const socket = (await socketIOClient(
+      this.props.socketState.endpoint
+    )) as suibianSocketClient;
     console.log("Socket created!");
     this.props.updateSocketState("socket", socket);
   };
