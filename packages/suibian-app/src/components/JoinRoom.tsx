@@ -2,11 +2,9 @@
 import React, { Component, FormEvent, ChangeEvent } from "react";
 import NavBar from "./NavBar";
 
-//other components
-import { Link } from "react-router-dom";
-
 //css
 import "../css/JoinRoom.css";
+import { withRouter } from "react-router-dom";
 
 // Sockets and Redux
 import * as SocketTypes from "../types/SocketState";
@@ -14,6 +12,12 @@ import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
 
 // Types
+type OwnProps = {
+  history: any;
+  location: any;
+  match: any;
+};
+
 type StateProps = {
   socketState: SocketTypes.SocketState;
 };
@@ -25,7 +29,7 @@ type DispatchProps = {
   ) => void;
 };
 
-type Props = StateProps & DispatchProps;
+type Props = StateProps & DispatchProps & OwnProps;
 
 class JoinRoom extends Component<Props> {
   // Methods
@@ -33,6 +37,7 @@ class JoinRoom extends Component<Props> {
     this.props.updateSocketState(e.target.id, e.target.value);
   };
 
+  // Function to handle joining room after submission of details
   joinRoom = (e: FormEvent) => {
     e.preventDefault();
     console.log("Joining room...");
@@ -41,6 +46,9 @@ class JoinRoom extends Component<Props> {
         username: this.props.socketState.username,
         roomCode: this.props.socketState.roomCode
       });
+
+      // Redirect to room lobby
+      this.props.history.push("/roomlobby");
     }
   };
 
@@ -72,9 +80,7 @@ class JoinRoom extends Component<Props> {
                 required
               />
               <br></br>
-              {/* <Link to="/roomlobby" className="join-room-text"> */}
               <button>JOIN ROOM</button>
-              {/* </Link> */}
             </form>
           </div>
         </div>
@@ -103,4 +109,6 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(JoinRoom);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(JoinRoom)
+);

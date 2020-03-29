@@ -32,7 +32,7 @@ type StateProps = {
 type DispatchProps = {
   updateSocketState: (
     key: string,
-    value: string | number | SocketTypes.SuibianSocket
+    value: string | number | SocketTypes.SuibianSocket | null
   ) => void;
 };
 
@@ -44,6 +44,11 @@ class AppRouter extends Component<Props> {
   // When component mounts, connect to a socket then register socket listeners
   componentDidMount() {
     this.connectSocket().then(() => this.registerSocketListeners());
+  }
+
+  // When component unmounts, disconenct socket listeners
+  componentWillUnmount() {
+    this.deregisterSocketListeners();
   }
 
   // Connect to a socket
@@ -75,6 +80,12 @@ class AppRouter extends Component<Props> {
         console.log(data);
       });
     }
+  };
+
+  // Deregister socket listeners on unmount
+  deregisterSocketListeners = () => {
+    console.log("Deregistering socket listeners...");
+    this.props.updateSocketState("socket", null);
   };
 
   render() {
