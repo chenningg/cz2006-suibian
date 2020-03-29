@@ -5,7 +5,8 @@ type ReduxState = {
   users: User[]; // Users in a room
   user: User; // Current user data
   socketState: SocketState;
-  votes: Vote[];
+  votes: Votes;
+  foods: Food[];
 };
 
 export default ReduxState;
