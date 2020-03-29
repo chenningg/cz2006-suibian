@@ -18,7 +18,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "../css/Global.css";
 
 // Sockets and Redux
-import * as SocketTypes from "../types/SocketState";
+import { SocketState } from "../types/SocketState";
+import { suibianSocketClient } from "@suibian/commons";
 import socketIOClient from "socket.io-client";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
@@ -27,15 +28,16 @@ import { User } from "@suibian/commons";
 // Types
 type StateProps = {
   users: User[];
-  socketState: SocketTypes.SocketState;
+  socketState: SocketState;
 };
 
 type DispatchProps = {
   updateSocketState: (
     key: string,
-    value: string | number | SocketTypes.SuibianSocket | null
+    value: string | number | suibianSocketClient | null
   ) => void;
   updateUsers: (users: User[]) => void;
+  updateUser: (key: string, value: boolean) => void;
 };
 
 type Props = StateProps & DispatchProps;
@@ -61,7 +63,9 @@ class AppRouter extends Component<Props> {
     }
 
     // Initializing the connection
-    const socket = await socketIOClient(this.props.socketState.endpoint);
+    const socket = (await socketIOClient(
+      this.props.socketState.endpoint
+    )) as suibianSocketClient;
     console.log("Socket created!");
     this.props.updateSocketState("socket", socket);
   };
@@ -74,12 +78,24 @@ class AppRouter extends Component<Props> {
 
       // On create room event fire, I log my data
       this.props.socketState.socket.on("createRoom", (data: any) => {
-        console.log(`Room #${data} created.`);
+        if (data) {
+          console.log(`Room #${data.roomCode} created.`);
+          this.props.updateUser("isOwner", true);
+          this.props.updateSocketState("roomCode", data.roomCode);
+        } else {
+          console.log(`Error! No data received from createRoom event.`);
+        }
       });
 
       // On join room event fire, I log my data
       this.props.socketState.socket.on("joinRoom", (data: any) => {
-        this.props.updateUsers(data);
+        if (data) {
+          console.log(`Joined room #${data.roomCode}.`);
+          this.props.updateSocketState("roomCode", data.roomCode);
+          this.props.updateUsers(data.users);
+        } else {
+          console.log(`Error! No data received from joinRoom event.`);
+        }
       });
     }
   };
@@ -133,6 +149,13 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
       dispatch({
         type: "UPDATE_USERS",
         users: users
+      });
+    },
+    updateUser: (key, value) => {
+      dispatch({
+        type: "UPDATE_USER",
+        key: key,
+        value: value
       });
     }
   };
