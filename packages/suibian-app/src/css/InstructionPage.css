@@ -21,6 +21,8 @@
   flex-direction: column;
   text-align: center;
   padding-top: 5vh;
+  padding-left: 2vw;
+  padding-right: 2vw;
 }
 
 .like {
@@ -29,4 +31,11 @@
 
 .dislike {
   color: #c92c2c;
+}
+
+.instruction-page .loading-container {
+  display: flex;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
 }

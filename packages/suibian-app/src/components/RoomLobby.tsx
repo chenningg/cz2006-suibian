@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import NavBar from "./NavBar";
 import UserList from "./UserList";
+import RoomLobbyLoadingScreen from "./RoomLobbyLoadingScreen";
 
 //other components
 import { Link } from "react-router-dom";
@@ -25,7 +26,7 @@ type Props = StateProps;
 
 class RoomLobby extends Component<Props> {
   render() {
-    return (
+    return this.props.users.length > 0 ? (
       <>
         <NavBar />
         <div className="room-lobby">
@@ -40,6 +41,8 @@ class RoomLobby extends Component<Props> {
           </div>
         </div>
       </>
+    ) : (
+      <RoomLobbyLoadingScreen />
     );
   }
 }

@@ -3,12 +3,40 @@ import React, { Component } from "react";
 import NavBar from "./NavBar";
 
 //other components
-import { Favorite, Block, Timer as Clock } from "@material-ui/icons";
-import Timer from "react-compound-timer";
-import { Redirect } from "react-router-dom";
+import { Favorite, Block } from "@material-ui/icons";
+import Loader from "react-loader-spinner";
+import { Link, withRouter } from "react-router-dom";
+import { Food } from "@suibian/commons";
 
 //css
 import "../css/InstructionPage.css";
+
+// Sockets and Redux
+import { SocketState } from "../types/SocketState";
+import { suibianSocketClient } from "@suibian/commons";
+import { connect } from "react-redux";
+import ReduxState from "../types/ReduxState";
+
+// Types
+type OwnProps = {
+  history: any;
+  location: any;
+  match: any;
+  foods: any;
+};
+
+type StateProps = {
+  socketState: SocketState;
+};
+
+type DispatchProps = {
+  updateSocketState: (
+    key: string,
+    value: string | number | suibianSocketClient
+  ) => void;
+};
+
+type Props = StateProps & DispatchProps & OwnProps;
 
 const styles = {
   largeIcon: {
@@ -21,26 +49,39 @@ const styles = {
   }
 };
 
-class InstructionPage extends Component {
-  //state
+class InstructionPage extends Component<Props> {
+  // state
   state = {
-    redirect: false
+    foods: []
   };
 
   //methods
   componentDidMount() {
     setTimeout(() => {
       this.setState({
-        redirect: true
+        //temp, supposed to get from database
+        foods: [
+          {
+            foodName: "Bak Chor Mee",
+            imgurl:
+              "https://www.linsfood.com/wp-content/uploads/2017/02/Bak-Chor-Mee.jpg"
+          },
+          {
+            foodName: "Chicken Rice",
+            imgurl:
+              "https://www.thespruceeats.com/thmb/ltMha1iXJIttnXv9EDQf9WFSrEE=/3896x2922/smart/filters:no_upscale()/hainanese-chicken-rice-very-detailed-recipe-3030408-hero-0a742f08c72044e999202a44e30a1ea7.jpg"
+          },
+          {
+            foodName: "Burrito",
+            imgurl:
+              "https://www.thespruceeats.com/thmb/Hn65vI6v55aIBCwMQaf0SWcVLYI=/2048x1360/filters:fill(auto,1)/vegetarian-bean-and-rice-burrito-recipe-3378550-9_preview-5b2417e1ff1b780037a58cda.jpeg"
+          }
+        ] as Food[]
       });
-    }, 10000);
+    }, 5000);
   }
 
   render() {
-    if (this.state.redirect) {
-      return <Redirect to={"/votepage"} />;
-    }
-
     return (
       <>
         <NavBar />
@@ -71,14 +112,22 @@ class InstructionPage extends Component {
             </div>
 
             <br />
-            <Clock style={styles.mediumIcon} />
-            <Timer initialTime={7500} direction="backward">
-              {() => (
-                <h1>
-                  <Timer.Seconds />
-                </h1>
-              )}
-            </Timer>
+            <div className="loading-container">
+              <div
+                className="loader"
+                hidden={this.state.foods.length === 0 ? false : true}
+              >
+                <Loader type="ThreeDots" color="#c92c2c" />
+              </div>
+
+              <Link
+                hidden={this.state.foods.length === 0 ? true : false}
+                to="/votepage"
+                className="main-menu-button remove-text-decoration center"
+              >
+                <button>LET'S GO!</button>
+              </Link>
+            </div>
           </div>
         </div>
       </>
@@ -86,4 +135,11 @@ class InstructionPage extends Component {
   }
 }
 
-export default InstructionPage;
+// Redux functions
+const mapStateToProps = (state: ReduxState): StateProps => {
+  return {
+    socketState: state.socketState
+  };
+};
+
+export default withRouter(connect(mapStateToProps)(InstructionPage));

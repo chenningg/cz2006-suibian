@@ -19,7 +19,8 @@ const initState = {
     username: "",
     roomCode: ""
   },
-  votes: []
+  votes: null,
+  foods: []
 };
 
 // The one main reducer that can have sub reducers to translate actions > update the store
@@ -51,7 +52,12 @@ const RootReducer = (state: ReduxState = initState, action: any) => {
       return { ...state, user: newUser };
 
     case "UPDATE_USERS":
-      return { ...state, users: action.users };
+      let newUsers = [...action.users];
+      return { ...state, users: newUsers };
+
+    case "UPDATE_VOTES":
+      let newVotes = { ...action.votes };
+      return { ...state, votes: newVotes };
   }
 
   return state;
