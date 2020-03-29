@@ -63,12 +63,20 @@ class Home extends Component {
     "hotpot",
     "dumpling noodle",
     "chow mein",
-    "prawn noodle"
+    "prawn noodle",
+    "char siew rice",
+    "lava cake",
+    "chilli crab",
+    "salted egg rice",
+    "biryani",
+    "mcspicy",
+    "lor mee",
+    "durian"
   ];
 
   timerRef;
 
-  //methods
+  // Methods
   generateRandomIndex = () => {
     return Math.ceil(Math.random() * this.foodDescription.length) - 1;
   };
