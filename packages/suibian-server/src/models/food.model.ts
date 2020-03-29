@@ -1,4 +1,13 @@
-import { Table, Column, Model, PrimaryKey } from "sequelize-typescript";
+import {
+    Table,
+    Column,
+    Model,
+    PrimaryKey,
+    BelongsToMany,
+    DataType
+} from "sequelize-typescript";
+import Stall from "./stall.model";
+import Sell from "./sell.model";
 
 @Table({
     tableName: "food",
@@ -8,13 +17,21 @@ import { Table, Column, Model, PrimaryKey } from "sequelize-typescript";
 class Food extends Model<Food> {
     @PrimaryKey
     @Column
-    foodID!: string;
+    foodId!: string;
 
     @Column
-    foodName!: string;
+    foodname!: string;
 
-    @Column
-    foodPictureUrl!: string;
+    @Column({
+        type: DataType.TEXT
+    })
+    imageurl!: string;
+
+    @BelongsToMany(
+        () => Stall,
+        () => Sell
+    )
+    stalls!: Stall[];
 }
 
 export default Food;

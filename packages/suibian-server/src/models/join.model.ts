@@ -5,9 +5,7 @@ import User from "./user.model";
 type votingStatus = "waiting" | "voting" | "completed";
 
 @Table({
-    tableName: "join",
-    createdAt: false,
-    updatedAt: false
+    tableName: "join"
 })
 class Join extends Model<Join> {
     @ForeignKey(() => User)
