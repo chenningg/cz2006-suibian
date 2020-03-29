@@ -1,4 +1,6 @@
-export type Vote = {
-    foodName: string;
-    like: boolean;
+type VoteType = {
+  foodId: string;
+  vote: boolean;
 };
+
+export default VoteType;

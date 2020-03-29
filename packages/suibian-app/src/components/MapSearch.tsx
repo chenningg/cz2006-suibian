@@ -7,7 +7,25 @@ import useOnclickOutside from "react-cool-onclickoutside";
 import "../css/MapSearch.css";
 import { LocationOn } from "@material-ui/icons";
 
-const MapSearch = () => {
+// Sockets and Redux
+import { SocketState } from "../types/SocketState";
+import { suibianSocketClient } from "@suibian/commons";
+import { connect } from "react-redux";
+import ReduxState from "../types/ReduxState";
+import { Position } from "@suibian/commons";
+
+// Types
+type StateProps = {
+  position: Position;
+};
+
+type DispatchProps = {
+  updatePosition: (position: Position) => void;
+};
+
+type Props = StateProps & DispatchProps;
+
+const MapSearch = (props: Props) => {
   const {
     ready,
     value,
@@ -30,11 +48,12 @@ const MapSearch = () => {
 
   const handleClick = e => {
     getPosition().then((res: any) => {
-      console.log("📍 Coordinates: ", {
-        lat: res.coords.latitude,
-        lng: res.coords.longitude
-      });
-      return { lat: res.coords.latitude, lng: res.coords.longitude };
+      const pos = {
+        latitude: res.coords.latitude,
+        longitude: res.coords.longitude
+      };
+      console.log("📍 Coordinates: ", pos);
+      props.updatePosition(pos);
     });
   };
 
@@ -53,8 +72,12 @@ const MapSearch = () => {
     getGeocode({ address: description })
       .then(results => getLatLng(results[0]))
       .then(({ lat, lng }) => {
-        console.log("📍 Coordinates: ", { lat, lng });
-        return { lat, lng };
+        const pos = {
+          latitude: lat,
+          longitude: lng
+        };
+        console.log("📍 Coordinates: ", pos);
+        props.updatePosition(pos);
       })
       .catch(error => {
         console.log("😱 Error: ", error);
@@ -113,4 +136,23 @@ const MapSearch = () => {
   );
 };
 
-export default MapSearch;
+// Redux functions
+const mapStateToProps = (state: ReduxState): StateProps => {
+  return {
+    position: state.position
+  };
+};
+
+// Links a dispatch function to a prop
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+  return {
+    updatePosition: position => {
+      dispatch({
+        type: "UPDATE_POSITION",
+        position
+      });
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapSearch);
