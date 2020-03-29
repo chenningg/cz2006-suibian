@@ -56,7 +56,7 @@ const RootReducer = (state: ReduxState = initState, action: any) => {
       return { ...state, users: newUsers };
 
     case "UPDATE_VOTES":
-      let newVotes = [...action.votes];
+      let newVotes = { ...action.votes };
       return { ...state, votes: newVotes };
   }
 
