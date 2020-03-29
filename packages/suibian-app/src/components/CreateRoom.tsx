@@ -3,7 +3,7 @@ import React, { Component, ChangeEvent, FormEvent } from "react";
 import NavBar from "./NavBar";
 
 //other components
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 //css
 import "../css/CreateRoom.css";
@@ -15,6 +15,12 @@ import ReduxState from "../types/ReduxState";
 import { findlatlng } from "../functions/findlatlng";
 
 // Types
+type OwnProps = {
+  history: any;
+  location: any;
+  match: any;
+};
+
 type StateProps = {
   socketState: SocketTypes.SocketState;
 };
@@ -26,19 +32,23 @@ type DispatchProps = {
   ) => void;
 };
 
-type Props = StateProps & DispatchProps;
+type Props = StateProps & DispatchProps & OwnProps;
 
 class CreateRoom extends Component<Props> {
   handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     this.props.updateSocketState("username", e.target.value);
   };
 
+  // Function to handle creating room
   createRoom = (e: FormEvent) => {
     e.preventDefault();
     if (this.props.socketState.socket) {
       this.props.socketState.socket.emit("createRoom", {
         username: this.props.socketState.username
       });
+
+      // Redirect to room lobby after creating room
+      this.props.history.push("/roomlobby");
     }
   };
 
@@ -59,12 +69,7 @@ class CreateRoom extends Component<Props> {
                 required
               />
               <br></br>
-              {/* <Link
-                to="/roomlobby"
-                className="main-menu-button remove-text-decoration center"
-              > */}
-              <button onClick={findlatlng}>CREATE ROOM</button>
-              {/* </Link> */}
+              <button>CREATE ROOM</button>
             </form>
           </div>
         </div>
@@ -93,4 +98,6 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateRoom);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CreateRoom)
+);
