@@ -1,13 +1,21 @@
-import { Table, Column, Model, ForeignKey } from "sequelize-typescript";
+import {
+    Table,
+    Column,
+    Model,
+    ForeignKey,
+    PrimaryKey
+} from "sequelize-typescript";
 import Stall from "./stall.model";
 import Food from "./food.model";
 
 @Table({
-    tableName: "sell",
-    createdAt: false,
-    updatedAt: false
+    tableName: "sell"
 })
 class Sell extends Model<Sell> {
+    @PrimaryKey
+    @Column
+    sellId!: number;
+
     @ForeignKey(() => Stall)
     @Column
     stallId!: number;
