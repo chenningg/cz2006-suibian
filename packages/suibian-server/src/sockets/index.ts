@@ -6,10 +6,12 @@ import {
   joinRoomPayload,
   roomPayloadBase,
   createRoomPayload,
-  startRoomPayload
+  startRoomPayload,
+  votePayload
 } from "@suibian/commons";
 import { createUser } from "./helper/user";
 import { broadcastRoom } from "./helper/messaging";
+import { submitVote } from "./helper/vote";
 const http = require("http");
 
 export default {
@@ -34,12 +36,17 @@ export default {
         closeRoom(io, socket, roomCode);
       });
 
+      socket.on("submitVote", async (data: votePayload) => {
+        await submitVote(io, socket, data);
+      });
+
       socket.on("createRoom", async (data: createRoomPayload) => {
         //first user creates a room and also joins the room
         let { username, isOwner } = data.user;
+        const position = data.position;
         //set isOwner to true
         isOwner = true;
-        const roomCode = await createRoom(socket);
+        const roomCode = await createRoom(socket, position);
         if (roomCode) {
           const roomPayload = {
             roomCode,

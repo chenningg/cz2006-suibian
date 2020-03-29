@@ -2,12 +2,13 @@ import SocketIOServer from "socket.io";
 import { User } from "./User";
 import { httpStatus } from "./httpStatus";
 import { Food } from "./Food";
+import { Vote } from "./Vote";
 
 export type socketCommands =
   | "joinRoom"
   | "createRoom"
   | "startRoom"
-  | "votePage"
+  | "submitVote"
   | "changeUsername"
   | "broadcastMessage"
   | "connection"
@@ -24,6 +25,7 @@ export type foodArrayPayload = {
 
 export type createRoomPayload = {
   user: User;
+  position: Position;
 };
 
 export type joinRoomPayload = {
@@ -46,6 +48,12 @@ export type errorPayload = {
   errorMessage: string;
 };
 
+export type votePayload = {
+  roomCode: string;
+  username: string;
+  votes: Vote[];
+};
+
 export interface suibianSocket extends SocketIOServer.Socket {
   emit(
     event: socketCommands,
@@ -61,7 +69,7 @@ export interface suibianSocket extends SocketIOServer.Socket {
 export interface suibianSocketClient extends SocketIOClient.Socket {
   emit(
     event: socketCommands,
-    data: createRoomPayload | joinRoomPayload | startRoomPayload,
+    data: createRoomPayload | joinRoomPayload | startRoomPayload | votePayload,
     callback?: (params?: any) => void
   ): SocketIOClient.Socket;
 }
