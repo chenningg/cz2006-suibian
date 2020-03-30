@@ -14,12 +14,12 @@ const RecommendationList = (props: OwnProps) => {
   const recommendationList = props.recommendations.map(recommendation => {
     return (
       <div
-        className="recommendation flex-container flex-col flex-center-v"
+        className="recommendation flex-container flex-col"
         key={recommendation.header}
       >
-        <h4>{recommendation.header}</h4>
-        <p>{recommendation.text1}</p>
-        <p>{recommendation.text2}</p>
+        <h4 className="recommendation-title">{recommendation.header}</h4>
+        <p className="recommendation-text">{recommendation.text1}</p>
+        <p className="recommendation-text">{recommendation.text2}</p>
       </div>
     );
   });
