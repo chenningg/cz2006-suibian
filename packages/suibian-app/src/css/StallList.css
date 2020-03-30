@@ -20,6 +20,10 @@
   border-radius: 6px;
 }
 
+.stall-container:last-child {
+  margin-bottom: 40px;
+}
+
 .stall-container .stall-name {
   font-size: 1.4rem;
   padding: 0;
