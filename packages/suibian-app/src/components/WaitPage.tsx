@@ -24,7 +24,7 @@ type OwnProps = {
 
 type StateProps = {
   socketState: SocketState;
-  recommendations: any;
+  result: Result;
 };
 
 type DispatchProps = {
@@ -55,6 +55,7 @@ class WaitPage extends Component<Props> {
       // On start room event fire, I log my data
       this.props.socketState.socket.on("updateResult", (data: any) => {
         if (data) {
+          console.log(data);
           this.props.updateResult(data);
           this.setState({ redirect: true });
         } else {
@@ -70,7 +71,7 @@ class WaitPage extends Component<Props> {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={"/recommendations"} />;
+      return <Redirect to={"/result"} />;
     }
 
     return (
@@ -94,17 +95,17 @@ class WaitPage extends Component<Props> {
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
     socketState: state.socketState,
-    recommendations: state.recommendations
+    result: state.result
   };
 };
 
 // Links a dispatch function to a prop
 const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
-    updateResult: recommendations => {
+    updateResult: result => {
       dispatch({
-        type: "UPDATE_RECOMMENDATIONS",
-        recommendations: recommendations
+        type: "UPDATE_RESULT",
+        result: result
       });
     }
   };
