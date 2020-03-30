@@ -5,27 +5,79 @@ import UserList from "./UserList";
 import RoomLobbyLoadingScreen from "./RoomLobbyLoadingScreen";
 
 //other components
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 //css
 import "../css/RoomLobby.css";
 
 // Sockets and Redux
-import * as SocketTypes from "../types/SocketState";
+import { SocketState } from "../types/SocketState";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
-import { User } from "@suibian/commons";
+import { User, Food } from "@suibian/commons";
 
 // Types
+type OwnProps = {
+  history: any;
+  location: any;
+  match: any;
+};
+
 type StateProps = {
-  socketState: SocketTypes.SocketState;
+  socketState: SocketState;
+  foods: any;
   users: User[];
 };
 
-type Props = StateProps;
+type DispatchProps = {
+  updateFoods: (foods: Food[]) => void;
+};
+
+type Props = StateProps & DispatchProps & OwnProps;
 
 class RoomLobby extends Component<Props> {
+  //state
+  state = {
+    redirect: false
+  };
+
+  // Register socket to listen to events
+  registerSocketListeners = () => {
+    console.log(this.props.socketState.socket);
+    if (this.props.socketState.socket) {
+      console.log("Registering socket listeners...");
+
+      // On start room event fire, I log my data
+      this.props.socketState.socket.on("startRoom", (data: any) => {
+        if (data) {
+          this.props.updateFoods(data as Food[]);
+          this.setState({ redirect: true });
+        } else {
+          console.log(`Error! No data received from startRoom event.`);
+        }
+      });
+    }
+  };
+
+  //methods
+  componentDidMount() {
+    this.registerSocketListeners();
+  }
+
+  handleStart = () => {
+    console.log(this.props);
+    if (this.props.socketState.socket) {
+      this.props.socketState.socket.emit("startRoom", {
+        roomCode: this.props.socketState.roomCode
+      });
+    }
+  };
+
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={"/instructionpage"} />;
+    }
+
     return this.props.users.length > 0 ? (
       <>
         <NavBar />
@@ -35,9 +87,8 @@ class RoomLobby extends Component<Props> {
             <div className="user-list flex-container flex-col flex-center-v">
               <UserList users={this.props.users} />
             </div>
-            <Link className="start-room" to="instructionpage">
-              START
-            </Link>
+            <br />
+            <button onClick={this.handleStart}>START</button>
           </div>
         </div>
       </>
@@ -51,8 +102,21 @@ class RoomLobby extends Component<Props> {
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
     users: state.users,
-    socketState: state.socketState
+    socketState: state.socketState,
+    foods: state.foods
   };
 };
 
-export default connect(mapStateToProps)(RoomLobby);
+// Links a dispatch function to a prop
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+  return {
+    updateFoods: foods => {
+      dispatch({
+        type: "UPDATE_FOODS",
+        foods: foods
+      });
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomLobby);
