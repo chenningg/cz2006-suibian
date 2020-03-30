@@ -53,7 +53,7 @@ export function processVoteQuery(queryresult: string, top: number) {
     // array of sorted keys
     let sorted_keys = Object.keys(result).sort((a, b) => result[a] - result[b]);
     // type definition of vote results object
-    let vote_results: { [key: string]: boolean } = {};
+    let vote_results: { [key: string]: number } = {};
     for (let i = 0; i < top_len; i++) {
       vote_results[sorted_keys[i]] = result[sorted_keys[i]];
     }

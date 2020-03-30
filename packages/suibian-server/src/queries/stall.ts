@@ -28,37 +28,37 @@ export async function getStallId(
 
 // getStallId(datastring);
 
-export async function getHawkerCenter(foodandvotesjson: string) {
-  const stallidsjson = await getStallId(foodandvotesjson);
-  if (stallidsjson) {
-    const stallidobject = JSON.parse(stallidsjson);
-    const stallidarray = stallidobject.map((stallid: any) => {
-      const stallidentry = Object.values(stallid);
-      return stallidentry;
-    });
-    try {
-      const hawkers = await Stall.findAll({
-        attributes: [
-          Sequelize.fn("DISTINCT", Sequelize.col("hawkercenter")),
-          "hawkercenter"
-        ],
-        where: {
-          stallId: { [Op.in]: stallidarray }
-        },
-        raw: true
-      });
+// export async function getHawkerCenter(foodandvotesjson: string) {
+//   const stallidsjson = await getStallId(foodandvotesjson);
+//   if (stallidsjson) {
+//     const stallidobject = JSON.parse(stallidsjson);
+//     const stallidarray = stallidobject.map((stallid: any) => {
+//       const stallidentry = Object.values(stallid);
+//       return stallidentry;
+//     });
+//     try {
+//       const hawkers = await Stall.findAll({
+//         attributes: [
+//           Sequelize.fn("DISTINCT", Sequelize.col("hawkercenter")),
+//           "hawkercenter"
+//         ],
+//         where: {
+//           stallId: { [Op.in]: stallidarray }
+//         },
+//         raw: true
+//       });
 
-      const hawkerobject = hawkers;
-      const hawkerarray = hawkerobject.map((hawker: any) => {
-        const hawkercenter = Object.values(hawker)[0];
-        return hawkercenter;
-      });
-      return JSON.stringify(hawkerarray);
-    } catch (err) {
-      console.log(err);
-    }
-  }
-}
+//       const hawkerobject = hawkers;
+//       const hawkerarray = hawkerobject.map((hawker: any) => {
+//         const hawkercenter = Object.values(hawker)[0];
+//         return hawkercenter;
+//       });
+//       return JSON.stringify(hawkerarray);
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   }
+// }
 
 export async function getPostalCode(hawkercenter: string) {
   try {
@@ -101,6 +101,46 @@ export async function getStallName(foodandvotesjson: string) {
         return stallname;
       });
       return JSON.stringify(stallobjectarray);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+}
+
+export async function getHawkerCenter(foodandvotesjson: string) {
+  const stallidsjson = await getStallId(foodandvotesjson);
+  if (stallidsjson) {
+    const stallidobject = JSON.parse(stallidsjson);
+    const stallidarray = stallidobject.map((stallid: any) => {
+      const stallidentry = Object.values(stallid);
+      return stallidentry;
+    });
+    try {
+      const hawkers = await Stall.findAll({
+        attributes: [
+          Sequelize.fn("DISTINCT", Sequelize.col("hawkercenter")),
+          "hawkercenter",
+          "stallname"
+        ],
+        where: {
+          stallId: { [Op.in]: stallidarray }
+        },
+        // group: ["hawkercenter"],
+        raw: true
+      });
+
+      // const hawkerobject = hawkers;
+      let result: { [key: string]: string[] } = {};
+      hawkers.forEach(object => {
+        let key: string = Object.values(object)[0];
+        result[key] = [];
+      });
+      hawkers.forEach(object => {
+        let key: string = Object.values(object)[0];
+        let value: string = Object.values(object)[1];
+        result[key].push(value);
+      });
+      return JSON.stringify(result);
     } catch (err) {
       console.log(err);
     }
