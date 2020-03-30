@@ -21,11 +21,11 @@ type OwnProps = {
   history: any;
   location: any;
   match: any;
-  foods: any;
 };
 
 type StateProps = {
   socketState: SocketState;
+  foods: any;
 };
 
 type DispatchProps = {
@@ -58,15 +58,9 @@ class InstructionPage extends Component<Props> {
 
       // On start room event fire, I log my data
       this.props.socketState.socket.on("startRoom", (data: any) => {
-        console.log(data);
         if (data) {
           this.props.updateFoods(data as Food[]);
-
           this.setState({ ready: true });
-
-          console.log("look here");
-          console.log(this.state.ready);
-          console.log(this.props.foods);
         } else {
           console.log(`Error! No data received from startRoom event.`);
         }
@@ -139,7 +133,8 @@ class InstructionPage extends Component<Props> {
 // Redux functions
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
-    socketState: state.socketState
+    socketState: state.socketState,
+    foods: state.foods
   };
 };
 
