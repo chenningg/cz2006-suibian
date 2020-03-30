@@ -15,7 +15,7 @@ import { submitVote } from "./helper/vote";
 const http = require("http");
 
 export default {
-  startSocketServer: function(app: express.Router) {
+  startSocketServer: function (app: express.Router) {
     const httpServer = http.Server(app);
     const io = socketio.listen(httpServer);
 
@@ -37,7 +37,9 @@ export default {
       });
 
       socket.on("submitVote", async (data: votePayload) => {
-        await submitVote(io, socket, data);
+        const roomCode = data.roomCode;
+        const votes = await submitVote(io, socket, data);
+        broadcastRoom(io, { roomCode, payload: votes }, "submitVote");
       });
 
       socket.on("createRoom", async (data: createRoomPayload) => {
@@ -71,7 +73,7 @@ export default {
         console.log("emitted start rooom event to user");
       });
 
-      socket.on("getRoomInfo", (data: roomPayloadBase) => {});
+      socket.on("getRoomInfo", (data: roomPayloadBase) => { });
     });
 
     return httpServer;

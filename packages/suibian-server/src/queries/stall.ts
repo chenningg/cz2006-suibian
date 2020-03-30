@@ -60,6 +60,22 @@ export async function getHawkerCenter(foodandvotesjson: string) {
   }
 }
 
+export async function getPostalCode(hawkercenter: string) {
+  try {
+    const data = await Stall.findOne({
+      attributes: ["postalcode"],
+      where: {
+        hawkercenter
+      },
+      raw: true
+    });
+    // console.log(Object.values(data)[0]);
+    return data?.postalcode;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export async function getStallName(foodandvotesjson: string) {
   const stallidsjson = await getStallId(foodandvotesjson);
   if (stallidsjson) {
