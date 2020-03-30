@@ -1,9 +1,12 @@
 //app components
 import React, { Component } from "react";
 import NavBar from "./NavBar";
-import { Eatery } from "@suibian/commons";
+import { Position, Result, Eatery } from "@suibian/commons";
 import StallList from "./StallList";
 import GoogleMap from "./GoogleMap";
+import { connect } from "react-redux";
+import ReduxState from "../types/ReduxState";
+import axios from "axios";
 
 //css
 import "../css/EateryPage.css";
@@ -14,120 +17,68 @@ type OwnProps = {
 };
 
 type StateProps = {
-  eatery: Eatery;
+  result: Result;
 };
 
 type Props = StateProps & OwnProps;
 
-// This is an Eatery. REMOVE THIS BEFORE BUILDING.
-const fakeProps = {
-  // State
-  name: "Old Airport Rd",
-  location: {
-    latitude: 47.611036,
-    longitude: -93.615641
-  },
-  stalls: [
-    {
-      name: "Ah Huat Fishball Noodle",
-      food: [
-        {
-          foodname: "Fishball Noodle",
-          foodId: "fishball-noodle",
-          imageurl: "https://i.imgur.com/nzpIjN0.jpeg"
-        },
-        {
-          foodname: "Fishball Soup",
-          foodId: "fishball-soup",
-          imageurl: "https://i.imgur.com/fybEA24.jpeg"
-        },
-        {
-          foodname: "Fishball Soup",
-          foodId: "fishball-soup",
-          imageurl: "https://i.imgur.com/fybEA24.jpeg"
-        },
-        {
-          foodname: "Fishball Soup",
-          foodId: "fishball-soup",
-          imageurl: "https://i.imgur.com/fybEA24.jpeg"
-        },
-        {
-          foodname: "Fishball Soup",
-          foodId: "fishball-soup",
-          imageurl: "https://i.imgur.com/fybEA24.jpeg"
-        },
-        {
-          foodname: "Fishball Soup",
-          foodId: "fishball-soup",
-          imageurl: "https://i.imgur.com/fybEA24.jpeg"
-        },
-        {
-          foodname: "Fishball Soup",
-          foodId: "fishball-soup",
-          imageurl: "https://i.imgur.com/fybEA24.jpeg"
-        },
-        {
-          foodname: "Fishball Soup",
-          foodId: "fishball-soup",
-          imageurl: "https://i.imgur.com/fybEA24.jpeg"
-        }
-      ]
-    },
-    {
-      name: "Wang's Yong Tau Fu",
-      food: [
-        {
-          foodname: "Yong Tau Fu",
-          foodId: "yong-tau-fu",
-          imageurl: "https://i.imgur.com/nzpIjN0.jpeg"
-        }
-      ]
-    },
-    {
-      name: "Drinks with Ah Tee",
-      food: [
-        {
-          foodname: "Milo",
-          foodId: "milo",
-          imageurl: "https://i.imgur.com/d6khwx1.jpg"
-        },
-        {
-          foodname: "Teh Bing",
-          foodId: "teh-bing",
-          imageurl: "https://i.imgur.com/zXj4ZMg.jpg"
-        }
-      ]
-    }
-  ]
-};
-
 // TODO: Remove default props
 class EateryPage extends Component<Props> {
-  static defaultProps = { eatery: fakeProps };
+  // Variables
+  state = {
+    ready: false
+  };
+
+  eatery: Eatery = this.props.result.eatery[
+    this.props.match.params.eatery_index
+  ];
 
   // Methods
+  checkReady = () => {
+    return this.eatery ? true : false;
+  };
+
+  getLocation = (postalCode: string): Position => {
+    const locationObj = axios.get(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&key=AIzaSyDEaux00JCnvfiaqExfJHY5cu-oe8fSOxA`
+    );
+    console.log(locationObj);
+    return { longitude: 1, latitude: 2 };
+  };
+
   render() {
-    return (
+    return this.checkReady() ? (
       <>
-        <NavBar backPage="results" />
+        <NavBar backPage="result" />
         <div className="eatery-page">
           <div className="app-content flex-container flex-col flex-center-v">
-            <h1 className="eatery-name">
-              {this.props.match.params.eatery_name}
-            </h1>
+            <h1 className="eatery-name">{this.eatery.name}</h1>
             <GoogleMap />
             <a
-              href={`https://www.google.com/maps/@${this.props.eatery.location.latitude},${this.props.eatery.location.longitude},15z`}
+              href={`https://www.google.com/maps/@${this.getLocation(
+                this.eatery.location
+              ).latitude.toString()},${this.getLocation(
+                this.eatery.location
+              ).longitude.toString()},15z`}
               className="google-maps-button"
             >
               View in Maps
             </a>
-            <StallList stalls={this.props.eatery.stalls} />
+            <StallList stalls={this.eatery.stalls} />
           </div>
         </div>
       </>
+    ) : (
+      <div>Hello!</div>
     );
   }
 }
 
-export default EateryPage;
+// Redux functions
+const mapStateToProps = (state: ReduxState): StateProps => {
+  return {
+    result: state.result
+  };
+};
+
+export default connect(mapStateToProps)(EateryPage);

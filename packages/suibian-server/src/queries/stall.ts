@@ -87,21 +87,24 @@ const createEatery = async (stallList: Stall[]) => {
       //@ts-ignore
       let location = stall["dataValues"]["postalcode"] as string;
 
-      let locationLatLng = await getLatLonSocketless(location);
-      if (locationLatLng) {
-        let locationFinal: Position = {
-          latitude: Number(locationLatLng[0]),
-          longitude: Number(locationLatLng[1])
-        };
+      // console.log(location);
+      // let locationLatLng = await getLatLonSocketless(location);
+      // console.log(locationLatLng);
+      // if (locationLatLng) {
+      // let locationFinal: Position = {
+      //   latitude: Number(locationLatLng[0]),
+      //   longitude: Number(locationLatLng[1])
+      // };
 
-        let eateryEntry = {
-          name: hawkercenterName,
-          location: locationFinal,
-          stalls: []
-        };
+      let eateryEntry = {
+        name: hawkercenterName,
+        location: location,
+        stalls: []
+      };
 
-        eateryDict.set(hawkercenterName, eateryEntry);
-      }
+      //@ts-ignore
+      eateryDict.set(hawkercenterName, eateryEntry);
+      // }
     }
   }
 

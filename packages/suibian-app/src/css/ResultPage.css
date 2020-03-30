@@ -1,0 +1,9 @@
+.result-page .result-list-container {
+  min-width: 300px;
+  max-width: 800px;
+  width: 85vw;
+}
+
+.result-page .app-content .title {
+  margin-top: 20px;
+}

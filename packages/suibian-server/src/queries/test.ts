@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import * as dotenv from "dotenv-extended";
 import { db } from "../sequelize";
-import { makeRecommendation } from "../sockets/helper/vote";
+import { makeResult } from "../sockets/helper/vote";
 const path = require("path");
 
 const intializeDB = async () => {
@@ -29,12 +29,12 @@ let data = {
 //   return sth;
 // };
 
-const testRecommendation = async () => {
-  const sth = await makeRecommendation("OPuSFrAJW", 5);
+const testresult = async () => {
+  const sth = await makeResult("OPuSFrAJW", 5);
   return sth;
 };
 
-intializeDB().then(testRecommendation);
+intializeDB().then(testresult);
 // .then(testGetStallName)
 //   .then(roomcode => {
 //     if (roomcode) {

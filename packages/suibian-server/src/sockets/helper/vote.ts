@@ -27,10 +27,10 @@ export const submitVote = async (
   const returnVotes = await createVoteQueryPerUser(data); //log to database
 
   if (await checkRoomCompleted(roomCode)) {
-    const recommendations = await makeRecommendation(roomCode, 3);
+    const result = await makeResult(roomCode, 3);
     const dataEmit = {
       roomCode,
-      payload: recommendations
+      payload: result
     };
     broadcastRoom(socketio, dataEmit, "updateResult");
   }
@@ -52,7 +52,7 @@ export function extractTopVotes(voteResult: FoodVote[], top: number) {
   }
 }
 
-export const makeRecommendation = async (roomCode: string, top: number) => {
+export const makeResult = async (roomCode: string, top: number) => {
   const voteCount = await countVoteQuery(roomCode); //tally the votes in the room
   console.log(voteCount);
   if (voteCount) {
@@ -60,11 +60,11 @@ export const makeRecommendation = async (roomCode: string, top: number) => {
     if (processedVotes) {
       const eateries = await getHawkerCenterStallName(processedVotes);
 
-      let stallRecommendations = {
+      let stallresult = {
         foodVoteResults: processedVotes,
         eatery: eateries
       };
-      return stallRecommendations;
+      return stallresult;
     }
   }
 };

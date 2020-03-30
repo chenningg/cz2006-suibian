@@ -145,7 +145,7 @@ class VotePage extends Component<Props> {
               <div className="vote-button">
                 <Clock style={styles.mediumIcon} />
                 <Timer
-                  initialTime={20500}
+                  initialTime={15000}
                   direction="backward"
                   checkpoints={[
                     { time: 0, callback: () => this.handleCompletion() }
