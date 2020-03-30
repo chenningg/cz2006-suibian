@@ -9,7 +9,7 @@ import InstructionPage from "./InstructionPage";
 import VotePage from "./VotePage";
 import WaitPage from "./WaitPage";
 import RecommendationsPage from "./RecommendationsPage";
-import Eatery from "./Eatery";
+import EateryPage from "./EateryPage";
 
 //other components
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -122,7 +122,7 @@ class AppRouter extends Component<Props> {
             path="/recommendations"
             component={RecommendationsPage}
           ></Route>
-          <Route path="/eatery" component={Eatery}></Route>
+          <Route path="/eatery/:eatery_name" component={EateryPage}></Route>
           <Route path="/waitpage" component={WaitPage}></Route>
         </Switch>
       </Router>

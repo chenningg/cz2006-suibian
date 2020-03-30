@@ -28,9 +28,19 @@ type Props = StateProps & DispatchProps & OwnProps;
 
 // TO DELETE
 const fakeProps = [
-  { header: "Albert Food Centre", text1: "food1", text2: "food2" },
-  { header: "Bugis Food Centre", text1: "food3", text2: "food4" },
-  { header: "Chinatown Food Centre", text1: "food5", text2: "food6" }
+  {
+    header: "Albert Food Centre",
+    text1: "Bak Chor Mee",
+    text2: "Prawn Noodles"
+  },
+  { header: "Bugis Food Centre", text1: "Bak Chor Mee", text2: "Chicken Rice" },
+  {
+    header: "Chinatown Food Centre",
+    text1: "Bak Chor Mee",
+    text2: "Kway Chap"
+  },
+  { header: "Old Airport Rd", text1: "Bak Chor Mee", text2: "Satay" },
+  { header: "Lau Pa Sat", text1: "Bak Chor Mee", text2: "Nasi Lemak" }
 ];
 
 class RecommendationsPage extends Component<Props> {
@@ -39,11 +49,14 @@ class RecommendationsPage extends Component<Props> {
     return (
       <>
         <NavBar />
-        <div className="recommendation">
+        <div className="recommendations-page">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
-            <h2 style={{ margin: 40, fontSize: "2rem" }}>Recommendations</h2>
+            <h1 className="title">Recommendations</h1>
             <div className="recommendation-list-container flex-container flex-col">
-              <RecommendationList recommendations={fakeProps} />
+              <RecommendationList
+                recommendations={fakeProps}
+                history={this.props.history}
+              />
             </div>
           </div>
         </div>
