@@ -8,6 +8,7 @@ import { Recommendation } from "@suibian/commons";
 
 //css
 import "../css/WaitPage.css";
+import Loader from "react-loader-spinner";
 
 // Sockets and Redux
 import { SocketState } from "../types/SocketState";
@@ -80,6 +81,9 @@ class WaitPage extends Component<Props> {
             <h1>TIME'S UP</h1>
             <HourglassEmpty style={styles.hugeIcon} />
             <h3>Tabulating results...</h3>
+            <div className="loader">
+              <Loader type="ThreeDots" color="#000000" />
+            </div>
           </div>
         </div>
       </>

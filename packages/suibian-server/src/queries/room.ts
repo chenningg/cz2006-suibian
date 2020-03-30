@@ -1,18 +1,23 @@
 import Rooms from "../models/room.model";
 import Join from "../models/join.model";
 import Vote from "../models/vote.model";
-import shortid from "shortid";
-import { Position, VotingStatus } from "@suibian/commons";
+import { Position } from "@suibian/commons";
 
-shortid.characters(
-  "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@"
-);
+function makeid(length: number) {
+  var result = "";
+  var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 
 export const createRoomQuery = async (
   position: Position
 ): Promise<void | string> => {
   try {
-    const roomcode = shortid.generate();
+    const roomcode = makeid(4);
     const { latitude, longitude } = position;
     const room = await Rooms.create({
       roomcode,

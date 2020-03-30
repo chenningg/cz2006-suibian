@@ -1,0 +1,19 @@
+.map-marker-container {
+  display: inline-block;
+  text-align: center;
+}
+
+.map-marker-label {
+  font-size: 1rem;
+}
+
+.map-marker-icon-container {
+  display: inline-block;
+}
+
+.map-marker-icon-container svg {
+  width: 40px;
+  height: auto;
+  margin-right: -1px;
+  color: #d93232;
+}
