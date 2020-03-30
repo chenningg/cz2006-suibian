@@ -3,7 +3,8 @@ import Sell from "../models/sell.model";
 import { Json } from "sequelize/types/lib/utils";
 import { any } from "bluebird";
 import Food from "../models/food.model";
-import { FoodVote, Eatery } from "@suibian/commons";
+import { FoodVote, Eatery, Position } from "@suibian/commons";
+import { getLatLonSocketless } from "./onemap";
 // import { Sequelize } from "sequelize/types";
 const { Op, Sequelize } = require("sequelize");
 //@ts-nocheck
@@ -76,20 +77,29 @@ const processStall = (stall: Stall) => {
 
 const createEatery = (stallList: Stall[]) => {
   let eateryDict = new Map<string, Eatery>();
-  stallList.forEach(stall => {
+  stallList.forEach(async stall => {
     //@ts-ignore
     let hawkercenterName = stall["dataValues"]["hawkercenter"];
     //@ts-ignore
     if (!eateryDict.has(stall["dataValues"])) {
       //@ts-ignore
-      let location = stall["dataValues"]["postalcode"];
-      let eateryEntry = {
-        name: hawkercenterName,
-        location: location,
-        stalls: []
-      };
+      let location = stall["dataValues"]["postalcode"] as string;
 
-      eateryDict.set(hawkercenterName, eateryEntry);
+      let locationLatLng = await getLatLonSocketless(location);
+      if (locationLatLng) {
+        let locationFinal: Position = {
+          latitude: Number(locationLatLng[0]),
+          longitude: Number(locationLatLng[1])
+        };
+
+        let eateryEntry = {
+          name: hawkercenterName,
+          location: locationFinal,
+          stalls: []
+        };
+
+        eateryDict.set(hawkercenterName, eateryEntry);
+      }
     }
   });
 
