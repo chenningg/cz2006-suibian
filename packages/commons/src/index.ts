@@ -6,3 +6,5 @@ export * from "./Vote";
 export * from "./Food";
 export * from "./Position";
 export * from "./Recommendation";
+export * from "./Eatery";
+export * from "./Stall";
