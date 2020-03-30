@@ -28,7 +28,7 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  updateRecommendations: (recommendations: Recommendation[]) => void;
+  updateResult: (result: Result) => void;
 };
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -53,9 +53,9 @@ class WaitPage extends Component<Props> {
       console.log("Registering socket listeners...");
 
       // On start room event fire, I log my data
-      this.props.socketState.socket.on("updateRecommendations", (data: any) => {
+      this.props.socketState.socket.on("updateResult", (data: any) => {
         if (data) {
-          this.props.updateRecommendations(data);
+          this.props.updateResult(data);
           this.setState({ redirect: true });
         } else {
           console.log(`Error! No data received from submitVote event.`);
@@ -97,7 +97,7 @@ const mapStateToProps = (state: ReduxState): StateProps => {
 // Links a dispatch function to a prop
 const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
-    updateRecommendations: recommendations => {
+    updateResult: recommendations => {
       dispatch({
         type: "UPDATE_RECOMMENDATIONS",
         recommendations: recommendations
