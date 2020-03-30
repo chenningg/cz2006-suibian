@@ -2,19 +2,17 @@ import Vote from "../models/vote.model";
 import { Vote as VoteType } from "@suibian/commons";
 import { isColString } from "sequelize/types/lib/utils";
 
-//TODO: when front end sends votes over, then set user to finished voting
-
 export const createVoteQueryPerUser = async (uservote: any) => {
-  const { username, roomcode, votes } = uservote;
+  const { username, roomCode, votes } = uservote;
   // votes is an array of user vote type
   const votebulkentry = votes.map((vote: VoteType) => {
     // map calls the function once for every element in array
     // similar to foreach except it returns new array
     const voteentry = {
       username,
-      roomcode,
+      roomcode: roomCode,
       foodId: vote.foodId,
-      like: vote.like
+      vote: vote.like
     };
     return voteentry; // return for each element in the array
   });
@@ -30,7 +28,7 @@ export const countVoteQuery = async (
     const result = await Vote.count({
       where: {
         roomcode,
-        like: true
+        vote: true
       },
       group: "foodId"
     });
@@ -46,21 +44,3 @@ export const countVoteQuery = async (
 
 // TODO: take (top) number of food votes, then find hawker centres with these foods
 // TODO: rank hawker centres by distance
-export function processVoteQuery(queryresult: string, top: number) {
-  let result = JSON.parse(queryresult);
-  let result_len = Object.keys(result).length;
-  let top_len = Math.min(result_len, top);
-  if (top_len > 0) {
-    // array of sorted keys
-    let sorted_keys = Object.keys(result).sort((a, b) => result[a] - result[b]);
-    // type definition of vote results object
-    let vote_results: { [key: string]: number } = {};
-    for (let i = 0; i < top_len; i++) {
-      vote_results[sorted_keys[i]] = result[sorted_keys[i]];
-    }
-    // returns Json of foodID: string and number of votes: number
-    return JSON.stringify(vote_results);
-  } else {
-    console.log("No results found!");
-  }
-}

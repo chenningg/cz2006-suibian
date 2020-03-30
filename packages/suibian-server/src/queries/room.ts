@@ -2,7 +2,8 @@ import Rooms from "../models/room.model";
 import Join from "../models/join.model";
 import Vote from "../models/vote.model";
 import shortid from "shortid";
-import { Position } from "@suibian/commons";
+import { Position, VotingStatus } from "@suibian/commons";
+
 shortid.characters(
   "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@"
 );
@@ -21,18 +22,6 @@ export const createRoomQuery = async (
       lng: longitude
     });
     return roomcode;
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-export const joinRoomQuery = async (username: string, roomcode: string) => {
-  try {
-    await Join.create({
-      username,
-      roomcode,
-      votingStatus: "waiting"
-    });
   } catch (err) {
     console.log(err);
   }

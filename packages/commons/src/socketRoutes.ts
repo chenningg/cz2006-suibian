@@ -15,7 +15,8 @@ export type socketCommands =
   | "broadcastMessage"
   | "connection"
   | "disconnect"
-  | "socketError";
+  | "socketError"
+  | "updateRecommendations";
 
 export type roomPayloadBase = {
   roomCode: string;

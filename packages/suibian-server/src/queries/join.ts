@@ -1,6 +1,7 @@
-import { joinRoomPayload } from "@suibian/commons";
 import Join from "../models/join.model";
-export const updateUserCompleted = async (
+import { VotingStatus } from "@suibian/commons";
+
+export const updateUserQuery = async (
   roomcode: string,
   username: string,
   data: any
@@ -14,5 +15,33 @@ export const updateUserCompleted = async (
     });
   } catch (err) {
     console.log(`error message :${err}`);
+  }
+};
+
+export const joinRoomQuery = async (username: string, roomcode: string) => {
+  try {
+    await Join.create({
+      username,
+      roomcode,
+      votingstatus: VotingStatus.waiting
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const getRoomJoinQuery = async (
+  roomCode: string
+): Promise<Join[] | void> => {
+  try {
+    const joinResult = await Join.findAll({
+      where: {
+        roomcode: roomCode
+      }
+    });
+
+    if (joinResult !== []) return joinResult;
+  } catch (err) {
+    console.log(`error is ${err}`);
   }
 };
