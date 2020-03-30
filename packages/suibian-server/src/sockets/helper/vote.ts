@@ -32,7 +32,7 @@ export const submitVote = async (
       roomCode,
       payload: recommendations
     };
-    broadcastRoom(socketio, dataEmit, "updateRecommendations");
+    broadcastRoom(socketio, dataEmit, "updateResult");
   }
   return returnVotes;
 };

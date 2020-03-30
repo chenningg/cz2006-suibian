@@ -75,9 +75,11 @@ const processStall = (stall: Stall) => {
   return stallObject;
 };
 
-const createEatery = (stallList: Stall[]) => {
+const createEatery = async (stallList: Stall[]) => {
   let eateryDict = new Map<string, Eatery>();
-  stallList.forEach(async stall => {
+
+  for (let i = 0; i < stallList.length; i++) {
+    let stall = stallList[i];
     //@ts-ignore
     let hawkercenterName = stall["dataValues"]["hawkercenter"];
     //@ts-ignore
@@ -101,7 +103,7 @@ const createEatery = (stallList: Stall[]) => {
         eateryDict.set(hawkercenterName, eateryEntry);
       }
     }
-  });
+  }
 
   return eateryDict;
 };
@@ -120,15 +122,18 @@ export async function getHawkerCenterStallName(foodVotes: FoodVote[]) {
       ]
     });
 
-    let eateryDict = createEatery(hawkers);
+    let eateryDict = await createEatery(hawkers);
+
     hawkers.forEach((hawkerEntry: Stall) => {
       let stallProcessed = processStall(hawkerEntry);
 
       //@ts-ignore
-      let hakername = hawkerEntry["dataValues"]["hawkercenter"];
+      let hawkername = hawkerEntry["dataValues"]["hawkercenter"];
       //find the right hawker to insert in
       //@ts-ignore
-      eateryDict.get(hakername)["stalls"].push(stallProcessed);
+
+      //@ts-ignore
+      eateryDict.get(hawkername)["stalls"].push(stallProcessed);
     });
 
     let result: Eatery[] = [];
