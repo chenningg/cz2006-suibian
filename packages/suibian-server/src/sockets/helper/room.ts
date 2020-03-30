@@ -1,19 +1,18 @@
 import socketio from "socket.io";
-import {
-  createRoomQuery,
-  joinRoomQuery,
-  updateRoomNumbersQuery
-} from "../../queries/room";
+import { createRoomQuery, updateRoomNumbersQuery } from "../../queries/room";
 import {
   httpStatus,
   joinRoomPayload,
   suibianSocket,
   User,
-  Position
+  Position,
+  VotingStatus
 } from "@suibian/commons";
 import { sendError, broadcastRoom } from "./messaging";
 import { foodImageQuery } from "../../queries/food";
+import { getRoomJoinQuery, joinRoomQuery } from "../../queries/join";
 import { listSocketsRoom } from "./utils";
+import Join from "../../models/join.model";
 
 const socketUserMapping = new Map<string, User>();
 
@@ -112,4 +111,18 @@ export const startRoom = async (io: socketio.Server, roomCode: string) => {
     return foodArray;
   } //array of Food JSON objects
   else return null;
+};
+
+export const checkRoomCompleted = async (
+  roomCode: string
+): Promise<boolean | void> => {
+  const joinRoomInfo = await getRoomJoinQuery(roomCode);
+  if (joinRoomInfo) {
+    joinRoomInfo.forEach(joinRoom => {
+      if (joinRoom.votingstatus !== VotingStatus.completed) {
+        return false;
+      }
+    });
+    return true;
+  }
 };
