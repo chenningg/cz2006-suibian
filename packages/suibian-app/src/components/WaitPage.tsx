@@ -3,10 +3,34 @@ import React, { Component } from "react";
 
 //other components
 import { HourglassEmpty } from "@material-ui/icons";
-import { Redirect } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
+import { Recommendation } from "@suibian/commons";
 
 //css
 import "../css/WaitPage.css";
+
+// Sockets and Redux
+import { SocketState } from "../types/SocketState";
+import { connect } from "react-redux";
+import ReduxState from "../types/ReduxState";
+
+// Types
+type OwnProps = {
+  history: any;
+  location: any;
+  match: any;
+};
+
+type StateProps = {
+  socketState: SocketState;
+  recommendations: any;
+};
+
+type DispatchProps = {
+  updateRecommendations: (recommendations: Recommendation[]) => void;
+};
+
+type Props = StateProps & DispatchProps & OwnProps;
 
 const styles = {
   hugeIcon: {
@@ -15,20 +39,38 @@ const styles = {
   }
 };
 
-class WaitPage extends Component {
+class WaitPage extends Component<Props> {
   //state
   state = {
     redirect: false
   };
 
-  //methods
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        redirect: true
+  // Register socket to listen to events
+  registerSocketListeners = () => {
+    console.log(this.props.socketState.socket);
+    if (this.props.socketState.socket) {
+      console.log("Registering socket listeners...");
+
+      // On start room event fire, I log my data
+      this.props.socketState.socket.on("updateRecommendations", (data: any) => {
+        if (data) {
+          this.props.updateRecommendations(data);
+          this.setState({ redirect: true });
+        } else {
+          console.log(`Error! No data received from submitVote event.`);
+        }
       });
-    }, 5000);
-  }
+    }
+  };
+
+  //methods
+  // componentDidMount() {
+  //   setTimeout(() => {
+  //     this.setState({
+  //       redirect: true
+  //     });
+  //   }, 5000);
+  // }
 
   render() {
     if (this.state.redirect) {
@@ -49,4 +91,26 @@ class WaitPage extends Component {
   }
 }
 
-export default WaitPage;
+// Redux functions
+const mapStateToProps = (state: ReduxState): StateProps => {
+  return {
+    socketState: state.socketState,
+    recommendations: state.recommendations
+  };
+};
+
+// Links a dispatch function to a prop
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+  return {
+    updateRecommendations: recommendations => {
+      dispatch({
+        type: "UPDATE_RECOMMENDATIONS",
+        recommendations: recommendations
+      });
+    }
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(WaitPage)
+);

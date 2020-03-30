@@ -32,7 +32,7 @@ type StateProps = {
 };
 
 type DispatchProps = {
-  updateVotes: (votes: Vote[], username: string, roomCode: string) => void;
+  submitVotes: (votes: Vote[]) => void;
 };
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -69,6 +69,16 @@ class VotePage extends Component<Props> {
     console.log(this.props.socketState.socket);
     if (this.props.socketState.socket) {
       console.log("Registering socket listeners...");
+
+      // On start room event fire, I log my data
+      this.props.socketState.socket.on("submitVote", (data: any) => {
+        if (data) {
+          this.props.submitVotes(data);
+          this.setState({ redirect: true });
+        } else {
+          console.log(`Error! No data received from submitVote event.`);
+        }
+      });
     }
   };
 
@@ -96,21 +106,17 @@ class VotePage extends Component<Props> {
   };
 
   handleCompletion = () => {
-    this.props.updateVotes(
-      this.state.votes,
-      this.props.user.username,
-      this.props.socketState.roomCode
-    );
+    this.props.submitVotes(this.state.votes);
     console.log("props" + this.props.votes);
     console.log("state" + this.state.votes);
 
-    // if (this.props.socketState.socket) {
-    //   this.props.socketState.socket.emit("submitVote", {
-    //     username: this.props.user.username,
-    //     roomCode: this.props.socketState.roomCode,
-    //     votes: this.props.votes
-    //   });
-    // }
+    if (this.props.socketState.socket) {
+      this.props.socketState.socket.emit("submitVote", {
+        username: this.props.user.username,
+        roomCode: this.props.socketState.roomCode,
+        votes: this.state.votes
+      });
+    }
 
     this.setState({
       redirect: true
@@ -184,12 +190,10 @@ const mapStateToProps = (state: ReduxState): StateProps => {
 // Links a dispatch function to a prop
 const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
-    updateVotes: (votes, username, roomCode) => {
+    submitVotes: votes => {
       dispatch({
         type: "SUBMIT_VOTES",
-        votes: votes,
-        username: username,
-        roomCode: roomCode
+        votes: votes
       });
     }
   };
