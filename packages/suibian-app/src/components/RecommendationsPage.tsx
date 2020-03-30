@@ -10,7 +10,7 @@ import RecommendationList from "./RecommendationList";
 import { Recommendation } from "@suibian/commons";
 
 //css
-import "../css/Recommendations.css";
+import "../css/RecommendationsPage.css";
 
 type OwnProps = {
   history: any;
@@ -33,20 +33,22 @@ const fakeProps = [
   { header: "Chinatown Food Centre", text1: "food5", text2: "food6" }
 ];
 
-class Recomendations extends Component<Props> {
+class RecommendationsPage extends Component<Props> {
   // Methods
   render() {
     return (
       <>
         <NavBar />
-        <div className="recommendations">
+        <div className="recommendation">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             <h2 style={{ margin: 40, fontSize: "2rem" }}>Recommendations</h2>
-            <RecommendationList recommendations={fakeProps} />
+            <div className="recommendation-list-container flex-container flex-col flex-center-v">
+              <RecommendationList recommendations={fakeProps} />
+            </div>
           </div>
         </div>
       </>
     );
   }
 }
-export default Recomendations;
+export default RecommendationsPage;
