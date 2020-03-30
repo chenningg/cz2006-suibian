@@ -106,6 +106,10 @@ hr {
   width: 100vw;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 /* Adjust flex direction */
 .flex-col {
   flex-direction: column;
@@ -164,6 +168,17 @@ img {
 figure {
   margin: 0;
   padding: 0;
+}
+
+/* ========= Lists =========*/
+ul.dashed > li {
+  list-style-type: none;
+  text-indent: 0;
+}
+ul.dashed > li:before {
+  content: "-";
+  margin-left: -30px;
+  margin-right: 5px;
 }
 
 /* ========= Misc =========*/
