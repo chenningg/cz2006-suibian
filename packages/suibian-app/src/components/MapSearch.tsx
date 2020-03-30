@@ -5,7 +5,7 @@ import usePlacesAutocomplete, {
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
 import "../css/MapSearch.css";
-import { LocationOn } from "@material-ui/icons";
+import { MyLocation } from "@material-ui/icons";
 
 // Sockets and Redux
 import { connect } from "react-redux";
@@ -56,6 +56,7 @@ const MapSearch = (props: Props) => {
 
   // If click on auto get current location, get user location and set text field to show it
   const handleClickCurrLoc = e => {
+    clearSuggestions();
     getPosition().then((res: any) => {
       const pos = {
         latitude: res.coords.latitude,
@@ -112,22 +113,49 @@ const MapSearch = (props: Props) => {
   }
 
   const renderSuggestions = () =>
-    data.map(suggestion => {
+    data.map((suggestion, index) => {
       const {
         id,
         structured_formatting: { main_text, secondary_text }
       } = suggestion;
 
-      return (
-        <div key={id}>
-          <li onClick={handleSelect(suggestion)}>
-            <strong>{main_text}</strong>
-            <br></br>
-            <small>{secondary_text}</small>
-          </li>
-          <hr></hr>
-        </div>
-      );
+      if (index <= 0) {
+        return (
+          <>
+            <div key="useCurrLocationKey">
+              <li
+                onClick={handleClickCurrLoc}
+                className="flex-container flex-row flex-center-v"
+              >
+                <MyLocation className="map-locate-me-icon" />
+                <strong className="current-location-option">
+                  Use current location
+                </strong>
+              </li>
+              <hr></hr>
+            </div>
+            <div key={id}>
+              <li onClick={handleSelect(suggestion)}>
+                <strong>{main_text}</strong>
+                <br></br>
+                <small>{secondary_text}</small>
+              </li>
+              <hr></hr>
+            </div>
+          </>
+        );
+      } else {
+        return (
+          <div key={id}>
+            <li onClick={handleSelect(suggestion)}>
+              <strong>{main_text}</strong>
+              <br></br>
+              <small>{secondary_text}</small>
+            </li>
+            <hr></hr>
+          </div>
+        );
+      }
     });
 
   return (
@@ -136,7 +164,7 @@ const MapSearch = (props: Props) => {
       ref={ref}
       className="map-search-container flex-container flex-col flex-center-v flex-center-h"
     >
-      <div className="map-search-input-container flex-container flex-row flex-center-h flex-center-v">
+      <div className="map-search-input-container flex-container flex-col flex-center-h flex-center-v">
         <input
           value={currLocation}
           onChange={handleInput}
@@ -145,12 +173,6 @@ const MapSearch = (props: Props) => {
           placeholder="Enter your eating location"
           className="map-search-input"
         />
-        <span
-          className={`map-locate-me-icon-container ${autoLocation}`}
-          onClick={handleClickCurrLoc}
-        >
-          <LocationOn className="map-locate-me-icon" />
-        </span>
       </div>
       {/* We can use the "status" to decide whether we should display the dropdown or not */}
       {status === "OK" && (
