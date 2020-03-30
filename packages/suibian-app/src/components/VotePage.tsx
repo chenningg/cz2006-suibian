@@ -107,8 +107,6 @@ class VotePage extends Component<Props> {
 
   handleCompletion = () => {
     this.props.submitVotes(this.state.votes);
-    console.log("props" + this.props.votes);
-    console.log("state" + this.state.votes);
 
     if (this.props.socketState.socket) {
       this.props.socketState.socket.emit("submitVote", {
