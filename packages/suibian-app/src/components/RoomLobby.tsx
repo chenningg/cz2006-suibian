@@ -27,6 +27,7 @@ type StateProps = {
   socketState: SocketState;
   foods: any;
   users: User[];
+  user: User;
 };
 
 type DispatchProps = {
@@ -40,6 +41,8 @@ class RoomLobby extends Component<Props> {
   state = {
     redirect: false
   };
+
+  // disabled: string = this.props.user.isOwner ? "TRUE" : "FALSE";
 
   // Register socket to listen to events
   registerSocketListeners = () => {
@@ -88,7 +91,13 @@ class RoomLobby extends Component<Props> {
               <UserList users={this.props.users} />
             </div>
             <br />
-            <button onClick={this.handleStart}>START</button>
+            <button
+              onClick={this.handleStart}
+              disabled={!this.props.user.isOwner}
+              className={this.props.user.isOwner ? "" : "disabled"}
+            >
+              START
+            </button>
           </div>
         </div>
       </>
@@ -103,7 +112,8 @@ const mapStateToProps = (state: ReduxState): StateProps => {
   return {
     users: state.users,
     socketState: state.socketState,
-    foods: state.foods
+    foods: state.foods,
+    user: state.user
   };
 };
 
