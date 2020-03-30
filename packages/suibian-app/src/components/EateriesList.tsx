@@ -66,6 +66,7 @@ const EateriesList = (props: OwnProps) => {
         } else {
           foodExistsString += `${foodItem.foodname}, `;
         }
+        return true;
       });
     }
 

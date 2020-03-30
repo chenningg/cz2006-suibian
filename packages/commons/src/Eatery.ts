@@ -4,6 +4,6 @@ import { Stall } from "./Stall";
 
 export type Eatery = {
   name: string;
-  location: string;
+  location: Position;
   stalls: Stall[];
 };
