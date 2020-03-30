@@ -64,6 +64,14 @@ class VotePage extends Component<Props> {
     </div>
   ));
 
+  // Register socket to listen to events
+  registerSocketListeners = () => {
+    console.log(this.props.socketState.socket);
+    if (this.props.socketState.socket) {
+      console.log("Registering socket listeners...");
+    }
+  };
+
   //methods
   handleVote = (e: ChangeEvent<EventTarget>, like: boolean) => {
     e.preventDefault();
