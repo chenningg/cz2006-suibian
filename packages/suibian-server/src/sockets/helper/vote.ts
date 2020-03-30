@@ -38,22 +38,17 @@ export const submitVote = async (
 };
 
 export function extractTopVotes(voteResult: FoodVote[], top: number) {
-  let result_len = Object.keys(voteResult).length;
-  let top_len = Math.min(result_len, top);
-  if (top_len > 0) {
-    // array of sorted keys
-    let sorted_keys = Object.keys(voteResult).sort(
-      (a, b) => voteResult[a] - voteResult[b]
-    );
-    // type definition of vote results object
-    let vote_results: { [key: string]: number } = {};
-    for (let i = 0; i < top_len; i++) {
-      vote_results[sorted_keys[i]] = voteResult[sorted_keys[i]];
-    }
-    // returns Json of foodID: string and number of votes: number
-    return vote_results;
+  voteResult.sort((a, b) => {
+    return b.count - a.count; //sort based on decreasing values for count
+  });
+
+  let numberOfResults = voteResult.length;
+
+  // not enough results to extract
+  if (top >= numberOfResults) {
+    return voteResult;
   } else {
-    console.log("No results found!");
+    return voteResult.slice(0, top);
   }
 }
 
@@ -63,9 +58,12 @@ export const makeRecommendation = async (roomCode: string, top: number) => {
   if (voteCount) {
     const processedVotes = extractTopVotes(voteCount, top);
     if (processedVotes) {
-      const stallRecommendations = await getHawkerCenterStallName(
-        processedVotes
-      );
+      const eateries = await getHawkerCenterStallName(processedVotes);
+
+      let stallRecommendations = {
+        foodVoteResults: processedVotes,
+        eatery: eateries
+      };
       return stallRecommendations;
     }
   }
