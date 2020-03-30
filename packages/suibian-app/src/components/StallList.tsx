@@ -30,7 +30,7 @@ const StallList = (props: OwnProps) => {
 
     return (
       <div className="stall-container">
-        <h3 className="stall-name">{stall.name}</h3>
+        <h3 className="stall-name">{stall.stallname}</h3>
         <div className="foods-container flex-container flex-row flex-wrap flex-start">
           {foodList}
         </div>

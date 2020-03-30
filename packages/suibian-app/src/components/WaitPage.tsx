@@ -4,7 +4,7 @@ import React, { Component } from "react";
 //other components
 import { HourglassEmpty } from "@material-ui/icons";
 import { Redirect, withRouter } from "react-router-dom";
-import { Recommendation } from "@suibian/commons";
+import { Result } from "@suibian/commons";
 
 //css
 import "../css/WaitPage.css";

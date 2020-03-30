@@ -21,55 +21,55 @@ type StateProps = {
 
 type Props = StateProps & OwnProps;
 
-// TO DELETE
-const fakeProps = [
-  {
-    name: "Albert Food Centre",
-    location: { latitude: 123, longitude: 123 },
-    stalls: [
-      {
-        name: "Ah Huat Fishball Noodle",
-        food: [
-          {
-            foodname: "Fishball Noodle",
-            foodId: "fishball-noodle",
-            imageurl: "https://i.imgur.com/nzpIjN0.jpeg"
-          },
-          {
-            foodname: "Fishball Soup",
-            foodId: "fishball-soup",
-            imageurl: "https://i.imgur.com/fybEA24.jpeg"
-          }
-        ]
-      },
-      {
-        name: "Wang's Yong Tau Fu",
-        food: [
-          {
-            foodname: "Yong Tau Fu",
-            foodId: "yong-tau-fu",
-            imageurl: "https://i.imgur.com/MU2dD8E.jpg"
-          }
-        ]
-      },
-      {
-        name: "Drinks with Ah Tee",
-        food: [
-          {
-            foodname: "Milo",
-            foodId: "milo",
-            imageurl: "https://i.imgur.com/d6khwx1.jpg"
-          },
-          {
-            foodname: "Teh Bing",
-            foodId: "teh-bing",
-            imageurl: "https://i.imgur.com/zXj4ZMg.jpg"
-          }
-        ]
-      }
-    ]
-  }
-];
+// // TO DELETE
+// const fakeProps = [
+//   {
+//     name: "Albert Food Centre",
+//     location: { latitude: 123, longitude: 123 },
+//     stalls: [
+//       {
+//         name: "Ah Huat Fishball Noodle",
+//         food: [
+//           {
+//             foodname: "Fishball Noodle",
+//             foodId: "fishball-noodle",
+//             imageurl: "https://i.imgur.com/nzpIjN0.jpeg"
+//           },
+//           {
+//             foodname: "Fishball Soup",
+//             foodId: "fishball-soup",
+//             imageurl: "https://i.imgur.com/fybEA24.jpeg"
+//           }
+//         ]
+//       },
+//       {
+//         name: "Wang's Yong Tau Fu",
+//         food: [
+//           {
+//             foodname: "Yong Tau Fu",
+//             foodId: "yong-tau-fu",
+//             imageurl: "https://i.imgur.com/MU2dD8E.jpg"
+//           }
+//         ]
+//       },
+//       {
+//         name: "Drinks with Ah Tee",
+//         food: [
+//           {
+//             foodname: "Milo",
+//             foodId: "milo",
+//             imageurl: "https://i.imgur.com/d6khwx1.jpg"
+//           },
+//           {
+//             foodname: "Teh Bing",
+//             foodId: "teh-bing",
+//             imageurl: "https://i.imgur.com/zXj4ZMg.jpg"
+//           }
+//         ]
+//       }
+//     ]
+//   }
+// ];
 
 class ResultsPage extends Component<Props> {
   // Methods
@@ -86,7 +86,7 @@ class ResultsPage extends Component<Props> {
               <h1 className="title">Places To Go</h1>
               <EateriesList
                 topFoods={[]}
-                eateries={fakeProps}
+                eateries={this.props.eateries}
                 history={this.props.history}
               />
             </div>
