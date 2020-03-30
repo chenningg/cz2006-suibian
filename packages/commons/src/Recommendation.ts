@@ -1,5 +1,7 @@
+import { FoodVote } from "./Vote";
+import { Eatery } from "./Eatery";
+
 export type Recommendation = {
-  header: string;
-  text1: string;
-  text2: string;
+  foodVoteResults: FoodVote[];
+  eatery: Eatery[];
 };

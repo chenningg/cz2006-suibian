@@ -55,6 +55,7 @@ class WaitPage extends Component<Props> {
       // On start room event fire, I log my data
       this.props.socketState.socket.on("updateRecommendations", (data: any) => {
         if (data) {
+          console.log("recommendations received");
           this.props.updateRecommendations(data);
           this.setState({ redirect: true });
         } else {
@@ -63,6 +64,10 @@ class WaitPage extends Component<Props> {
       });
     }
   };
+
+  componentDidMount() {
+    this.registerSocketListeners();
+  }
 
   render() {
     if (this.state.redirect) {

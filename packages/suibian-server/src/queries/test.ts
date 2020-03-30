@@ -1,12 +1,11 @@
 import { Sequelize } from "sequelize";
 import * as dotenv from "dotenv-extended";
 import { db } from "../sequelize";
-import { createRoomQuery, joinRoomQuery } from "./room";
-import { getStallName, getHawkerCenter, getPostalCode } from "../queries/stall";
+import { makeRecommendation } from "../sockets/helper/vote";
 const path = require("path");
 
 const intializeDB = async () => {
-    await db.sync();
+  await db.sync();
 };
 
 // const testUploadVote = async () => {
@@ -19,23 +18,23 @@ let data = {
   "2": 3
 };
 
-let datastring = JSON.stringify(data);
+// let datastring = JSON.stringify(data);
 
-const testGetHawker = async () => {
-  const sth = await getHawkerCenter(datastring);
+// const testGetHawker = async () => {
+//   const sth = await getHawkerCenter(datastring);
+//   return sth;
+// };
+// const testGetStallName = async () => {
+//   const sth = await getStallName(datastring);
+//   return sth;
+// };
+
+const testRecommendation = async () => {
+  const sth = await makeRecommendation("OPuSFrAJW", 5);
   return sth;
 };
-const testGetStallName = async () => {
-  const sth = await getStallName(datastring);
-  return sth;
-};
 
-const testGetPostalCode = async () => {
-  const sth = await getPostalCode("North Bridge Road Market & Food Centre");
-  return sth;
-};
-
-intializeDB().then(testGetPostalCode);
+intializeDB().then(testRecommendation);
 // .then(testGetStallName)
 //   .then(roomcode => {
 //     if (roomcode) {

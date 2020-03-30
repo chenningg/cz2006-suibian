@@ -4,11 +4,22 @@ import {
   Model,
   PrimaryKey,
   BelongsToMany,
-  DataType
+  DataType,
+  Scopes
 } from "sequelize-typescript";
 import Stall from "./stall.model";
 import Sell from "./sell.model";
 
+@Scopes(() => ({
+  stalls: {
+    include: [
+      {
+        model: Stall,
+        through: { attributes: [] }
+      }
+    ]
+  }
+}))
 @Table({
   tableName: "food",
   createdAt: false,

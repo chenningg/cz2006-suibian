@@ -1,8 +1,7 @@
 import { Table, Column, Model, ForeignKey } from "sequelize-typescript";
+import { VotingStatus } from "@suibian/commons";
 import Room from "./room.model";
 import User from "./user.model";
-
-type votingStatus = "waiting" | "voting" | "completed";
 
 @Table({
   tableName: "join"
@@ -17,7 +16,7 @@ class Join extends Model<Join> {
   roomcode!: string;
 
   @Column
-  votingStatus!: votingStatus;
+  votingstatus!: VotingStatus;
 }
 
 export default Join;
