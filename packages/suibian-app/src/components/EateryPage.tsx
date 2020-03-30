@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import NavBar from "./NavBar";
 import { Eatery } from "@suibian/commons";
 import StallList from "./StallList";
+import GoogleMap from "./GoogleMap";
 
 //css
 import "../css/EateryPage.css";
@@ -108,15 +109,16 @@ class EateryPage extends Component<Props> {
   render() {
     return (
       <>
-        <NavBar backPage="recommendations" />
+        <NavBar backPage="results" />
         <div className="eatery-page">
           <div className="app-content flex-container flex-col flex-center-v">
             <h1 className="eatery-name">
               {this.props.match.params.eatery_name}
             </h1>
+            <GoogleMap />
             <a
               href={`https://www.google.com/maps/@${this.props.eatery.location.latitude},${this.props.eatery.location.longitude},15z`}
-              className="gmaps-button"
+              className="google-maps-button"
             >
               View in Maps
             </a>
