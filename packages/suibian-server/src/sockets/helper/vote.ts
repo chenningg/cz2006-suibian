@@ -21,10 +21,12 @@ export const submitVote = async (
   const votes = data.votes;
 
   //update user vote status
-  updateUserQuery(roomCode, username, { votingstatus: VotingStatus.completed });
+  await updateUserQuery(roomCode, username, {
+    votingstatus: VotingStatus.completed
+  });
   const returnVotes = await createVoteQueryPerUser(data); //log to database
 
-  if (checkRoomCompleted(roomCode)) {
+  if (await checkRoomCompleted(roomCode)) {
     const recommendations = await makeRecommendation(roomCode, 3);
     const dataEmit = {
       roomCode,
