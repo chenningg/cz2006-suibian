@@ -16,4 +16,9 @@
   width: 100vw;
   max-width: 300px;
 }
-/* style={{ alignContent: "center", height: "40vh", width: "100vw" }} */
+
+.food-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
