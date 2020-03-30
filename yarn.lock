@@ -1551,6 +1551,13 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
+"@types/google-map-react@^1.1.5":
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/@types/google-map-react/-/google-map-react-1.1.5.tgz#6fc83620ea3b927aa1c4b8654ff9e151364c7786"
+  integrity sha512-PbpOQucrBYhCDLz/Xodtm2NZlkIY/paieEXSMheS3CKcLg5pvzowB5aY6cmj+7uY99j+qzYfO2IIUgraoDaBaQ==
+  dependencies:
+    "@types/react" "*"
+
 "@types/history@*":
   version "4.7.5"
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.5.tgz#527d20ef68571a4af02ed74350164e7a67544860"
