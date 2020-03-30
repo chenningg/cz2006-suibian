@@ -20,7 +20,8 @@ const initState: ReduxState = {
   },
   votes: [],
   foods: [],
-  position: { latitude: 0, longitude: 0 }
+  position: { latitude: 0, longitude: 0 },
+  recommendations: []
 };
 
 // The one main reducer that can have sub reducers to translate actions > update the store
@@ -66,6 +67,10 @@ const RootReducer = (state: ReduxState = initState, action: any) => {
     case "UPDATE_POSITION":
       let newPosition = { ...action.position };
       return { ...state, position: newPosition };
+
+    case "UPDATE_RECOMMENDATIONS":
+      let newRecommendations = { ...action.recommendations };
+      return { ...state, recommendations: newRecommendations };
   }
 
   return state;

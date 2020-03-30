@@ -5,3 +5,4 @@ export * from "./User";
 export * from "./Vote";
 export * from "./Food";
 export * from "./Position";
+export * from "./Recommendation";

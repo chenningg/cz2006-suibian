@@ -6,7 +6,7 @@ import { getStallName, getHawkerCenter } from "../queries/stall";
 const path = require("path");
 
 const intializeDB = async () => {
-  await db.sync();
+    await db.sync();
 };
 
 const testUploadVote = async () => {

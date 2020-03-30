@@ -1,5 +1,5 @@
 import Vote from "../models/vote.model";
-import VoteType from "../../../commons/src/Vote";
+import { Vote as VoteType } from "@suibian/commons";
 import { isColString } from "sequelize/types/lib/utils";
 
 //TODO: when front end sends votes over, then set user to finished voting
@@ -14,7 +14,7 @@ export const createVoteQueryPerUser = async (uservote: any) => {
       username,
       roomcode,
       foodId: vote.foodId,
-      like: vote.vote
+      like: vote.like
     };
     return voteentry; // return for each element in the array
   });

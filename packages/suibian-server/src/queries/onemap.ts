@@ -1,4 +1,4 @@
-import { sendError } from "../sockets/messaging";
+import { sendError } from "../sockets/helper/messaging";
 import { suibianSocket } from "@suibian/commons/src";
 import { httpStatus } from "../../../commons/src/httpStatus";
 import axios from "axios";
