@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import { HourglassEmpty } from "@material-ui/icons";
 import { Redirect, withRouter } from "react-router-dom";
 import { Result } from "@suibian/commons";
+import axios from "axios";
 
 //css
 import "../css/WaitPage.css";
@@ -56,13 +57,39 @@ class WaitPage extends Component<Props> {
       this.props.socketState.socket.on("updateResult", (data: any) => {
         if (data) {
           console.log(data);
-          this.props.updateResult(data);
+          this.cleanResult(data);
           this.setState({ redirect: true });
         } else {
           console.log(`Error! No data received from submitVote event.`);
         }
       });
     }
+  };
+
+  // Update state with actual result
+  cleanResult = async (data: any) => {
+    const newEateries: any = [];
+
+    for (let i = 0; i < data.eatery.length; i++) {
+      const eatery = data.eatery[i];
+      const postalCode = data.eatery[i].location;
+      let locationObj = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${postalCode}&region=sg&key=AIzaSyDEaux00JCnvfiaqExfJHY5cu-oe8fSOxA`
+      );
+
+      let loc = await locationObj.data.results[0].geometry.location;
+      let newEatery = {
+        name: eatery.name,
+        location: { latitude: loc.lat, longitude: loc.lng },
+        stalls: eatery.stalls
+      };
+
+      newEateries.push(newEatery);
+    }
+
+    console.log({ ...data, eatery: newEateries });
+
+    this.props.updateResult({ ...data, eatery: newEateries });
   };
 
   componentDidMount() {

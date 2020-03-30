@@ -1,14 +1,27 @@
 .map-marker-container {
   display: inline-block;
   text-align: center;
+  width: 0;
+  height: 0;
 }
 
-.map-marker-label {
+.map-marker-container span {
+  position: absolute;
+  left: -100px;
+  top: -100px;
+  min-width: 200px;
   font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .map-marker-icon-container {
-  display: inline-block;
+  position: absolute;
+  left: -20px;
+  top: -20px;
+  margin-top: -10px;
 }
 
 .map-marker-icon-container svg {

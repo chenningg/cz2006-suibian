@@ -9,15 +9,6 @@ type OwnProps = {
 };
 
 class GoogleMap extends Component<OwnProps> {
-  static defaultProps = {
-    label: "Test",
-    center: {
-      lat: 1.3534183,
-      lng: 103.69241410000001
-    },
-    zoom: 17
-  };
-
   distanceToMouse = (pt, mousePos, markerProps): number => {
     // pt can be undefined in some cases
     // don't know why this happens
@@ -49,8 +40,8 @@ class GoogleMap extends Component<OwnProps> {
           defaultZoom={this.props.zoom}
         >
           <MapMarker
-            lat={1.3534183}
-            lng={103.69241410000001}
+            lat={this.props.center.lat}
+            lng={this.props.center.lng}
             label={this.props.label}
           />
         </GoogleMapReact>
