@@ -39,6 +39,36 @@ const fakeProps = {
           foodname: "Fishball Soup",
           foodId: "fishball-soup",
           imageurl: "https://i.imgur.com/fybEA24.jpeg"
+        },
+        {
+          foodname: "Fishball Soup",
+          foodId: "fishball-soup",
+          imageurl: "https://i.imgur.com/fybEA24.jpeg"
+        },
+        {
+          foodname: "Fishball Soup",
+          foodId: "fishball-soup",
+          imageurl: "https://i.imgur.com/fybEA24.jpeg"
+        },
+        {
+          foodname: "Fishball Soup",
+          foodId: "fishball-soup",
+          imageurl: "https://i.imgur.com/fybEA24.jpeg"
+        },
+        {
+          foodname: "Fishball Soup",
+          foodId: "fishball-soup",
+          imageurl: "https://i.imgur.com/fybEA24.jpeg"
+        },
+        {
+          foodname: "Fishball Soup",
+          foodId: "fishball-soup",
+          imageurl: "https://i.imgur.com/fybEA24.jpeg"
+        },
+        {
+          foodname: "Fishball Soup",
+          foodId: "fishball-soup",
+          imageurl: "https://i.imgur.com/fybEA24.jpeg"
         }
       ]
     },
@@ -79,9 +109,9 @@ class EateryPage extends Component<Props> {
     return (
       <>
         <NavBar backPage="recommendations" />
-        <div className="eatery">
+        <div className="eatery-page">
           <div className="app-content flex-container flex-col flex-center-v">
-            <h1 className="eateryname">
+            <h1 className="eatery-name">
               {this.props.match.params.eatery_name}
             </h1>
             <a
