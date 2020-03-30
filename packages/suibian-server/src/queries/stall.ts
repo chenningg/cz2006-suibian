@@ -35,7 +35,6 @@ export async function getPostalCode(hawkercenter: string) {
       },
       raw: true
     });
-    // console.log(Object.values(data)[0]);
     return data?.postalcode;
   } catch (err) {
     console.log(err);
