@@ -42,7 +42,7 @@ class RecommendationsPage extends Component<Props> {
         <div className="recommendation">
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             <h2 style={{ margin: 40, fontSize: "2rem" }}>Recommendations</h2>
-            <div className="recommendation-list-container flex-container flex-col flex-center-v">
+            <div className="recommendation-list-container flex-container flex-col">
               <RecommendationList recommendations={fakeProps} />
             </div>
           </div>
