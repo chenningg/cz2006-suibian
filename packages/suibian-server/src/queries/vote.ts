@@ -1,6 +1,8 @@
 import Vote from "../models/vote.model";
-import { Vote as VoteType } from "@suibian/commons";
+import { Vote as VoteType, FoodVote } from "@suibian/commons";
 import { isColString } from "sequelize/types/lib/utils";
+import { Sequelize } from "sequelize-typescript";
+import Food from "../models/food.model";
 
 export const createVoteQueryPerUser = async (uservote: any) => {
   const { username, roomCode, votes } = uservote;
@@ -23,24 +25,49 @@ export const createVoteQueryPerUser = async (uservote: any) => {
 
 export const countVoteQuery = async (
   roomcode: string
-): Promise<string | undefined> => {
+): Promise<FoodVote[] | undefined> => {
   try {
-    const result = await Vote.count({
+    const result = await Vote.findAll({
+      attributes: [
+        "foodId",
+        [Sequelize.fn("count", Sequelize.col("foodId")), "count"]
+      ],
       where: {
         roomcode,
         vote: true
       },
-      group: "foodId"
+      group: "foodId",
+      raw: true
     });
-    return JSON.stringify(result);
+
+    const resultTypeCasted: FoodVote[] = [];
+    result.forEach((vote: Vote) => {
+      //@ts-ignore
+      resultTypeCasted.push({ foodId: vote.foodId, count: vote.count });
+    });
+
+    return resultTypeCasted;
   } catch (err) {
     console.log(err);
   }
 };
 
-// var list = {"you": 100, "me": 75, "foo": 116, "bar": 15};
-// keysSorted = Object.keys(list).sort(function(a,b){return list[a]-list[b]})
-// console.log(keysSorted);
+// export const countVoteQuery = async (
+//   roomcode: string
+// ): Promise<{ [key: string]: number } | void> => {
+//   try {
+//     const result = await Vote.count({
+//       where: {
+//         roomcode,
+//         vote: true
+//       },
+//       group: "foodId"
+//     });
+//     return result;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 // TODO: take (top) number of food votes, then find hawker centres with these foods
 // TODO: rank hawker centres by distance

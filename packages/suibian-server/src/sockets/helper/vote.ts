@@ -2,10 +2,10 @@ import socketio from "socket.io";
 import { createVoteQueryPerUser, countVoteQuery } from "../../queries/vote";
 import { updateUserQuery } from "../../queries/join";
 import {
-  httpStatus,
   votePayload,
   suibianSocket,
-  VotingStatus
+  VotingStatus,
+  FoodVote
 } from "@suibian/commons";
 import { getHawkerCenterStallName } from "../../queries/stall";
 import { checkRoomCompleted } from "./room";
@@ -37,20 +37,21 @@ export const submitVote = async (
   return returnVotes;
 };
 
-export function processVoteQuery(queryresult: string, top: number) {
-  let result = JSON.parse(queryresult);
-  let result_len = Object.keys(result).length;
+export function extractTopVotes(voteResult: FoodVote[], top: number) {
+  let result_len = Object.keys(voteResult).length;
   let top_len = Math.min(result_len, top);
   if (top_len > 0) {
     // array of sorted keys
-    let sorted_keys = Object.keys(result).sort((a, b) => result[a] - result[b]);
+    let sorted_keys = Object.keys(voteResult).sort(
+      (a, b) => voteResult[a] - voteResult[b]
+    );
     // type definition of vote results object
     let vote_results: { [key: string]: number } = {};
     for (let i = 0; i < top_len; i++) {
-      vote_results[sorted_keys[i]] = result[sorted_keys[i]];
+      vote_results[sorted_keys[i]] = voteResult[sorted_keys[i]];
     }
     // returns Json of foodID: string and number of votes: number
-    return JSON.stringify(vote_results);
+    return vote_results;
   } else {
     console.log("No results found!");
   }
@@ -58,11 +59,14 @@ export function processVoteQuery(queryresult: string, top: number) {
 
 export const makeRecommendation = async (roomCode: string, top: number) => {
   const voteCount = await countVoteQuery(roomCode); //tally the votes in the room
+  console.log(voteCount);
   if (voteCount) {
-    const processedVotes = processVoteQuery(voteCount, top);
+    const processedVotes = extractTopVotes(voteCount, top);
     if (processedVotes) {
-      const recommendations = await getHawkerCenterStallName(processedVotes);
-      return recommendations;
+      const stallRecommendations = await getHawkerCenterStallName(
+        processedVotes
+      );
+      return stallRecommendations;
     }
   }
 };

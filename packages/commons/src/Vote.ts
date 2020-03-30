@@ -8,3 +8,7 @@ export enum VotingStatus {
   voting = "voting",
   completed = "completed"
 }
+export type FoodVote = {
+  foodId: string;
+  count: number;
+};
