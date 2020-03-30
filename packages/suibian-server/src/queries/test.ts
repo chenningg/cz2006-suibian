@@ -6,7 +6,7 @@ import { getStallName, getHawkerCenter, getPostalCode } from "../queries/stall";
 const path = require("path");
 
 const intializeDB = async () => {
-    await db.sync();
+  await db.sync();
 };
 
 // const testUploadVote = async () => {
@@ -35,7 +35,7 @@ const testGetPostalCode = async () => {
   return sth;
 };
 
-intializeDB().then(testGetPostalCode);
+intializeDB().then(testGetHawker);
 // .then(testGetStallName)
 //   .then(roomcode => {
 //     if (roomcode) {
