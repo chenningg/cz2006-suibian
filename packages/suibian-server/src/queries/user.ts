@@ -17,20 +17,3 @@ export const createUserQuery = async (
     console.log(err);
   }
 };
-
-export const updateUserJoin = async (
-  roomcode: string,
-  username: string,
-  data: any
-): Promise<void> => {
-  try {
-    await Join.update<Join>(data, {
-      where: {
-        roomcode,
-        username
-      }
-    });
-  } catch (err) {
-    console.log(`error message :${err}`);
-  }
-};

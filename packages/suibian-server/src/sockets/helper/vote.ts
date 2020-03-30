@@ -1,6 +1,6 @@
 import socketio from "socket.io";
 import { createVoteQueryPerUser, countVoteQuery } from "../../queries/vote";
-import { updateUserJoin } from "../../queries/user";
+import { updateUserQuery } from "../../queries/join";
 import {
   httpStatus,
   votePayload,
@@ -19,7 +19,7 @@ export const submitVote = async (
   const votes = data.votes;
 
   //update user vote status
-  updateUserJoin(roomCode, username, { votingstatus: VotingStatus.completed });
+  updateUserQuery(roomCode, username, { votingstatus: VotingStatus.completed });
 
   //TODO check if all users in the room has voted finish
 

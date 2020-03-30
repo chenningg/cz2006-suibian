@@ -1,6 +1,5 @@
-import { joinRoomPayload } from "@suibian/commons";
 import Join from "../models/join.model";
-export const updateUser = async (
+export const updateUserQuery = async (
   roomcode: string,
   username: string,
   data: any
