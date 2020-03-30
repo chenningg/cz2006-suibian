@@ -2,7 +2,12 @@ import { Sequelize } from "sequelize";
 import * as dotenv from "dotenv-extended";
 import { db } from "../sequelize";
 import { createRoomQuery, joinRoomQuery } from "./room";
-import { getStallName, getHawkerCenter, getPostalCode } from "../queries/stall";
+import {
+  getHawkerCenterStallName,
+  getPostalCode,
+  getTravelToHawker
+} from "../queries/stall";
+import { getLatLonSocketless } from "../queries/onemap";
 const path = require("path");
 
 const intializeDB = async () => {
@@ -14,28 +19,30 @@ const intializeDB = async () => {
 //     await createVoteQueryPerUser(votes);
 // };
 
-let data = {
-  "1": 2,
-  "2": 3
-};
-
-let datastring = JSON.stringify(data);
-
-const testGetHawker = async () => {
-  const sth = await getHawkerCenter(datastring);
-  return sth;
-};
-const testGetStallName = async () => {
-  const sth = await getStallName(datastring);
-  return sth;
-};
-
 const testGetPostalCode = async () => {
   const sth = await getPostalCode("North Bridge Road Market & Food Centre");
   return sth;
 };
 
-intializeDB().then(testGetHawker);
+const test1 = JSON.stringify({
+  "Golden Mile Food Centre": [
+    "Kee's Crispy Goreng Pisang",
+    "Tong Ji Mian Shi (桐记面食)"
+  ],
+  "North Bridge Road Market & Food Centre": [
+    "Ke Shuang Xing Fried Carrot Cake (North Bridge Road Market & Food Centre)"
+  ]
+});
+
+const test2 = JSON.stringify({ lat: 1.3521, lon: 103.8198 });
+
+const testTravelToHawker = async () => {
+  const sth = await getTravelToHawker(test1, test2);
+  console.log("travel times", sth);
+  return sth;
+};
+
+intializeDB().then(testTravelToHawker);
 // .then(testGetStallName)
 //   .then(roomcode => {
 //     if (roomcode) {

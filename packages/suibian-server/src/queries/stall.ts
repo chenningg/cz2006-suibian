@@ -2,6 +2,7 @@ import Stall from "../models/stall.model";
 import Sell from "../models/sell.model";
 import { Json } from "sequelize/types/lib/utils";
 import { any } from "bluebird";
+import { getRouteDetailsSocketless, token } from "../queries/onemap";
 // import { Sequelize } from "sequelize/types";
 const { Op, Sequelize } = require("sequelize");
 //
@@ -10,7 +11,6 @@ export async function getStallId(
   foodandvotesjson: string
 ): Promise<string | undefined> {
   let foodidarray = Object.keys(JSON.parse(foodandvotesjson));
-  console.log(foodidarray);
   try {
     const stallidobject = await Sell.findAll({
       attributes: ["stallId"],
@@ -35,7 +35,7 @@ export async function getPostalCode(hawkercenter: string) {
       },
       raw: true
     });
-    return data?.postalcode;
+    return data?.postalcode.toString();
   } catch (err) {
     console.log(err);
   }
@@ -59,7 +59,6 @@ export async function getHawkerCenterStallName(foodandvotesjson: string) {
         where: {
           stallId: { [Op.in]: stallidarray }
         },
-        // group: ["hawkercenter"],
         raw: true
       });
 
@@ -79,4 +78,28 @@ export async function getHawkerCenterStallName(foodandvotesjson: string) {
       console.log(err);
     }
   }
+}
+
+export async function getTravelToHawker(
+  hawkerandstalls: string,
+  position: string
+) {
+  // array of hawker center names
+  const hawkercenters = Object.keys(JSON.parse(hawkerandstalls));
+  // array of postal codes
+  let postalcodes: string[] = [] as string[];
+  for (let i = 0; i < hawkercenters.length; i++) {
+    let postalcode: string = (await getPostalCode(hawkercenters[i]))!;
+    postalcodes.push(postalcode);
+  }
+  let traveldetails: string[] = [];
+  for (let i = 0; i < postalcodes.length; i++) {
+    let traveldetail: string = (await getRouteDetailsSocketless(
+      position,
+      postalcodes[i],
+      token
+    ))!;
+    traveldetails.push(traveldetail);
+  }
+  return JSON.stringify(traveldetails);
 }
