@@ -113,16 +113,16 @@ export const startRoom = async (io: socketio.Server, roomCode: string) => {
   else return null;
 };
 
-export const checkRoomCompleted = async (
-  roomCode: string
-): Promise<boolean | void> => {
+export const checkRoomCompleted = async (roomCode: string) => {
   const joinRoomInfo = await getRoomJoinQuery(roomCode);
   if (joinRoomInfo) {
-    joinRoomInfo.forEach(joinRoom => {
+    for (let i = 0; i < joinRoomInfo.length; i++) {
+      let joinRoom = joinRoomInfo[i];
+      console.log(joinRoom.username, joinRoom.votingstatus);
       if (joinRoom.votingstatus !== VotingStatus.completed) {
         return false;
       }
-    });
+    }
     return true;
   }
 };

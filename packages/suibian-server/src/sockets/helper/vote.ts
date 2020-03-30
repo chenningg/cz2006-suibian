@@ -8,6 +8,8 @@ import {
   VotingStatus
 } from "@suibian/commons";
 import { getHawkerCenterStallName } from "../../queries/stall";
+import { checkRoomCompleted } from "./room";
+import { broadcastRoom } from "./messaging";
 
 export const submitVote = async (
   socketio: socketio.Server,
@@ -20,10 +22,16 @@ export const submitVote = async (
 
   //update user vote status
   updateUserQuery(roomCode, username, { votingstatus: VotingStatus.completed });
+  const returnVotes = await createVoteQueryPerUser(data); //log to database
 
-  //TODO check if all users in the room has voted finish
-
-  const returnVotes = await createVoteQueryPerUser(data);
+  if (checkRoomCompleted(roomCode)) {
+    const recommendations = await makeRecommendation(roomCode, 3);
+    const dataEmit = {
+      roomCode,
+      payload: recommendations
+    };
+    broadcastRoom(socketio, dataEmit, "updateRecommendations");
+  }
   return returnVotes;
 };
 
