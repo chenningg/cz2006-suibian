@@ -12,7 +12,10 @@ const StallList = (props: OwnProps) => {
   const stallList = props.stalls.map(stall => {
     const foodList = stall.food.map(food => {
       return (
-        <div className="food-container flex-container flex-col flex-center-v flex-center-h flex-end">
+        <div
+          key={food.foodname}
+          className="food-container flex-container flex-col flex-center-v flex-center-h flex-end"
+        >
           <p className="food-name">{food.foodname}</p>
           <div className="food-image-container">
             <img
