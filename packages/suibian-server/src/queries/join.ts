@@ -39,7 +39,8 @@ export const getRoomJoinQuery = async (
         roomcode: roomCode
       }
     });
-    return joinResult;
+
+    if (joinResult !== []) return joinResult;
   } catch (err) {
     console.log(`error is ${err}`);
   }
