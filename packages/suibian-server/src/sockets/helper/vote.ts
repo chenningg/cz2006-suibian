@@ -1,12 +1,13 @@
 import socketio from "socket.io";
 import { createVoteQueryPerUser, countVoteQuery } from "../../queries/vote";
-import { updateUser } from "../../queries/join";
+import { updateUserJoin } from "../../queries/user";
 import {
   httpStatus,
   votePayload,
   suibianSocket,
   VotingStatus
 } from "@suibian/commons";
+import { getHawkerCenterStallName } from "../../queries/stall";
 
 export const submitVote = async (
   socketio: socketio.Server,
@@ -18,7 +19,9 @@ export const submitVote = async (
   const votes = data.votes;
 
   //update user vote status
-  updateUser(roomCode, username, { votingstatus: VotingStatus.completed });
+  updateUserJoin(roomCode, username, { votingstatus: VotingStatus.completed });
+
+  //TODO check if all users in the room has voted finish
 
   const returnVotes = await createVoteQueryPerUser(data);
   return returnVotes;
@@ -42,3 +45,14 @@ export function processVoteQuery(queryresult: string, top: number) {
     console.log("No results found!");
   }
 }
+
+export const makeRecommendation = async (roomCode: string, top: number) => {
+  const voteCount = await countVoteQuery(roomCode); //tally the votes in the room
+  if (voteCount) {
+    const processedVotes = processVoteQuery(voteCount, top);
+    if (processedVotes) {
+      const recommendations = await getHawkerCenterStallName(processedVotes);
+      return recommendations;
+    }
+  }
+};
