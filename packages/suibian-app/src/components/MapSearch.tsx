@@ -134,7 +134,7 @@ const MapSearch = (props: Props) => {
               </li>
               <hr></hr>
             </div>
-            <div key={id}>
+            <div className="map-search-suggestion-container" key={id}>
               <li onClick={handleSelect(suggestion)}>
                 <strong>{main_text}</strong>
                 <br></br>
@@ -146,7 +146,7 @@ const MapSearch = (props: Props) => {
         );
       } else {
         return (
-          <div key={id}>
+          <div className="map-search-suggestion-container" key={id}>
             <li onClick={handleSelect(suggestion)}>
               <strong>{main_text}</strong>
               <br></br>
