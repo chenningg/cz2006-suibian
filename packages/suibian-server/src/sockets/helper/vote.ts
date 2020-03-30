@@ -10,5 +10,6 @@ export const submitVote = async (
   const roomCode = data.roomCode;
   const username = data.username;
   const votes = data.votes;
-  createVoteQueryPerUser(data);
+  const returnVotes = await createVoteQueryPerUser(data);
+  return returnVotes;
 };
