@@ -4,13 +4,32 @@ import {
   Model,
   ForeignKey,
   BelongsToMany,
-  PrimaryKey
+  PrimaryKey,
+  Scopes
 } from "sequelize-typescript";
 import Room from "./room.model";
 import Vote from "./vote.model";
 import Join from "./join.model";
 import Food from "./food.model";
 
+@Scopes(() => ({
+  rooms: {
+    include: [
+      {
+        model: Room,
+        through: { attributes: [] }
+      }
+    ]
+  },
+  foods: {
+    include: [
+      {
+        model: Food,
+        through: { attributes: [] }
+      }
+    ]
+  }
+}))
 @Table({
   tableName: "user"
 })

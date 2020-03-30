@@ -3,5 +3,5 @@ import { Eatery } from "./Eatery";
 
 export type Recommendation = {
   foodVoteResults: FoodVote[];
-  eatery: Eatery;
+  eatery: Eatery[];
 };
