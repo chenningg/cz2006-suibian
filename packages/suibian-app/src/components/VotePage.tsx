@@ -58,7 +58,7 @@ class VotePage extends Component<Props> {
 
   //variables
   foodsList = this.props.foods.map(food => (
-    <div>
+    <div className="food-list">
       <h1>{food.foodname}</h1>
       <img className="food-image" src={food.imageurl} alt={food.foodname} />
     </div>
