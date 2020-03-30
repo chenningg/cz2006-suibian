@@ -6,33 +6,20 @@ import NavBar from "./NavBar";
 import { Favorite, Block } from "@material-ui/icons";
 import Loader from "react-loader-spinner";
 import { Link } from "react-router-dom";
-import { Food } from "@suibian/commons";
 
 //css
 import "../css/InstructionPage.css";
 
 // Sockets and Redux
 import { SocketState } from "../types/SocketState";
-import { connect } from "react-redux";
-import ReduxState from "../types/ReduxState";
 
 // Types
-type OwnProps = {
-  history: any;
-  location: any;
-  match: any;
-};
-
 type StateProps = {
   socketState: SocketState;
   foods: any;
 };
 
-type DispatchProps = {
-  updateFoods: (foods: Food[]) => void;
-};
-
-type Props = StateProps & DispatchProps & OwnProps;
+type Props = StateProps;
 
 const styles = {
   largeIcon: {
@@ -50,33 +37,10 @@ class InstructionPage extends Component<Props> {
     ready: false
   };
 
-  // Register socket to listen to events
-  registerSocketListeners = () => {
-    console.log(this.props.socketState.socket);
-    if (this.props.socketState.socket) {
-      console.log("Registering socket listeners...");
-
-      // On start room event fire, I log my data
-      this.props.socketState.socket.on("startRoom", (data: any) => {
-        if (data) {
-          this.props.updateFoods(data as Food[]);
-          this.setState({ ready: true });
-        } else {
-          console.log(`Error! No data received from startRoom event.`);
-        }
-      });
-    }
-  };
-
-  //methods
   componentDidMount() {
-    this.registerSocketListeners();
-
-    if (this.props.socketState.socket) {
-      this.props.socketState.socket.emit("startRoom", {
-        roomCode: this.props.socketState.roomCode
-      });
-    }
+    setTimeout(() => {
+      this.setState({ ready: true });
+    }, 1500);
   }
 
   render() {
@@ -130,24 +94,4 @@ class InstructionPage extends Component<Props> {
   }
 }
 
-// Redux functions
-const mapStateToProps = (state: ReduxState): StateProps => {
-  return {
-    socketState: state.socketState,
-    foods: state.foods
-  };
-};
-
-// Links a dispatch function to a prop
-const mapDispatchToProps = (dispatch: any): DispatchProps => {
-  return {
-    updateFoods: foods => {
-      dispatch({
-        type: "UPDATE_FOODS",
-        foods: foods
-      });
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(InstructionPage);
+export default InstructionPage;
