@@ -14,13 +14,17 @@ const RecommendationList = (props: OwnProps) => {
   const recommendationList = props.recommendations.map(recommendation => {
     return (
       <div
-        className="recommendation flex-container flex row flex-spaced-between"
+        className="recommendation flex-container flex-col flex-center-v"
         key={recommendation.header}
-      ></div>
+      >
+        <h4>{recommendation.header}</h4>
+        <p>{recommendation.text1}</p>
+        <p>{recommendation.text2}</p>
+      </div>
     );
   });
 
-  return <>{recommendationList}</>;
+  return <div className="recommendation-list">{recommendationList}</div>;
 };
 
 export default RecommendationList;
