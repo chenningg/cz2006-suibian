@@ -8,7 +8,7 @@ import RoomLobby from "./RoomLobby";
 import InstructionPage from "./InstructionPage";
 import VotePage from "./VotePage";
 import WaitPage from "./WaitPage";
-import RecommendationPage from "./RecommendationPage";
+import RecommendationsPage from "./RecommendationsPage";
 import Eatery from "./Eatery";
 
 //other components
@@ -118,7 +118,10 @@ class AppRouter extends Component<Props> {
           <Route path="/roomlobby" component={RoomLobby}></Route>
           <Route path="/instructionpage" component={InstructionPage}></Route>
           <Route path="/votepage" component={VotePage}></Route>
-          <Route path="/recommendations" component={RecommendationPage}></Route>
+          <Route
+            path="/recommendations"
+            component={RecommendationsPage}
+          ></Route>
           <Route path="/eatery" component={Eatery}></Route>
           <Route path="/waitpage" component={WaitPage}></Route>
         </Switch>

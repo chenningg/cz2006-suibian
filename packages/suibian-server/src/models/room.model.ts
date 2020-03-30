@@ -11,9 +11,9 @@ import User from "./user.model";
 import Join from "./join.model";
 
 @Table({
-  tableName: "rooms"
+  tableName: "room"
 })
-class Rooms extends Model<Rooms> {
+class Room extends Model<Room> {
   @PrimaryKey
   @Column
   roomcode!: string;
@@ -37,4 +37,4 @@ class Rooms extends Model<Rooms> {
   users!: User[];
 }
 
-export default Rooms;
+export default Room;
