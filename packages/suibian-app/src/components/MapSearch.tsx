@@ -84,6 +84,7 @@ const MapSearch = (props: Props) => {
     // by setting the second parameter as "false"
     setValue(description, false);
     setCurrLocation(description);
+    console.log(value);
     clearSuggestions();
 
     // Get latitude and longitude via utility functions

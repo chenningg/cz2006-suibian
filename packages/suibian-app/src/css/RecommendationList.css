@@ -4,21 +4,50 @@
   min-width: 300px;
   max-width: 800px;
   width: 85vw;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  padding: 6px 12px;
+  padding: 10px 12px 0px;
+}
+
+.recommendation-list .recommendation:hover {
+  cursor: pointer;
+  margin-top: -6px;
+  margin-bottom: 26px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
 }
 
 .recommendation-list .recommendation .recommendation-title {
   font-size: 1.3rem;
   margin: 0;
-  margin-bottom: 6px;
   font-weight: 600;
   text-align: center;
+  pointer-events: none;
 }
 
 .recommendation-list .recommendation .recommendation-text {
   font-size: 1.05rem;
-  margin-bottom: 8px;
+  margin: 0;
+  margin-bottom: 6px;
   text-align: left;
+  pointer-events: none;
+}
+
+.recommendation-list .recommendation .recommendation-text:first-child {
+  margin-top: -8px;
+  pointer-events: none;
+}
+
+.recommendation-list .recommendation .recommendation-text:last-child {
+  margin: 0;
+  pointer-events: none;
+}
+
+.recommendation-list .recommendation ul {
+  pointer-events: none;
+}
+
+.recommendation-list .recommendation li {
+  pointer-events: none;
 }
