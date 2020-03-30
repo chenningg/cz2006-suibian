@@ -1,4 +1,4 @@
-import Rooms from "../models/rooms.model";
+import Rooms from "../models/room.model";
 import Join from "../models/join.model";
 import Vote from "../models/vote.model";
 import shortid from "shortid";

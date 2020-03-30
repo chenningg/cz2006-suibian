@@ -1,42 +1,42 @@
 import {
-    Table,
-    Column,
-    Model,
-    ForeignKey,
-    BelongsToMany,
-    PrimaryKey
+  Table,
+  Column,
+  Model,
+  ForeignKey,
+  BelongsToMany,
+  PrimaryKey
 } from "sequelize-typescript";
-import Rooms from "./rooms.model";
+import Room from "./room.model";
 import Vote from "./vote.model";
 import Join from "./join.model";
 import Food from "./food.model";
 
 @Table({
-    tableName: "user"
+  tableName: "user"
 })
 class User extends Model<User> {
-    @PrimaryKey
-    @Column
-    username!: string;
+  @PrimaryKey
+  @Column
+  username!: string;
 
-    @Column
-    userpreferences!: string;
+  @Column
+  userpreferences!: string;
 
-    @ForeignKey(() => Rooms)
-    @Column
-    roomcode!: string;
+  @ForeignKey(() => Room)
+  @Column
+  roomcode!: string;
 
-    @BelongsToMany(
-        () => Rooms,
-        () => Join
-    )
-    rooms!: Rooms;
+  @BelongsToMany(
+    () => Room,
+    () => Join
+  )
+  rooms!: Room;
 
-    @BelongsToMany(
-        () => Food,
-        () => Vote
-    )
-    foods!: Food;
+  @BelongsToMany(
+    () => Food,
+    () => Vote
+  )
+  foods!: Food;
 }
 
 export default User;
