@@ -4,12 +4,23 @@ import {
   Model,
   PrimaryKey,
   BelongsToMany,
-  DataType
+  DataType,
+  Scopes
 } from "sequelize-typescript";
 
 import User from "./user.model";
 import Join from "./join.model";
 
+@Scopes(() => ({
+  users: {
+    include: [
+      {
+        model: User,
+        through: { attributes: [] }
+      }
+    ]
+  }
+}))
 @Table({
   tableName: "room"
 })

@@ -64,6 +64,10 @@ class WaitPage extends Component<Props> {
     }
   };
 
+  componentDidMount() {
+    this.registerSocketListeners();
+  }
+
   render() {
     if (this.state.redirect) {
       return <Redirect to={"/recommendations"} />;

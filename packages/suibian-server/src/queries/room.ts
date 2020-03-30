@@ -32,18 +32,6 @@ export const createRoomQuery = async (
   }
 };
 
-export const joinRoomQuery = async (username: string, roomcode: string) => {
-  try {
-    await Join.create({
-      username,
-      roomcode,
-      votingStatus: "waiting"
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 export const updateRoomQuery = async (roomcode: string, body: any) => {
   try {
     await Rooms.update<Rooms>(body, {

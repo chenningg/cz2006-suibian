@@ -1,23 +1,40 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "debug server",
-            "args": ["${workspaceFolder}/packages/suibian-server/src/index.ts"],
-            "runtimeArgs": ["-r", "ts-node/register"],
-            "skipFiles": ["<node_internals>/**"],
-            "cwd": "${workspaceFolder}",
-            "protocol": "inspector",
-            "internalConsoleOptions": "openOnSessionStart",
-            "env": {
-                "TS_NODE_IGNORE": "false",
-                "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.shared.json"
-            }
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "debug server",
+      "args": ["${workspaceFolder}/packages/suibian-server/src/index.ts"],
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}",
+      "protocol": "inspector",
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "TS_NODE_IGNORE": "false",
+        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.shared.json"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "debug test file",
+      "args": [
+        "${workspaceFolder}/packages/suibian-server/src/queries/test.ts"
+      ],
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}",
+      "protocol": "inspector",
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "TS_NODE_IGNORE": "false",
+        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.shared.json"
+      }
+    }
+  ]
 }

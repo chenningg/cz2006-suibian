@@ -1,8 +1,8 @@
 import Vote from "../models/vote.model";
-import { Vote as VoteType } from "@suibian/commons";
+import { Vote as VoteType, FoodVote } from "@suibian/commons";
 import { isColString } from "sequelize/types/lib/utils";
-
-//TODO: when front end sends votes over, then set user to finished voting
+import { Sequelize } from "sequelize-typescript";
+import Food from "../models/food.model";
 
 export const createVoteQueryPerUser = async (uservote: any) => {
   const { username, roomCode, votes } = uservote;
@@ -25,42 +25,49 @@ export const createVoteQueryPerUser = async (uservote: any) => {
 
 export const countVoteQuery = async (
   roomcode: string
-): Promise<string | undefined> => {
+): Promise<FoodVote[] | undefined> => {
   try {
-    const result = await Vote.count({
+    const result = await Vote.findAll({
+      attributes: [
+        "foodId",
+        [Sequelize.fn("count", Sequelize.col("foodId")), "count"]
+      ],
       where: {
         roomcode,
-        like: true
+        vote: true
       },
-      group: "foodId"
+      group: "foodId",
+      raw: true
     });
-    return JSON.stringify(result);
+
+    const resultTypeCasted: FoodVote[] = [];
+    result.forEach((vote: Vote) => {
+      //@ts-ignore
+      resultTypeCasted.push({ foodId: vote.foodId, count: vote.count });
+    });
+
+    return resultTypeCasted;
   } catch (err) {
     console.log(err);
   }
 };
 
-// var list = {"you": 100, "me": 75, "foo": 116, "bar": 15};
-// keysSorted = Object.keys(list).sort(function(a,b){return list[a]-list[b]})
-// console.log(keysSorted);
+// export const countVoteQuery = async (
+//   roomcode: string
+// ): Promise<{ [key: string]: number } | void> => {
+//   try {
+//     const result = await Vote.count({
+//       where: {
+//         roomcode,
+//         vote: true
+//       },
+//       group: "foodId"
+//     });
+//     return result;
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 // TODO: take (top) number of food votes, then find hawker centres with these foods
 // TODO: rank hawker centres by distance
-export function processVoteQuery(queryresult: string, top: number) {
-  let result = JSON.parse(queryresult);
-  let result_len = Object.keys(result).length;
-  let top_len = Math.min(result_len, top);
-  if (top_len > 0) {
-    // array of sorted keys
-    let sorted_keys = Object.keys(result).sort((a, b) => result[a] - result[b]);
-    // type definition of vote results object
-    let vote_results: { [key: string]: boolean } = {};
-    for (let i = 0; i < top_len; i++) {
-      vote_results[sorted_keys[i]] = result[sorted_keys[i]];
-    }
-    // returns Json of foodID: string and number of votes: number
-    return JSON.stringify(vote_results);
-  } else {
-    console.log("No results found!");
-  }
-}

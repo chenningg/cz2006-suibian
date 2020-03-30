@@ -2,6 +2,12 @@
 import { Food } from "./Food";
 
 export type Stall = {
-  name: string;
+  stallname: string;
+  hawkercenter: string;
+  address: string;
   food: Food[];
+  imageurl: string;
+  openinghours: number;
+  closinghours: number;
+  postalcode: number;
 };
