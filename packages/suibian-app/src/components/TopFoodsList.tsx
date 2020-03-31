@@ -29,7 +29,7 @@ const TopFoodsList = (props: OwnProps) => {
   ) {
     const foodVote = foodVotesCopy[foodVoteIndex];
 
-    for (let i = 0; i < props.result.eatery.length; i++) {
+    foundFood: for (let i = 0; i < props.result.eatery.length; i++) {
       const eatery = props.result.eatery[i];
 
       // For each stall
@@ -58,11 +58,7 @@ const TopFoodsList = (props: OwnProps) => {
               foodId: food.foodId,
               count: foodVotesCopy[foodVoteIndex].count
             });
-            console.log({
-              foodname: food.foodname,
-              foodId: food.foodId,
-              count: foodVotesCopy[foodVoteIndex].count
-            });
+            break foundFood;
           }
         }
       }
