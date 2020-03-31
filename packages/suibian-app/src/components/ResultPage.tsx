@@ -6,6 +6,7 @@ import NavBar from "./NavBar";
 import EateriesList from "./EateriesList";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
+import TopFoodsList from "./TopFoodsList";
 
 // Types
 import { Result } from "@suibian/commons";
@@ -33,6 +34,7 @@ class ResultsPage extends Component<Props> {
           <div className="app-content flex-container flex-col flex-center-h flex-center-v">
             <div className="result-list-container flex-container flex-col">
               <h1 className="title">Top Food</h1>
+              <TopFoodsList result={this.props.result} />
             </div>
             <div className="result-list-container flex-container flex-col">
               <h1 className="title">Places To Go</h1>
