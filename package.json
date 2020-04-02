@@ -1,31 +1,42 @@
 {
-    "name": "suibian",
-    "version": "1.0.0",
-    "description": "The app is being hosted on Heroku. Due to free dyno hours, please do not access it during 2:30am-8:30am GMT+8.<br /> You can find the app [HERE.](https://suibian-sg.herokuapp.com/)",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "scripts": {
-        "app-start": "cd packages/suibian-app && yarn start",
-        "server-start": "cd packages/suibian-server && yarn start",
-        "server-dev": "cd packages/suibian-server && yarn run dev",
-        "start": "concurrently \"yarn run app-start\" \"yarn run server-dev\"",
-        "kill-port-mac": "lsof -ti:4000 | xargs kill"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/chenningg/suibian.git"
-    },
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/chenningg/suibian/issues"
-    },
-    "homepage": "https://github.com/chenningg/suibian#readme",
-    "private": true,
-    "workspaces": [
-        "packages/*"
+  "name": "suibian",
+  "version": "1.0.0",
+  "description": "The app is being hosted on Heroku. Due to free dyno hours, please do not access it during 2:30am-8:30am GMT+8.<br /> You can find the app [HERE.](https://suibian-sg.herokuapp.com/)",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "app-start": "cd packages/suibian-app && yarn start",
+    "start": "yarn run build:app && cd packages/suibian-server && yarn start",
+    "server-dev": "cd packages/suibian-server && yarn run dev",
+    "dev": "concurrently \"yarn run app-start\" \"yarn run server-dev\"",
+    "kill-port-mac": "lsof -ti:4000 | xargs kill",
+    "build:commons": "cd packages/commons && yarn build",
+    "build:app": "cd packages/suibian-app && yarn build",
+    "build:server": "cd packages/suibian-server && yarn build",
+    "build": "yarn run build:commons && yarn run build:app && yarn run build:server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenningg/suibian.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chenningg/suibian/issues"
+  },
+  "homepage": "https://github.com/chenningg/suibian#readme",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
     ],
-    "dependencies": {
-        "concurrently": "^5.1.0"
-    }
+    "nohoist": [
+      "**/rimraf",
+      "**/rimraf/**"
+    ]
+  },
+  "dependencies": {
+    "concurrently": "^5.1.0"
+  },
+  "devDependencies": {}
 }
