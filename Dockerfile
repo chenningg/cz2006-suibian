@@ -8,6 +8,8 @@ COPY ./packages ./packages
 
 RUN yarn install
 
+RUN yarn build:app
+
 ENV NODE_ENV production
 
 EXPOSE 4000
