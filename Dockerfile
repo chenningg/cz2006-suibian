@@ -10,8 +10,6 @@ RUN yarn install
 
 ENV NODE_ENV production
 
-RUN yarn build:app
-
 EXPOSE 4000
 
-CMD ["yarn", "server-start"]
+CMD ["yarn", "start"]
