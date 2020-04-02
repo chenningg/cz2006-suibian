@@ -8,11 +8,10 @@ import {
   Position,
   VotingStatus
 } from "@suibian/commons";
-import { sendError, broadcastRoom } from "./messaging";
+import { sendMessage, broadcastRoom } from "./messaging";
 import { foodImageQuery } from "../../queries/food";
 import { getRoomJoinQuery, joinRoomQuery } from "../../queries/join";
 import { listSocketsRoom } from "./utils";
-import Join from "../../models/join.model";
 
 const socketUserMapping = new Map<string, User>();
 
@@ -58,15 +57,18 @@ export const createRoom = async (
 
   if (roomCode) {
     socket.join(roomCode, () => {
-      socket.emit("createRoom", { roomCode });
+      sendMessage(socket, "createRoom", {
+        roomCode,
+        httpStatus: httpStatus.ok
+      });
     });
     return roomCode;
   } else {
-    sendError(
-      socket,
-      httpStatus.badRequest,
-      "No more spare rooms left to join"
-    );
+    sendMessage(socket, "socketError", {
+      errorMessage:
+        "Error creating room! Room code is currently in use already",
+      httpStatus: httpStatus.badRequest
+    });
   }
 };
 
@@ -86,22 +88,24 @@ export const closeRoom = (
   //TODO Remove room from the database
   const roomInfo = getRoomSockets(socketio, roomCode);
   if (!roomInfo) {
-    sendError(
-      socket,
-      httpStatus.badRequest,
-      "Room could not close because room code does not exist"
-    );
+    sendMessage(socket, "socketError", {
+      errorMessage: "Room could not close because room code does not exist",
+      httpStatus: httpStatus.badRequest
+    });
     return;
   }
   const socketList = Object.keys(roomInfo["sockets"]);
   socketList.forEach(socketId => {
     const socket = socketio.sockets.connected[socketId];
     socket.leave(roomCode, () => {
-      socketio.in(roomCode).emit("broadcastMessage", {
-        username: "null",
-        message: "room is closed",
-        roomCode: roomCode
-      });
+      const broadcastMessage = {
+        roomCode: roomCode,
+        payload: {
+          username: "null",
+          message: "room is closed"
+        }
+      };
+      broadcastRoom(socketio, broadcastMessage, "closeRoom");
     });
     console.log(`socket rooms ${socketio.sockets.adapter.rooms[roomCode]}`);
   });
