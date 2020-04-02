@@ -16,10 +16,12 @@ export type socketCommands =
   | "connection"
   | "disconnect"
   | "socketError"
-  | "updateResult";
+  | "updateResult"
+  | "closeRoom";
 
 export type roomPayloadBase = {
   roomCode: string;
+  httpStatus: httpStatus;
 };
 
 export type votePayload = {
@@ -50,21 +52,23 @@ export type roomMessagePayload = {
   username: string;
   message: string;
   roomCode: string;
+  httpStatus: httpStatus;
 };
 
 export type errorPayload = {
-  statusCode: httpStatus;
   errorMessage: string;
+  httpStatus: httpStatus;
 };
+
+export type suibianSocketPayloadList =
+  | roomPayloadBase
+  | roomMessagePayload
+  | errorPayload;
 
 export interface suibianSocket extends SocketIOServer.Socket {
   emit(
     event: socketCommands,
-    data:
-      | roomPayloadBase
-      | roomMessagePayload
-      | roomMessagePayload
-      | errorPayload,
+    data: suibianSocketPayloadList,
     callback?: (params?: any) => void
   ): boolean;
 }
