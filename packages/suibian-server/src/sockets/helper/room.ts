@@ -23,6 +23,10 @@ export const joinRoom = async (
 ) => {
   const { roomCode } = data;
   const { username, isOwner } = data.user;
+
+  //TODO check whether room exist
+
+  // update the database rooms
   await joinRoomQuery(username, roomCode);
   await updateRoomNumbersQuery(roomCode, 1); // increment the number of people in the room
 
@@ -31,7 +35,7 @@ export const joinRoom = async (
     isOwner
   });
 
-  //list all sockets
+  //Update the socket.io rooms
   socket.join(data.roomCode, async () => {
     const users = listSocketsRoom(socketio, roomCode, socketUserMapping);
     console.log(`the socket list is ${users}`);
