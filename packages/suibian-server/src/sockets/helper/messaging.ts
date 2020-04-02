@@ -1,36 +1,35 @@
 import socketio from "socket.io";
-import { suibianSocket, socketCommands, httpStatus } from "@suibian/commons";
+import {
+  suibianSocket,
+  socketCommands,
+  httpStatus,
+  suibianSocketPayloadList
+} from "@suibian/commons";
 
 export const broadcastRoom = (
-    socketio: socketio.Server,
-    data: {
-        roomCode: string;
-        payload: any;
-    },
-    socketCommand?: socketCommands
+  socketio: socketio.Server,
+  data: {
+    roomCode: string;
+    payload: any;
+  },
+  socketCommand: socketCommands = "broadcastMessage",
+  httpstatus: any = httpStatus.ok
 ) => {
-    //broadcast to all members in the room
-    const { roomCode, payload } = data;
-    if (socketCommand) {
-        socketio.in(roomCode).emit(socketCommand, payload); //specify with specific flag
-    } else {
-        socketio.in(roomCode).emit("broadcastMessage", payload);
-    }
+  //broadcast to all members in the room
+  const { roomCode, payload } = data;
+  let payLoadStatusAppended = {
+    ...payload,
+    httpStatus: httpstatus
+  };
+
+  socketio.in(roomCode).emit(socketCommand, payLoadStatusAppended); //specify with specific flag
 };
 
-export const sendError = (
-    socket: suibianSocket,
-    statusCode: httpStatus,
-    errorMessage: string
-) => {
-    socket.emit(
-        "socketError",
-        {
-            statusCode,
-            errorMessage
-        },
-        err => {
-            console.log(`error message is ${err}`);
-        }
-    );
+//attach status code to broadccasting
+export const sendMessage = (
+  socket: suibianSocket,
+  emitName: socketCommands,
+  data: suibianSocketPayloadList
+): void => {
+  socket.emit(emitName, data);
 };
