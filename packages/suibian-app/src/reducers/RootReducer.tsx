@@ -24,7 +24,8 @@ const initState: ReduxState = {
   result: {
     foodVoteResults: [],
     eatery: []
-  }
+  },
+  modal: { show: false, message: "", ttl: 2, modalType: "default" }
 };
 
 // The one main reducer that can have sub reducers to translate actions > update the store
@@ -74,6 +75,18 @@ const RootReducer = (state: ReduxState = initState, action: any) => {
     case "UPDATE_RESULT":
       let newResult = { ...action.result };
       return { ...state, result: newResult };
+    case "SHOW_MODAL":
+      let newModal = { ...action.modal };
+      if (!newModal.ttl) {
+        newModal.ttl = 2;
+      }
+      if (!newModal.modalType) {
+        newModal.modalType = "default";
+      }
+      newModal.show = true;
+      return { ...state, modal: newModal };
+    case "HIDE_MODAL":
+      return { ...state, modal: { ...state.modal, show: false } };
   }
 
   return state;

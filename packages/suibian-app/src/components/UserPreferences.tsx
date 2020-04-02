@@ -17,33 +17,20 @@ type StateProps = {
 
 type DispatchProps = {
   updatePreferences: (preferenceType: string) => void;
-};
-
-type State = {
-  showModal: boolean;
+  showModal: (message: string, ttl?: number, modalType?: string) => void;
 };
 
 type Props = StateProps & DispatchProps;
 
 class UserPreferences extends Component<Props> {
-  // State
-  state: State = {
-    showModal: false
-  };
-
   // Methods
   handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     this.props.updatePreferences(e.target.id);
-    this.setState({
-      showModal: false
-    });
   };
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    this.setState({
-      showModal: true
-    });
+    this.props.showModal("User preferences saved!", 2, "confirmation");
   };
 
   preferencesList = this.props.userPreferences.map(preference => (
@@ -72,12 +59,7 @@ class UserPreferences extends Component<Props> {
       <>
         <NavBar />
         <div className="user-preferences">
-          <ModalDialog
-            message="User preferences saved!"
-            modalType="confirmation"
-            ttl={2}
-            show={this.state.showModal}
-          />
+          <ModalDialog />
           <div className="app-content flex-container flex-col flex-center-v flex-center-h">
             <h1>User Preferences</h1>
             <form
@@ -108,6 +90,12 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
       dispatch({
         type: "UPDATE_USER_PREFERENCES",
         preferenceType: preferenceType
+      });
+    },
+    showModal: (message, ttl?, modalType?) => {
+      dispatch({
+        type: "SHOW_MODAL",
+        modal: { message, ttl, modalType }
       });
     }
   };
