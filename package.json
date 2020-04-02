@@ -9,7 +9,11 @@
     "server-start": "cd packages/suibian-server && yarn start",
     "server-dev": "cd packages/suibian-server && yarn run dev",
     "start": "concurrently \"yarn run app-start\" \"yarn run server-dev\"",
-    "kill-port-mac": "lsof -ti:4000 | xargs kill"
+    "kill-port-mac": "lsof -ti:4000 | xargs kill",
+    "build:commons": "cd packages/commons && yarn build",
+    "build:app": "cd packages/suibian-app && yarn build",
+    "build:server": "cd packages/suibian-server && yarn build",
+    "build": "yarn run build:commons && yarn run build:app && yarn run build:server"
   },
   "repository": {
     "type": "git",

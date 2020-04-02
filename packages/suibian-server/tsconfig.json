@@ -1,12 +1,7 @@
 {
-    "extends": "../../tsconfig.shared.json",
-    "compilerOptions": {
-        "outDir": "./dist" /* Redirect output structure to the directory. */,
-        "rootDir": "./src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
-    },
-    "references": [
-        {
-            "path": "../commons"
-        }
-    ]
+  "extends": "../../tsconfig.shared.json",
+  "compilerOptions": {
+    "outDir": "./dist" /* Redirect output structure to the directory. */,
+    "rootDir": "./src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+  }
 }
