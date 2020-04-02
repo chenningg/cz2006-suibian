@@ -63,9 +63,7 @@ class AppRouter extends Component<Props> {
     }
 
     // Initializing the connection
-    const socket = (await socketIOClient(
-      this.props.socketState.endpoint
-    )) as suibianSocketClient;
+    const socket = (await socketIOClient()) as suibianSocketClient;
     console.log("Socket created!");
     this.props.updateSocketState("socket", socket);
   };
