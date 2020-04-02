@@ -1,5 +1,7 @@
 //app components
-import React, { Component } from "react";
+import React, { Component, AnimationEvent } from "react";
+import { connect } from "react-redux";
+import ReduxState from "../types/ReduxState";
 
 //css
 import "../css/ModalDialog.css";
@@ -10,29 +12,52 @@ import "../css/ModalDialog.css";
 /* When this.state.show becomes true, you will see your modal.
 /* To reset, you need to setState(show) back to false in another event or refresh the page. */
 
-type DialogProp = {
-  message: string;
-  show: boolean;
-  ttl?: number;
-  onClose?: CloseEvent; // You can pass back an onClose event when using buttons for example to close the dialog
-  modalType?: string; // Type of modal (warning/confirmation/default)
+type StateProps = {
+  modal: Modal;
 };
 
-class ModalDialog extends Component<DialogProp> {
-  // We can access DialogProp above with this.props
+type DispatchProps = {
+  hideModal: () => void;
+};
+
+type Props = StateProps & DispatchProps;
+
+class ModalDialog extends Component<Props> {
+  handleAnimationEnd = (e: AnimationEvent<HTMLDivElement>) => {
+    this.props.hideModal();
+  };
+
   render() {
     let modalClasses =
       "modal-dialog flex-container flex-center-v flex-center-h ttl-" +
-      (this.props.ttl?.toString() || "2") +
+      (this.props.modal.ttl?.toString() || "2") +
       " modal-" +
-      (this.props.modalType || "default");
+      (this.props.modal.modalType || "default");
 
-    return this.props.show ? (
-      <div className={modalClasses}>
-        <p>{this.props.message}</p>
+    return this.props.modal.show ? (
+      <div className={modalClasses} onAnimationEnd={this.handleAnimationEnd}>
+        <p>{this.props.modal.message}</p>
       </div>
     ) : null;
   }
 }
 
-export default ModalDialog;
+// Redux functions
+const mapStateToProps = (state: ReduxState): StateProps => {
+  return {
+    modal: state.modal
+  };
+};
+
+// Links a dispatch function to a prop
+const mapDispatchToProps = (dispatch: any): DispatchProps => {
+  return {
+    hideModal: () => {
+      dispatch({
+        type: "HIDE_MODAL"
+      });
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalDialog);
