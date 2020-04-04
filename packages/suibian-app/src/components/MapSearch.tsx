@@ -122,7 +122,7 @@ const MapSearch = (props: Props) => {
       if (index <= 0) {
         return (
           <>
-            <div key="useCurrLocationKey">
+            <div key={`${id}currLocation`}>
               <li
                 onClick={handleClickCurrLoc}
                 className="flex-container flex-row flex-center-v"
