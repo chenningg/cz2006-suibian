@@ -101,6 +101,11 @@ class Home extends Component {
     });
   };
 
+  // Clear our interval function so no memory leaks
+  componentWillUnmount() {
+    clearInterval(this.timerRef);
+  }
+
   render() {
     clearInterval(this.timerRef);
     this.timerRef = setInterval(this.updateDescription, 3000);

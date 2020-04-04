@@ -52,6 +52,7 @@ class RoomLobby extends Component<Props> {
 
       // On start room event fire, I log my data
       this.props.socketState.socket.on("startRoom", (data: any) => {
+        console.log({ test: "hey", test2: data });
         if (data) {
           this.props.updateFoods(data as Food[]);
           this.setState({ redirect: true });
@@ -62,11 +63,12 @@ class RoomLobby extends Component<Props> {
     }
   };
 
-  //methods
+  // Methods
   componentDidMount() {
     this.registerSocketListeners();
   }
 
+  // Emit start room event to socket (Room owner starts room)
   handleStart = () => {
     console.log(this.props);
     if (this.props.socketState.socket) {
