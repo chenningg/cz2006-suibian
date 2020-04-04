@@ -1,0 +1,10 @@
+#root directory
+.vscode
+node_modules
+.gitignore
+scripts
+README.md
+
+
+#node modules
+packages/*/node_modules

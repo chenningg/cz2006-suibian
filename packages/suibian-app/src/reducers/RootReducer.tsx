@@ -14,7 +14,6 @@ const initState: ReduxState = {
     ]
   },
   socketState: {
-    endpoint: "http://localhost:4000/",
     socket: null,
     roomCode: ""
   },

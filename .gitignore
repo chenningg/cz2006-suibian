@@ -5,6 +5,9 @@ packages/suibian-app/node_modules
 packages/suibian-server/node_modules
 packages/commons/node_modules
 node_modules
+packages/*/dist
+packages/*/build
+
 
 /.pnp
 .pnp.js

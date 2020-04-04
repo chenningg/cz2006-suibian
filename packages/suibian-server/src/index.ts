@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 4000;
 dotenv.load({ errorOnMissing: true, includeProcessEnv: true });
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, "/../../suibian-app/public")));
+app.use(express.static(path.join(__dirname, "/../../suibian-app/build")));
 app.use(router);
 
 const httpServer = sockets.startSocketServer(app);

@@ -4,7 +4,6 @@ import { Json } from "sequelize/types/lib/utils";
 import { any } from "bluebird";
 import Food from "../models/food.model";
 import { FoodVote, Eatery, Position } from "@suibian/commons";
-import { getLatLonSocketless } from "./onemap";
 // import { Sequelize } from "sequelize/types";
 const { Op, Sequelize } = require("sequelize");
 //@ts-nocheck
