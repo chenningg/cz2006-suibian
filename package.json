@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "app-start": "cd packages/suibian-app && yarn start",
-    "start": "cd packages/suibian-server && yarn start",
+    "start": "yarn run build:app && cd packages/suibian-server && yarn start",
     "server-dev": "cd packages/suibian-server && yarn run dev",
     "dev": "concurrently \"yarn run app-start\" \"yarn run server-dev\"",
     "kill-port-mac": "lsof -ti:4000 | xargs kill",
