@@ -5,7 +5,8 @@ import {
   votePayload,
   suibianSocket,
   VotingStatus,
-  FoodVote
+  FoodVote,
+  httpStatus,
 } from "@suibian/commons";
 import { getHawkerCenterStallName } from "../../queries/stall";
 import { checkRoomCompleted } from "./room";
@@ -22,19 +23,21 @@ export const submitVote = async (
 
   //update user vote status
   await updateUserQuery(roomCode, username, {
-    votingstatus: VotingStatus.completed
+    votingstatus: VotingStatus.completed,
   });
   const returnVotes = await createVoteQueryPerUser(data); //log to database
 
   if (await checkRoomCompleted(roomCode)) {
     const result = await makeResult(roomCode, 3);
-    const dataEmit = {
-      roomCode,
-      payload: result
-    };
-    broadcastRoom(socketio, dataEmit, "updateResult");
+
+    if (result) {
+      const dataEmit = {
+        ...result,
+        httpStatus: httpStatus.ok,
+      };
+      return dataEmit;
+    }
   }
-  return returnVotes;
 };
 
 export function extractTopVotes(voteResult: FoodVote[], top: number) {
@@ -62,7 +65,7 @@ export const makeResult = async (roomCode: string, top: number) => {
 
       let stallresult = {
         foodVoteResults: processedVotes,
-        eatery: eateries
+        eatery: eateries,
       };
       return stallresult;
     }

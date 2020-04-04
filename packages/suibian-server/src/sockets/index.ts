@@ -7,7 +7,8 @@ import {
   roomPayloadBase,
   createRoomPayload,
   startRoomPayload,
-  votePayload
+  votePayload,
+  httpStatus,
 } from "@suibian/commons";
 import { createUser } from "./helper/user";
 import { broadcastRoom } from "./helper/messaging";
@@ -39,7 +40,9 @@ export default {
       socket.on("submitVote", async (data: votePayload) => {
         const roomCode = data.roomCode;
         const votes = await submitVote(io, socket, data);
-        broadcastRoom(io, { roomCode, payload: votes }, "submitVote");
+        if (votes) {
+          broadcastRoom(io, votes, roomCode, "submitVote");
+        }
       });
 
       socket.on("createRoom", async (data: createRoomPayload) => {
@@ -54,12 +57,12 @@ export default {
             roomCode,
             user: {
               username,
-              isOwner
-            }
+              isOwner,
+            },
           };
           await createUser({
             roomCode,
-            ...data
+            ...data,
           });
           await joinRoom(socket, io, roomPayload);
         }
@@ -68,14 +71,32 @@ export default {
       socket.on("startRoom", async (data: startRoomPayload) => {
         const { roomCode } = data;
         const foodArray = await startRoom(io, roomCode);
-        broadcastRoom(io, { roomCode, payload: foodArray }, "startRoom");
-        console.log("emitted food aray", foodArray);
-        console.log("emitted start rooom event to user");
+        if (foodArray) {
+          broadcastRoom(
+            io,
+            { foodArray, httpStatus: httpStatus.ok },
+            roomCode,
+            "startRoom"
+          );
+          console.log("emitted food aray", foodArray);
+          console.log("emitted start rooom event to user");
+        } else {
+          broadcastRoom(
+            io,
+            {
+              errorMessage: "food array not found",
+              httpStatus: httpStatus.badRequest,
+            },
+            roomCode,
+            "socketError"
+          );
+          console.log("[startRoom] Food array not found");
+        }
       });
 
-      socket.on("getRoomInfo", (data: roomPayloadBase) => { });
+      socket.on("getRoomInfo", (data: roomPayloadBase) => {});
     });
 
     return httpServer;
-  }
+  },
 };

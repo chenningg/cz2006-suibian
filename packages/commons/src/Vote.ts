@@ -6,7 +6,7 @@ export type Vote = {
 export enum VotingStatus {
   waiting = "waiting",
   voting = "voting",
-  completed = "completed"
+  completed = "completed",
 }
 export type FoodVote = {
   foodId: string;

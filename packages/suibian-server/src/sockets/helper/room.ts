@@ -6,12 +6,13 @@ import {
   suibianSocket,
   User,
   Position,
-  VotingStatus
+  VotingStatus,
 } from "@suibian/commons";
 import { sendMessage, broadcastRoom } from "./messaging";
 import { foodImageQuery } from "../../queries/food";
 import { getRoomJoinQuery, joinRoomQuery } from "../../queries/join";
 import { listSocketsRoom } from "./utils";
+import Food from "../../models/food.model";
 
 const socketUserMapping = new Map<string, User>();
 
@@ -31,19 +32,24 @@ export const joinRoom = async (
 
   socketUserMapping.set(socket.id, {
     username,
-    isOwner
+    isOwner,
   });
 
   //Update the socket.io rooms
   socket.join(data.roomCode, async () => {
     const users = listSocketsRoom(socketio, roomCode, socketUserMapping);
     console.log(`the socket list is ${users}`);
+
+    const broadcastMessage = {
+      roomCode,
+      users,
+      httpStatus: httpStatus.ok,
+    };
+
     await broadcastRoom(
       socketio,
-      {
-        roomCode,
-        payload: { roomCode, users }
-      },
+      broadcastMessage,
+      roomCode,
       "joinRoom" //broadcast using joinRoom socket command
     );
   });
@@ -59,7 +65,7 @@ export const createRoom = async (
     socket.join(roomCode, () => {
       sendMessage(socket, "createRoom", {
         roomCode,
-        httpStatus: httpStatus.ok
+        httpStatus: httpStatus.ok,
       });
     });
     return roomCode;
@@ -67,7 +73,7 @@ export const createRoom = async (
     sendMessage(socket, "socketError", {
       errorMessage:
         "Error creating room! Room code is currently in use already",
-      httpStatus: httpStatus.badRequest
+      httpStatus: httpStatus.badRequest,
     });
   }
 };
@@ -90,28 +96,28 @@ export const closeRoom = (
   if (!roomInfo) {
     sendMessage(socket, "socketError", {
       errorMessage: "Room could not close because room code does not exist",
-      httpStatus: httpStatus.badRequest
+      httpStatus: httpStatus.badRequest,
     });
     return;
   }
   const socketList = Object.keys(roomInfo["sockets"]);
-  socketList.forEach(socketId => {
+  socketList.forEach((socketId) => {
     const socket = socketio.sockets.connected[socketId];
     socket.leave(roomCode, () => {
       const broadcastMessage = {
-        roomCode: roomCode,
-        payload: {
-          username: "null",
-          message: "room is closed"
-        }
+        httpStatus: httpStatus.ok,
+        message: "room is closed",
       };
-      broadcastRoom(socketio, broadcastMessage, "closeRoom");
+      broadcastRoom(socketio, broadcastMessage, roomCode, "closeRoom");
     });
     console.log(`socket rooms ${socketio.sockets.adapter.rooms[roomCode]}`);
   });
 };
 
-export const startRoom = async (io: socketio.Server, roomCode: string) => {
+export const startRoom = async (
+  io: socketio.Server,
+  roomCode: string
+): Promise<Food[] | null> => {
   //TODO Add in entries in the database & change room status
   const foodArrayString = await foodImageQuery(50);
   if (foodArrayString != null) {
