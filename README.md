@@ -3,15 +3,12 @@
     <img src="https://i.imgur.com/1vA5pMw.png" width="180px" alt="Suibian Logo" />
   </a>
 </p>
-<a href="https://suibian-database.herokuapp.com/">Go to Suibian!</a>
+<p align="center"><a href="https://suibian-database.herokuapp.com/">Go to Suibian!</a></p>
 <p align="left">Suibian is a food recommendation app for groups of friends that don't know what or where to eat. Just load up Suibian, pick your location of meetup, and create a room. Your friends can then join your room and you can all decide as a group what food to eat by voting on food items. We'll show you where to eat at the end!</p>
-
-
-
+-----------
+# How to use
+<p>
 ![Suibian Landing Page](https://i.imgur.com/7A0o0Ti.png)
-
-The app is being hosted on Heroku. Due to free dyno hours, please do not access it during 2:30am-8:30am GMT+8.<br />
-You can find the app [HERE.](https://suibian-database.herokuapp.com/)
 
 # Deploying server code
 
