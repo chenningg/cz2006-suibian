@@ -17,48 +17,48 @@ Suibian is a food recommendation app for groups of friends that don't know what 
 7. View the results and Suibian eat!
 
 
-# Deploying server code
+# Contributing to Suibian
 
-To update the application code, you must be a contributor of this repository. Create a new branch and submit a pull request for the master branch. Once approved, your code will automatically be deployed to Heroku.
+To update the application code, you must be a contributor of this repository. Create a new branch and submit a pull request for the master branch. Do look at the issues if you want something to work on, or open your own!
 
-Please make sure your code works before deploying to master. You should test your code on a local server localhost:3000 to make sure everything is functioning correctly first.
+Please make sure your code works before submitting a pull request. You should test your code on a local server localhost:3000 to make sure everything is functioning correctly first. 
 
-# Getting started
+# Getting started (For developers)
 
-### Installation
+## Installation
+1. Clone this repository into your local machine.
+2. Make sure you have [yarn](https://yarnpkg.com/) installed.
+3. Open a terminal instance and cd to the root directory of your cloned repository. In the root directory, type `yarn install`. This is a mono-repo format where the common modules will be installed in the root folder directory and the more specific modules are installed in the respective packages of client and server.
 
-Open a terminal instance and cd to the root directory. In the root directory, type `yarn install` . This is a mono-repo format where the common modules will be installed in the root folder directory and the more specific modules are installed in the respective packages.
+## Testing your local setup
 
-### Testing local setup
+After the node modules is installed, run `yarn dev` in both suibian-server and suibian-app to get it working. This runs both the server and client in development mode.
 
-After the node modules is installed, run `yarn start` in both suibian-server and suibian-app to get it working.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The app is being served via a http proxy to the express server which serves the react app.
 
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-The app is being served via a http proxy to the express server which serves the react app.
+# Yarn commands
 
-# React commands
+If you would like a more specific runtime, there are several other commands to run either the client or server in standalone mode.
 
-The react application can be run from either the root directory or the suibian-app directory under packages.
-
-## Root directory
+## From root directory
 
 ### `yarn run app-start`
 
-Runs the app in the development mode.<br />
+Runs only the client in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+The page will hot reload if you make edits and save.<br />
+You will also see any linting errors in the console.
 
-## suibian-app directory
+### `yarn run server-start`
 
-### `yarn start`
+Runs the server using ts-node.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### `yarn run server-dev`
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Runs the server using nodemon, enabling hot reloading.
+
+## From suibian-app directory (client)
 
 ### `yarn test`
 
@@ -75,21 +75,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-# NodeJS
-
-Suibian backend server can be run from the root directory or the suibian-server directory.
-
-## Root directory
-
-### `yarn run server-start`
-
-Runs the server using ts-node.
-
-### `yarn run server-dev`
-
-Runs the server using nodemon, enabling hot reloading.
-
-## suibian-server directory
+## From suibian-server directory (server)
 
 ### `yarn start`
 
@@ -98,9 +84,3 @@ Compiles the typescript files and launches the express server on the port specif
 ### `yarn run clean`
 
 Cleans the outDir of the typescript compile, removing old typescript files
-
-# Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
