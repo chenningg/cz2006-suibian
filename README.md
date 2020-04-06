@@ -28,7 +28,7 @@ Please make sure your code works before submitting a pull request. You should te
 ## Installation
 1. Clone this repository into your local machine.
 2. Make sure you have [yarn](https://yarnpkg.com/) installed.
-3. Open a terminal instance and cd to the root directory of your cloned repository. In the root directory, type `yarn install`. This is a mono-repo format where the common modules will be installed in the root folder directory and the more specific modules are installed in the respective packages of client and server.
+3. Open a terminal instance and `cd` to the root directory of your cloned repository. In the root directory, type `yarn install`. This is a mono-repo format where the common modules will be installed in the root folder directory and the more specific modules are installed in the respective packages of client and server.
 
 ## Testing your local setup
 
