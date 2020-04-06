@@ -1,4 +1,4 @@
-<div align="center" style="margin-bottom:10px">
+<div align="center" margin-bottom:"10px">
   <a href="https://suibian-database.herokuapp.com/">
     <img src="https://i.imgur.com/1vA5pMw.png" width="180px" alt="Suibian Logo" />
   </a>
