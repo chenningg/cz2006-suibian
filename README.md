@@ -4,13 +4,18 @@
   </a>
 </p>
 <p align="center"><a href="https://suibian-database.herokuapp.com/">Go to Suibian!</a></p>
-<p align="left">Suibian is a food recommendation app for groups of friends that don't know what or where to eat. Just load up Suibian, pick your location of meetup, and create a room. Your friends can then join your room and you can all decide as a group what food to eat by voting on food items. We'll show you where to eat at the end!</p>
-
----
+Suibian is a food recommendation app for groups of friends that don't know what or where to eat. Just load up Suibian, pick your location of meetup, and create a room. Your friends can then join your room and you can all decide as a group what food to eat by voting on food items. We'll show you where to eat at the end!
 
 # How to use
-<p>
 ![Suibian Landing Page](https://i.imgur.com/7A0o0Ti.png)
+1. First, go to **User Preferences** to change your dietary restrictions. Go back to the home page after clicking save preferences.
+2. One person from your group will be the room owner. From the home page, click on **Create Room**. You will be asked to input a meeting location and your username. This can be anything you like.
+3. You will be moved into a room lobby. Take note of your room code at the top (without the '#' symbol). Send this to your friends so they can join your room!
+4. The rest of the group will click on **Join Room** at the home page. You will be asked to put in the room code and a username.
+5. The room owner clicks on **Start Room** once everybody is in.
+6. Follow the instructions and click on the heart if you like the food, and the cross if you don't!
+7. View the results and Suibian eat!
+
 
 # Deploying server code
 
