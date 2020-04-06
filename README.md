@@ -83,4 +83,4 @@ Compiles the typescript files and launches the express server on the port specif
 
 ### `yarn run clean`
 
-Cleans the outDir of the typescript compile, removing old typescript files
+Cleans the outDir of the typescript compile, removing old typescript files.
