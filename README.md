@@ -1,8 +1,8 @@
-<div align="center" margin-bottom:"10px">
+<p align="center">
   <a href="https://suibian-database.herokuapp.com/">
     <img src="https://i.imgur.com/1vA5pMw.png" width="180px" alt="Suibian Logo" />
   </a>
-</div>
+</p>
 <p align="left">Suibian is a food recommendation app for groups of friends that don't know what or where to eat. Just load up Suibian, pick your location of meetup, and create a room. Your friends can then join your room and you can all decide as a group what food to eat by voting on food items. We'll show you where to eat at the end!</p>
 
 <p>Access Suibian <a href="https://suibian-database.herokuapp.com/">HERE.</a></p>
