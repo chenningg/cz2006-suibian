@@ -1,4 +1,4 @@
-<p style="text-align: center;">![Suibian Logo](https://i.imgur.com/1vA5pMw.png)<p>
+![Suibian Logo](https://i.imgur.com/1vA5pMw.png)
 
 ![Suibian Landing Page](https://i.imgur.com/7A0o0Ti.png)
 
