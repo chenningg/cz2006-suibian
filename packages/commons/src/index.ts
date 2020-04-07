@@ -8,3 +8,4 @@ export * from "./Position";
 export * from "./Result";
 export * from "./Eatery";
 export * from "./Stall";
+export * from "./messaging";

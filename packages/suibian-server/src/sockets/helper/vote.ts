@@ -28,7 +28,7 @@ export const submitVote = async (
   const returnVotes = await createVoteQueryPerUser(data); //log to database
 
   if (await checkRoomCompleted(roomCode)) {
-    const result = await makeResult(roomCode, 3);
+    const result = await makeResult(roomCode, 5);
 
     if (result) {
       const dataEmit = {

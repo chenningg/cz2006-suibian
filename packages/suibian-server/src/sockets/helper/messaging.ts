@@ -14,12 +14,3 @@ export const broadcastRoom = (
 ) => {
   socketio.in(roomCode).emit(socketCommand, data); //specify with specific flag
 };
-
-//attach status code to broadccasting
-export const sendMessage = (
-  socket: suibianSocket,
-  emitName: socketCommands,
-  data: suibianSocketPayloadList
-): void => {
-  socket.emit(emitName, data);
-};
