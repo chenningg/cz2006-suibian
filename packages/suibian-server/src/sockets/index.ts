@@ -41,7 +41,7 @@ export default {
         const roomCode = data.roomCode;
         const votes = await submitVote(io, socket, data);
         if (votes) {
-          broadcastRoom(io, votes, roomCode, "submitVote");
+          broadcastRoom(io, votes, roomCode, "updateResult");
         }
       });
 
