@@ -3,33 +3,14 @@ import {
   suibianSocket,
   socketCommands,
   httpStatus,
-  suibianSocketPayloadList
+  suibianSocketPayloadList,
 } from "@suibian/commons";
 
 export const broadcastRoom = (
   socketio: socketio.Server,
-  data: {
-    roomCode: string;
-    payload: any;
-  },
-  socketCommand: socketCommands = "broadcastMessage",
-  httpstatus: any = httpStatus.ok
+  data: suibianSocketPayloadList,
+  roomCode: string,
+  socketCommand: socketCommands = "broadcastMessage"
 ) => {
-  //broadcast to all members in the room
-  const { roomCode, payload } = data;
-  let payLoadStatusAppended = {
-    ...payload,
-    httpStatus: httpstatus
-  };
-
-  socketio.in(roomCode).emit(socketCommand, payLoadStatusAppended); //specify with specific flag
-};
-
-//attach status code to broadccasting
-export const sendMessage = (
-  socket: suibianSocket,
-  emitName: socketCommands,
-  data: suibianSocketPayloadList
-): void => {
-  socket.emit(emitName, data);
+  socketio.in(roomCode).emit(socketCommand, data); //specify with specific flag
 };

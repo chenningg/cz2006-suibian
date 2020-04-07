@@ -14,7 +14,7 @@ import "../css/RoomLobby.css";
 import { SocketState } from "../types/SocketState";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
-import { User, Food } from "@suibian/commons";
+import { User, Food, foodArrayPayload } from "@suibian/commons";
 
 // Types
 type OwnProps = {
@@ -39,7 +39,7 @@ type Props = StateProps & DispatchProps & OwnProps;
 class RoomLobby extends Component<Props> {
   //state
   state = {
-    redirect: false
+    redirect: false,
   };
 
   // disabled: string = this.props.user.isOwner ? "TRUE" : "FALSE";
@@ -51,15 +51,19 @@ class RoomLobby extends Component<Props> {
       console.log("Registering socket listeners...");
 
       // On start room event fire, I log my data
-      this.props.socketState.socket.on("startRoom", (data: any) => {
-        console.log({ test: "hey", test2: data });
-        if (data) {
-          this.props.updateFoods(data as Food[]);
-          this.setState({ redirect: true });
-        } else {
-          console.log(`Error! No data received from startRoom event.`);
+      this.props.socketState.socket.on(
+        "startRoom",
+        (data: foodArrayPayload) => {
+          console.log({ data });
+          if (data) {
+            const { foodArray } = data;
+            this.props.updateFoods(foodArray);
+            this.setState({ redirect: true });
+          } else {
+            console.log(`Error! No data received from startRoom event.`);
+          }
         }
-      });
+      );
     }
   };
 
@@ -73,7 +77,7 @@ class RoomLobby extends Component<Props> {
     console.log(this.props);
     if (this.props.socketState.socket) {
       this.props.socketState.socket.emit("startRoom", {
-        roomCode: this.props.socketState.roomCode
+        roomCode: this.props.socketState.roomCode,
       });
     }
   };
@@ -115,19 +119,19 @@ const mapStateToProps = (state: ReduxState): StateProps => {
     users: state.users,
     socketState: state.socketState,
     foods: state.foods,
-    user: state.user
+    user: state.user,
   };
 };
 
 // Links a dispatch function to a prop
 const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
-    updateFoods: foods => {
+    updateFoods: (foods) => {
       dispatch({
         type: "UPDATE_FOODS",
-        foods: foods
+        foods: foods,
       });
-    }
+    },
   };
 };
 

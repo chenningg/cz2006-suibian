@@ -2,7 +2,8 @@ import SocketIOServer from "socket.io";
 import { User } from "./User";
 import { httpStatus } from "./httpStatus";
 import { Food } from "./Food";
-import { Vote } from "./Vote";
+import { Eatery } from "./Eatery";
+import { Vote, FoodVote } from "./Vote";
 import { Position } from "./Position";
 
 export type socketCommands =
@@ -30,8 +31,15 @@ export type votePayload = {
   votes: Vote[];
 };
 
+export type voteResultPayload = {
+  foodVoteResults: FoodVote[];
+  eatery: Eatery[] | undefined;
+  httpStatus: httpStatus;
+};
+
 export type foodArrayPayload = {
   foodArray: Food[];
+  httpStatus: httpStatus;
 };
 
 export type createRoomPayload = {
@@ -60,10 +68,25 @@ export type errorPayload = {
   httpStatus: httpStatus;
 };
 
+export type roomUsersPayload = {
+  roomCode: string;
+  users: User[];
+  httpStatus: httpStatus;
+};
+
+export type closeRoomPayload = {
+  httpStatus: httpStatus;
+  message: string;
+};
+
 export type suibianSocketPayloadList =
   | roomPayloadBase
   | roomMessagePayload
-  | errorPayload;
+  | errorPayload
+  | roomUsersPayload
+  | closeRoomPayload
+  | voteResultPayload
+  | foodArrayPayload;
 
 export interface suibianSocket extends SocketIOServer.Socket {
   emit(
