@@ -15,7 +15,7 @@ Suibian is a food recommendation app for groups of friends that don't know what 
 5. The room owner clicks on **Start Room** once everybody is in.
 6. Follow the instructions and click on the heart if you like the food, and the cross if you don't!
 7. View the results and Suibian eat!
-
+![Suibian Landing Page](https://i.imgur.com/gIQmqTv.png)
 
 # Contributing to Suibian
 
