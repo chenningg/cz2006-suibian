@@ -79,7 +79,7 @@ class RoomLobby extends Component<Props> {
   }
 
   // Call leave room method
-  leaveRoom() {
+  leaveRoom = () => {
     const leaveRoomPayload: joinRoomPayload = {
       roomCode: this.props.socketState.roomCode,
       user: this.props.user,
@@ -89,7 +89,7 @@ class RoomLobby extends Component<Props> {
       this.props.updateUser("isOwner", false);
       console.log("leaving room component unmounted");
     }
-  }
+  };
 
   // Emit start room event to socket (Room owner starts room)
   handleStart = () => {
