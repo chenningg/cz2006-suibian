@@ -108,7 +108,7 @@ class RoomLobby extends Component<Props> {
 
     return this.props.users.length > 0 ? (
       <>
-        <NavBar leaveRoom={this.leaveRoom} />
+        <NavBar callback={this.leaveRoom} />
         <div className="room-lobby">
           <div className="app-content flex-container flex-col flex-center-v flex-center-h flex-start">
             <h1 className="title">Room #{this.props.socketState.roomCode}</h1>
