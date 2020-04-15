@@ -11,12 +11,17 @@ import suibianLogo from "../images/suibian_full_logo_white.png";
 
 type OwnProps = {
   backPage?: string;
+  leaveRoom?: () => void;
 };
 
 class NavBar extends Component<OwnProps> {
   render() {
     let backLink = "/";
     if (this.props.backPage) {
+      if (this.props.leaveRoom) {
+        this.props.leaveRoom();
+      }
+
       backLink = "/" + this.props.backPage;
     }
 

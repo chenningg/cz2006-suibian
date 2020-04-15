@@ -11,7 +11,7 @@ type OwnProps = {
 
 // Functional component
 const EateriesList = (props: OwnProps) => {
-  const handleClick = e => {
+  const handleClick = (e) => {
     console.log(e.target.getAttribute("data-value"));
     props.history.push(`/eatery/${e.target.getAttribute("data-value")}`);
   };
