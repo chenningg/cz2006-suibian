@@ -15,13 +15,15 @@ type OwnProps = {
 };
 
 class NavBar extends Component<OwnProps> {
+  leaveRoom = () => {
+    if (this.props.leaveRoom) {
+      this.props.leaveRoom();
+    }
+  };
+
   render() {
     let backLink = "/";
     if (this.props.backPage) {
-      if (this.props.leaveRoom) {
-        this.props.leaveRoom();
-      }
-
       backLink = "/" + this.props.backPage;
     }
 
@@ -29,6 +31,7 @@ class NavBar extends Component<OwnProps> {
       <>
         <div className="navbar flex-container flex-row flex-center-v">
           <Link
+            onClick={this.leaveRoom}
             to={backLink}
             className="navbar-back-icon-container flex-container flex-center-v flex-center-h"
           >
