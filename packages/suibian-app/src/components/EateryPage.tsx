@@ -25,7 +25,7 @@ type Props = StateProps & OwnProps;
 class EateryPage extends Component<Props> {
   // Variables
   state = {
-    ready: false
+    ready: false,
   };
 
   eatery: Eatery = this.props.result.eatery[
@@ -49,13 +49,14 @@ class EateryPage extends Component<Props> {
                 label={this.eatery.name}
                 center={{
                   lat: this.eatery.location.latitude,
-                  lng: this.eatery.location.longitude
+                  lng: this.eatery.location.longitude,
                 }}
                 zoom={17}
               />
               <a
-                /*href={`https://www.google.com/maps/search/?api=1&query=${this.eatery.location.latitude},${this.eatery.location.longitude}`}*/
-                href={`https://www.google.com/maps/search/?api=1&query=${this.eatery.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`https://www.google.com/maps/search/?api=1&query=${this.eatery.location.latitude},${this.eatery.location.longitude}`}
                 className="google-maps-button"
               >
                 View in Maps
@@ -78,7 +79,7 @@ class EateryPage extends Component<Props> {
 // Redux functions
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
-    result: state.result
+    result: state.result,
   };
 };
 

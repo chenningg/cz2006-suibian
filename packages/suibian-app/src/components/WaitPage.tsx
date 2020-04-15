@@ -37,14 +37,14 @@ type Props = StateProps & DispatchProps & OwnProps;
 const styles = {
   hugeIcon: {
     width: 200,
-    height: 200
-  }
+    height: 200,
+  },
 };
 
 class WaitPage extends Component<Props> {
   //state
   state = {
-    redirect: false
+    redirect: false,
   };
 
   // Register socket to listen to events
@@ -81,7 +81,7 @@ class WaitPage extends Component<Props> {
       let newEatery = {
         name: eatery.name,
         location: { latitude: loc.lat, longitude: loc.lng },
-        stalls: eatery.stalls
+        stalls: eatery.stalls,
       };
 
       newEateries.push(newEatery);
@@ -122,19 +122,19 @@ class WaitPage extends Component<Props> {
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
     socketState: state.socketState,
-    result: state.result
+    result: state.result,
   };
 };
 
 // Links a dispatch function to a prop
 const mapDispatchToProps = (dispatch: any): DispatchProps => {
   return {
-    updateResult: result => {
+    updateResult: (result) => {
       dispatch({
         type: "UPDATE_RESULT",
-        result: result
+        result: result,
       });
-    }
+    },
   };
 };
 
