@@ -11,13 +11,13 @@ import suibianLogo from "../images/suibian_full_logo_white.png";
 
 type OwnProps = {
   backPage?: string;
-  leaveRoom?: () => void;
+  callback?: () => void;
 };
 
 class NavBar extends Component<OwnProps> {
-  leaveRoom = () => {
-    if (this.props.leaveRoom) {
-      this.props.leaveRoom();
+  callback = () => {
+    if (this.props.callback) {
+      this.props.callback();
     }
   };
 
@@ -31,7 +31,7 @@ class NavBar extends Component<OwnProps> {
       <>
         <div className="navbar flex-container flex-row flex-center-v">
           <Link
-            onClick={this.leaveRoom}
+            onClick={this.callback}
             to={backLink}
             className="navbar-back-icon-container flex-container flex-center-v flex-center-h"
           >
