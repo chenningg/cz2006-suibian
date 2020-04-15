@@ -38,6 +38,7 @@ type StateProps = {
 
 type DispatchProps = {
   updateFoods: (foods: Food[]) => void;
+  updateUser: (key: string, value: boolean) => void;
 };
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -83,9 +84,9 @@ class RoomLobby extends Component<Props> {
       roomCode: this.props.socketState.roomCode,
       user: this.props.user,
     };
-    console.log(this.props.socketState);
     if (this.props.socketState.socket) {
       this.props.socketState.socket.emit("leaveRoom", leaveRoomPayload);
+      this.props.updateUser("isOwner", false);
       console.log("leaving room component unmounted");
     }
   }
@@ -148,6 +149,13 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
       dispatch({
         type: "UPDATE_FOODS",
         foods: foods,
+      });
+    },
+    updateUser: (key, value) => {
+      dispatch({
+        type: "UPDATE_USER",
+        key: key,
+        value: value,
       });
     },
   };
