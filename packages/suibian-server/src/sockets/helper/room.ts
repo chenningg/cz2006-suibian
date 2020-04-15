@@ -137,15 +137,16 @@ export const leaveRoom = async (
   socket: suibianSocket,
   roomCode: string
 ) => {
-  //remove user from join table
-  //update the number of people in room table
   const user = socketUserMapping.get(socket.id);
-
   if (user && user.isOwner) {
+    //remove user from join table
+    //update the number of people in room table
     await deleteJoinQuery(roomCode, user.username);
     await updateRoomNumbersQuery(roomCode, -1);
-    //remove individual from hashmap
+
+    //remove individual from hashmap and socket from socketio room
     socketUserMapping.delete(socket.id);
+    socket.leave(roomCode);
 
     const socketList = listSocketsRoomSocketId(io, roomCode);
     if (socketList.length >= 1) {
@@ -161,7 +162,6 @@ export const leaveRoom = async (
 
   //send updated room participant list
   const users = listSocketsRoomUsers(io, roomCode, socketUserMapping);
-  console.log(`the socket list is ${users}`);
 
   const broadcastMessage = {
     roomCode,
