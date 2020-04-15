@@ -14,7 +14,13 @@ import "../css/RoomLobby.css";
 import { SocketState } from "../types/SocketState";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
-import { User, Food, foodArrayPayload } from "@suibian/commons";
+import {
+  User,
+  Food,
+  foodArrayPayload,
+  sendMessage,
+  joinRoomPayload,
+} from "@suibian/commons";
 
 // Types
 type OwnProps = {
@@ -70,6 +76,18 @@ class RoomLobby extends Component<Props> {
   // Methods
   componentDidMount() {
     this.registerSocketListeners();
+  }
+
+  componentWillUnmount() {
+    const leaveRoomPayload: joinRoomPayload = {
+      roomCode: this.props.socketState.roomCode,
+      user: this.props.user,
+    };
+    console.log(this.props.socketState);
+    if (this.props.socketState.socket) {
+      this.props.socketState.socket.emit("leaveRoom", leaveRoomPayload);
+      console.log("leaving room component unmounted");
+    }
   }
 
   // Emit start room event to socket (Room owner starts room)

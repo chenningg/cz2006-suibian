@@ -103,6 +103,7 @@ export default {
       socket.on("getRoomInfo", (data: roomPayloadBase) => {});
 
       socket.on("leaveRoom", async (data: joinRoomPayload) => {
+        console.log("leave room on server received");
         await leaveRoom(io, socket, data.roomCode);
       });
     });

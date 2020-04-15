@@ -173,7 +173,7 @@ export const leaveRoom = async (
     io,
     broadcastMessage,
     roomCode,
-    "leaveRoom" //broadcast using joinRoom socket command
+    "joinRoom" //broadcast using joinRoom socket command
   );
 };
 
