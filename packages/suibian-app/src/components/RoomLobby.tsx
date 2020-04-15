@@ -78,7 +78,8 @@ class RoomLobby extends Component<Props> {
     this.registerSocketListeners();
   }
 
-  componentWillUnmount() {
+  // Call leave room method
+  leaveRoom() {
     const leaveRoomPayload: joinRoomPayload = {
       roomCode: this.props.socketState.roomCode,
       user: this.props.user,
@@ -107,7 +108,7 @@ class RoomLobby extends Component<Props> {
 
     return this.props.users.length > 0 ? (
       <>
-        <NavBar />
+        <NavBar leaveRoom={this.leaveRoom} />
         <div className="room-lobby">
           <div className="app-content flex-container flex-col flex-center-v flex-center-h flex-start">
             <h1 className="title">Room #{this.props.socketState.roomCode}</h1>
