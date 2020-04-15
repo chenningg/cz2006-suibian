@@ -8,9 +8,10 @@ import { Position } from "./Position";
 
 export type socketCommands =
   | "joinRoom"
+  | "startRoom"
+  | "leaveRoom"
   | "submitVote"
   | "createRoom"
-  | "startRoom"
   | "submitVote"
   | "changeUsername"
   | "broadcastMessage"

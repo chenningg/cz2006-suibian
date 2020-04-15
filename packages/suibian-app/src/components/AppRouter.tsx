@@ -19,7 +19,7 @@ import "../css/Global.css";
 
 // Sockets and Redux
 import { SocketState } from "../types/SocketState";
-import { suibianSocketClient } from "@suibian/commons";
+import { suibianSocketClient, roomUsersPayload } from "@suibian/commons";
 import socketIOClient from "socket.io-client";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
@@ -29,6 +29,7 @@ import { User } from "@suibian/commons";
 type StateProps = {
   users: User[];
   socketState: SocketState;
+  user: User;
 };
 
 type DispatchProps = {
@@ -86,11 +87,22 @@ class AppRouter extends Component<Props> {
       });
 
       // On join room event fire, I log my data
-      this.props.socketState.socket.on("joinRoom", (data: any) => {
+      this.props.socketState.socket.on("joinRoom", (data: roomUsersPayload) => {
         if (data) {
           console.log(`Joined room #${data.roomCode}.`);
           this.props.updateSocketState("roomCode", data.roomCode);
           this.props.updateUsers(data.users);
+
+          //update personal user if assigned to be the new roomOwner
+          data.users.forEach((user) => {
+            if (
+              user.username === this.props.user.username &&
+              user.isOwner !== this.props.user.isOwner
+            ) {
+              //update user isowner property
+              this.props.updateUser("isOwner", user.isOwner);
+            }
+          });
         } else {
           console.log(`Error! No data received from joinRoom event.`);
         }
@@ -129,7 +141,8 @@ class AppRouter extends Component<Props> {
 const mapStateToProps = (state: ReduxState): StateProps => {
   return {
     users: state.users,
-    socketState: state.socketState
+    socketState: state.socketState,
+    user: state.user,
   };
 };
 
@@ -140,22 +153,22 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
       dispatch({
         type: "UPDATE_SOCKET_STATE",
         key: key,
-        value: value
+        value: value,
       });
     },
-    updateUsers: users => {
+    updateUsers: (users) => {
       dispatch({
         type: "UPDATE_USERS",
-        users: users
+        users: users,
       });
     },
     updateUser: (key, value) => {
       dispatch({
         type: "UPDATE_USER",
         key: key,
-        value: value
+        value: value,
       });
-    }
+    },
   };
 };
 

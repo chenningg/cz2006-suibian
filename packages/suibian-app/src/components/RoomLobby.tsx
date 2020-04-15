@@ -14,7 +14,12 @@ import "../css/RoomLobby.css";
 import { SocketState } from "../types/SocketState";
 import { connect } from "react-redux";
 import ReduxState from "../types/ReduxState";
-import { User, Food, foodArrayPayload } from "@suibian/commons";
+import {
+  User,
+  Food,
+  foodArrayPayload,
+  joinRoomPayload,
+} from "@suibian/commons";
 
 // Types
 type OwnProps = {
@@ -32,6 +37,7 @@ type StateProps = {
 
 type DispatchProps = {
   updateFoods: (foods: Food[]) => void;
+  updateUser: (key: string, value: boolean) => void;
 };
 
 type Props = StateProps & DispatchProps & OwnProps;
@@ -70,6 +76,18 @@ class RoomLobby extends Component<Props> {
   // Methods
   componentDidMount() {
     this.registerSocketListeners();
+  }
+
+  componentWillUnmount() {
+    const leaveRoomPayload: joinRoomPayload = {
+      roomCode: this.props.socketState.roomCode,
+      user: this.props.user,
+    };
+    if (this.props.socketState.socket) {
+      this.props.socketState.socket.emit("leaveRoom", leaveRoomPayload);
+      this.props.updateUser("isOwner", false);
+      console.log("leaving room component unmounted");
+    }
   }
 
   // Emit start room event to socket (Room owner starts room)
@@ -130,6 +148,13 @@ const mapDispatchToProps = (dispatch: any): DispatchProps => {
       dispatch({
         type: "UPDATE_FOODS",
         foods: foods,
+      });
+    },
+    updateUser: (key, value) => {
+      dispatch({
+        type: "UPDATE_USER",
+        key: key,
+        value: value,
       });
     },
   };

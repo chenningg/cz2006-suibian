@@ -1,6 +1,12 @@
 import express from "express";
 import socketio from "socket.io";
-import { joinRoom, createRoom, closeRoom, startRoom } from "./helper/room";
+import {
+  joinRoom,
+  createRoom,
+  closeRoom,
+  startRoom,
+  leaveRoom,
+} from "./helper/room";
 import {
   suibianSocket,
   joinRoomPayload,
@@ -95,6 +101,11 @@ export default {
       });
 
       socket.on("getRoomInfo", (data: roomPayloadBase) => {});
+
+      socket.on("leaveRoom", async (data: joinRoomPayload) => {
+        console.log("leave room on server received");
+        await leaveRoom(io, socket, data.roomCode);
+      });
     });
 
     return httpServer;

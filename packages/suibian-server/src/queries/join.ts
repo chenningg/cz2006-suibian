@@ -10,8 +10,8 @@ export const updateUserQuery = async (
     await Join.update<Join>(data, {
       where: {
         roomcode,
-        username
-      }
+        username,
+      },
     });
   } catch (err) {
     console.log(`error message :${err}`);
@@ -23,7 +23,7 @@ export const joinRoomQuery = async (username: string, roomcode: string) => {
     await Join.create({
       username,
       roomcode,
-      votingstatus: VotingStatus.waiting
+      votingstatus: VotingStatus.waiting,
     });
   } catch (err) {
     console.log(err);
@@ -36,12 +36,27 @@ export const getRoomJoinQuery = async (
   try {
     const joinResult = await Join.findAll({
       where: {
-        roomcode: roomCode
-      }
+        roomcode: roomCode,
+      },
     });
 
     if (joinResult !== []) return joinResult;
   } catch (err) {
     console.log(`error is ${err}`);
+  }
+};
+
+export const deleteJoinQuery = async (roomCode: string, username: string) => {
+  console.log(roomCode, username);
+  try {
+    const numDeleted = await Join.destroy({
+      where: {
+        roomcode: roomCode,
+        username: username,
+      },
+    });
+    console.log(numDeleted);
+  } catch (err) {
+    console.log(err);
   }
 };

@@ -11,8 +11,12 @@ import {
 import { broadcastRoom } from "./messaging";
 import { sendMessage } from "@suibian/commons";
 import { foodImageQuery } from "../../queries/food";
-import { getRoomJoinQuery, joinRoomQuery } from "../../queries/join";
-import { listSocketsRoom } from "./utils";
+import {
+  getRoomJoinQuery,
+  joinRoomQuery,
+  deleteJoinQuery,
+} from "../../queries/join";
+import { listSocketsRoomUsers, listSocketsRoomSocketId } from "./utils";
 import Food from "../../models/food.model";
 
 const socketUserMapping = new Map<string, User>();
@@ -38,7 +42,7 @@ export const joinRoom = async (
 
   //Update the socket.io rooms
   socket.join(data.roomCode, async () => {
-    const users = listSocketsRoom(socketio, roomCode, socketUserMapping);
+    const users = listSocketsRoomUsers(socketio, roomCode, socketUserMapping);
     console.log(`the socket list is ${users}`);
 
     const broadcastMessage = {
@@ -126,6 +130,51 @@ export const startRoom = async (
     return foodArray;
   } //array of Food JSON objects
   else return null;
+};
+
+export const leaveRoom = async (
+  io: socketio.Server,
+  socket: suibianSocket,
+  roomCode: string
+) => {
+  const user = socketUserMapping.get(socket.id);
+  if (user && user.isOwner) {
+    //remove user from join table
+    //update the number of people in room table
+    await deleteJoinQuery(roomCode, user.username);
+    await updateRoomNumbersQuery(roomCode, -1);
+
+    //remove individual from hashmap and socket from socketio room
+    socketUserMapping.delete(socket.id);
+    socket.leave(roomCode);
+
+    const socketList = listSocketsRoomSocketId(io, roomCode);
+    if (socketList.length >= 1) {
+      //reasign owner
+      const newOwnerSocketID = socketList[0];
+      const newOwner = socketUserMapping.get(newOwnerSocketID);
+      if (newOwner) {
+        newOwner.isOwner = true;
+        socketUserMapping.set(newOwnerSocketID, newOwner);
+      }
+    }
+  }
+
+  //send updated room participant list
+  const users = listSocketsRoomUsers(io, roomCode, socketUserMapping);
+
+  const broadcastMessage = {
+    roomCode,
+    users,
+    httpStatus: httpStatus.ok,
+  };
+
+  await broadcastRoom(
+    io,
+    broadcastMessage,
+    roomCode,
+    "joinRoom" //broadcast using joinRoom socket command, because client side is listening for joinRoom socket command
+  );
 };
 
 export const checkRoomCompleted = async (roomCode: string) => {
