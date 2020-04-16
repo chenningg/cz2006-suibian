@@ -85,19 +85,6 @@ class RoomLobby extends Component<Props> {
     this.leaveRoom();
   }
 
-  // // Call leave room method
-  // leaveRoom = () => {
-  //   const leaveRoomPayload: joinRoomPayload = {
-  //     roomCode: this.props.socketState.roomCode,
-  //     user: this.props.user,
-  //   };
-  //   if (this.props.socketState.socket) {
-  //     this.props.socketState.socket.emit("leaveRoom", leaveRoomPayload);
-  //     this.props.updateUser("isOwner", false);
-  //     console.log("leaving room component unmounted");
-  //   }
-  // };
-
   leaveRoom = () => {
     const leaveRoomPayload: joinRoomPayload = {
       roomCode: this.props.socketState.roomCode,

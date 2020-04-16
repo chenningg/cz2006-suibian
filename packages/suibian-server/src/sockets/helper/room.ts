@@ -146,14 +146,9 @@ export const leaveRoom = async (
 
     //remove individual from hashmap and socket from socketio room
     socketUserMapping.delete(socket.id);
-    console.log(
-      `socketlist before deleting is ${listSocketsRoomSocketId(io, roomCode)}`
-    );
-
     socket.leave(roomCode);
 
     const socketList = listSocketsRoomSocketId(io, roomCode);
-    console.log(`socketlist after deleting is ${socketList}`);
     if (socketList.length >= 1 && user.isOwner) {
       //reasign owner
       const newOwnerSocketID = socketList[0];
@@ -180,8 +175,6 @@ export const leaveRoom = async (
     roomCode,
     "joinRoom" //broadcast using joinRoom socket command, because client side is listening for joinRoom socket command
   );
-
-  console.log(users);
 };
 
 export const checkRoomCompleted = async (roomCode: string) => {
@@ -189,9 +182,6 @@ export const checkRoomCompleted = async (roomCode: string) => {
   if (joinRoomInfo) {
     for (let i = 0; i < joinRoomInfo.length; i++) {
       let joinRoom = joinRoomInfo[i];
-      console.log(
-        `username:${joinRoom.username}, status:${joinRoom.votingstatus}`
-      );
       if (joinRoom.votingstatus !== VotingStatus.completed) {
         return false;
       }
