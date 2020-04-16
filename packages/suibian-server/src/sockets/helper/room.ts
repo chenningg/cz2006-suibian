@@ -138,7 +138,7 @@ export const leaveRoom = async (
   roomCode: string
 ) => {
   const user = socketUserMapping.get(socket.id);
-  if (user && user.isOwner) {
+  if (user) {
     //remove user from join table
     //update the number of people in room table
     await deleteJoinQuery(roomCode, user.username);
@@ -146,10 +146,15 @@ export const leaveRoom = async (
 
     //remove individual from hashmap and socket from socketio room
     socketUserMapping.delete(socket.id);
+    console.log(
+      `socketlist before deleting is ${listSocketsRoomSocketId(io, roomCode)}`
+    );
+
     socket.leave(roomCode);
 
     const socketList = listSocketsRoomSocketId(io, roomCode);
-    if (socketList.length >= 1) {
+    console.log(`socketlist after deleting is ${socketList}`);
+    if (socketList.length >= 1 && user.isOwner) {
       //reasign owner
       const newOwnerSocketID = socketList[0];
       const newOwner = socketUserMapping.get(newOwnerSocketID);
@@ -175,6 +180,8 @@ export const leaveRoom = async (
     roomCode,
     "joinRoom" //broadcast using joinRoom socket command, because client side is listening for joinRoom socket command
   );
+
+  console.log(users);
 };
 
 export const checkRoomCompleted = async (roomCode: string) => {
@@ -182,7 +189,9 @@ export const checkRoomCompleted = async (roomCode: string) => {
   if (joinRoomInfo) {
     for (let i = 0; i < joinRoomInfo.length; i++) {
       let joinRoom = joinRoomInfo[i];
-      console.log(joinRoom.username, joinRoom.votingstatus);
+      console.log(
+        `username:${joinRoom.username}, status:${joinRoom.votingstatus}`
+      );
       if (joinRoom.votingstatus !== VotingStatus.completed) {
         return false;
       }
