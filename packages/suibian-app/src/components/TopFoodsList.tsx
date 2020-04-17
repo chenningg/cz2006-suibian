@@ -70,7 +70,7 @@ const TopFoodsList = (props: OwnProps) => {
         key={newFoodVote.foodId}
       >
         <h4 className="food-id">{newFoodVote.foodname}</h4>
-        <p flex-container flex-row flex-center-h flex-center-v>
+        <p className="flex-container flex-row flex-center-h flex-center-v">
           {newFoodVote.count} <Favorite />
         </p>
       </div>
