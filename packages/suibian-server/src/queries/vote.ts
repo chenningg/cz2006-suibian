@@ -14,11 +14,13 @@ export const createVoteQueryPerUser = async (uservote: any) => {
       username,
       roomcode: roomCode,
       foodId: vote.foodId,
-      vote: vote.like
+      vote: vote.like,
     };
     return voteentry; // return for each element in the array
   });
-  await Vote.bulkCreate(votebulkentry);
+  await Vote.bulkCreate(votebulkentry, {
+    ignoreDuplicates: true,
+  });
   console.log("Votes passed to database");
   return votebulkentry;
 };
@@ -30,14 +32,14 @@ export const countVoteQuery = async (
     const result = await Vote.findAll({
       attributes: [
         "foodId",
-        [Sequelize.fn("count", Sequelize.col("foodId")), "count"]
+        [Sequelize.fn("count", Sequelize.col("foodId")), "count"],
       ],
       where: {
         roomcode,
-        vote: true
+        vote: true,
       },
       group: "foodId",
-      raw: true
+      raw: true,
     });
 
     const resultTypeCasted: FoodVote[] = [];
