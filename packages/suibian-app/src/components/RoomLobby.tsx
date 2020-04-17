@@ -46,6 +46,7 @@ class RoomLobby extends Component<Props> {
   //state
   state = {
     redirect: false,
+    forcedLeave: true, // forcedLeave is triggered when componnet unmount due to all scenario EXCEPT user clicking start room
   };
 
   // disabled: string = this.props.user.isOwner ? "TRUE" : "FALSE";
@@ -64,7 +65,7 @@ class RoomLobby extends Component<Props> {
           if (data) {
             const { foodArray } = data;
             this.props.updateFoods(foodArray);
-            this.setState({ redirect: true });
+            this.setState({ redirect: true, forcedLeave: false });
           } else {
             console.log(`Error! No data received from startRoom event.`);
           }
@@ -76,15 +77,33 @@ class RoomLobby extends Component<Props> {
   // Methods
   componentDidMount() {
     this.registerSocketListeners();
+    window.addEventListener("beforeunload", this.leaveRoom);
   }
 
-  // Call leave room method
+  componentWillUnmount() {
+    window.removeEventListener("beforeunload", this.leaveRoom);
+    this.leaveRoom();
+  }
+
+  // // Call leave room method
+  // leaveRoom = () => {
+  //   const leaveRoomPayload: joinRoomPayload = {
+  //     roomCode: this.props.socketState.roomCode,
+  //     user: this.props.user,
+  //   };
+  //   if (this.props.socketState.socket) {
+  //     this.props.socketState.socket.emit("leaveRoom", leaveRoomPayload);
+  //     this.props.updateUser("isOwner", false);
+  //     console.log("leaving room component unmounted");
+  //   }
+  // };
+
   leaveRoom = () => {
     const leaveRoomPayload: joinRoomPayload = {
       roomCode: this.props.socketState.roomCode,
       user: this.props.user,
     };
-    if (this.props.socketState.socket) {
+    if (this.props.socketState.socket && this.state.forcedLeave) {
       this.props.socketState.socket.emit("leaveRoom", leaveRoomPayload);
       this.props.updateUser("isOwner", false);
       console.log("leaving room component unmounted");
@@ -98,6 +117,9 @@ class RoomLobby extends Component<Props> {
       this.props.socketState.socket.emit("startRoom", {
         roomCode: this.props.socketState.roomCode,
       });
+
+      //update state of forcedLeave to false
+      this.setState({ forcedLeave: false });
     }
   };
 
@@ -108,7 +130,7 @@ class RoomLobby extends Component<Props> {
 
     return this.props.users.length > 0 ? (
       <>
-        <NavBar leaveRoom={this.leaveRoom} />
+        <NavBar />
         <div className="room-lobby">
           <div className="app-content flex-container flex-col flex-center-v flex-center-h flex-start">
             <h1 className="title">Room #{this.props.socketState.roomCode}</h1>
