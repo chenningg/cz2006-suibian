@@ -20,8 +20,7 @@ const TopFoodsList = (props: OwnProps) => {
   const foodNames: NewFoodVote[] = [];
   const foodVotesCopy = [...props.result.foodVoteResults]; // Create deep copy
 
-  console.log(foodVotesCopy);
-
+  // We want to check each stall to find the food names since we are only given the food id...
   breakLoop: for (
     let foodVoteIndex = foodVotesCopy.length - 1;
     foodVoteIndex >= 0;
@@ -45,18 +44,12 @@ const TopFoodsList = (props: OwnProps) => {
 
           const food = stall.food[k];
 
-          console.log({
-            food: food,
-            foodID: food.foodId,
-            copy: foodVote.foodId
-          });
-
           // Found a matching food, get the name
           if (food.foodId === foodVote.foodId) {
             foodNames.push({
               foodname: food.foodname,
               foodId: food.foodId,
-              count: foodVotesCopy[foodVoteIndex].count
+              count: foodVotesCopy[foodVoteIndex].count,
             });
             break foundFood;
           }
@@ -65,7 +58,12 @@ const TopFoodsList = (props: OwnProps) => {
     }
   }
 
-  const foodsList = foodNames.map(newFoodVote => {
+  // Sort the new food votes array (With food names)
+  foodNames.sort((a, b) => {
+    return b.count - a.count;
+  });
+
+  const foodsList = foodNames.map((newFoodVote) => {
     return (
       <div
         className="food-votes-list-container flex-container flex-row flex-center-v flex-center-h flex-spaced-between"
@@ -78,8 +76,6 @@ const TopFoodsList = (props: OwnProps) => {
       </div>
     );
   });
-
-  console.log(foodsList);
 
   return <div className="top-foods-list">{foodsList}</div>;
 };
